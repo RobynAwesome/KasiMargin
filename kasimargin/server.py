@@ -50,11 +50,13 @@ class Handler(BaseHTTPRequestHandler):
             cases = [loads((ROOT / "fixtures" / f"{number:02}.json").read_text(encoding="utf-8")) for number in range(1, 7)]
             cases.append(loads((ROOT / "fixtures" / "itemized" / "01.json").read_text(encoding="utf-8")))
             self.reply(200, cases)
-        elif self.path in ("/", "/app.js", "/style.css"):
+        elif self.path in ("/", "/app.js", "/theme.js", "/style.css", "/assets/kasimargin-ribbon-emblem.png"):
             filename, content_type = {
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript; charset=utf-8"),
+                "/theme.js": ("theme.js", "text/javascript; charset=utf-8"),
                 "/style.css": ("style.css", "text/css; charset=utf-8"),
+                "/assets/kasimargin-ribbon-emblem.png": ("assets/kasimargin-ribbon-emblem.png", "image/png"),
             }[self.path]
             self.reply(200, (WEB / filename).read_bytes(), content_type)
         else:
