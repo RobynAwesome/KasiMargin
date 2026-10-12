@@ -74,6 +74,15 @@ class Handler(BaseHTTPRequestHandler):
         try:
             length = int(self.headers.get("Content-Length", "0"))
             if not 0 < length <= MAX_INPUT_BYTES:
+                # Closing with an unread body can reset the Windows connection
+                # before the client receives 413. Drain only a bounded amount,
+                # with a timeout; never parse or persist the oversized payload.
+                if length > 0:
+                    self.connection.settimeout(2)
+                    try:
+                        self.rfile.read(min(length, MAX_INPUT_BYTES + 1))
+                    except OSError:
+                        pass
                 self.reply(413, {"error": "Request size is outside the demo limit"})
                 return
             value = loads(self.rfile.read(length).decode("utf-8"))
