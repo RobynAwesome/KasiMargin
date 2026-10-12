@@ -1,0 +1,236 @@
+{
+  "schema_version": "kasimargin-brand-validation-v1",
+  "recorded_at": "2026-10-12T23:28:21.802784+00:00",
+  "actor": "Codex Forge, stateless implementer under direct owner instruction",
+  "renter_assertion": "I_AM_STATELESS_RENTER_NOT_LANDLORD",
+  "scope": "owner-designated logo, two colour modes, and README formatting",
+  "base_sha": "67f10739cd978f3db96f82884e37604d4efff5ac",
+  "branch": "codex/brand-themes-readme",
+  "source_logo": {
+    "population": "Local OneDrive",
+    "filename": "KasiMargin Sculpted Ribbon Emblem.png",
+    "sha256": "826227e7159120d085efb88b5f953606458a0ebd9ce683bb43ed8646a79e2be9",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "byte_identical_copy": true,
+    "owner_designated": "KasiMargin logo",
+    "image_editing": "NOT_PERFORMED"
+  },
+  "readme_format_reference": {
+    "population": "Local OneDrive",
+    "repository": "Introduction-to-MCP",
+    "path": "README.md",
+    "sha256": "8b4ba173366a495e7abae63621da541ba81232cf1e7822e97b5fd3c8abf85f88",
+    "inspection": "full file",
+    "scope": "document organization; status claims are not transferred"
+  },
+  "checks": [
+    {
+      "command": "python -m unittest discover -s tests -q",
+      "exit_code": 0,
+      "output": "----------------------------------------------------------------------\nRan 44 tests in 1.277s\n\nOK\n"
+    },
+    {
+      "command": "node --check kasimargin/web/app.js",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "command": "node --check kasimargin/web/theme.js",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "core_contrast": {
+    "light": {
+      "ink/paper": {
+        "ratio": 11.2373,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "muted/paper": {
+        "ratio": 4.9516,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "ink/input": {
+        "ratio": 11.2305,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "muted/input": {
+        "ratio": 4.9486,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "accent-ink/accent": {
+        "ratio": 6.3954,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "accent/surface": {
+        "ratio": 6.3373,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "warm/paper": {
+        "ratio": 5.0222,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "cash-ink/cash": {
+        "ratio": 9.9491,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "status-ink/status": {
+        "ratio": 8.5696,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "hold-ink/hold": {
+        "ratio": 6.4425,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "error/paper": {
+        "ratio": 6.401,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "outline/input": {
+        "ratio": 3.5879,
+        "minimum": 3,
+        "passed": true
+      }
+    },
+    "dark": {
+      "ink/paper": {
+        "ratio": 16.3934,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "muted/paper": {
+        "ratio": 9.0847,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "ink/input": {
+        "ratio": 15.5562,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "muted/input": {
+        "ratio": 8.6208,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "accent-ink/accent": {
+        "ratio": 9.7219,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "accent/surface": {
+        "ratio": 10.0993,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "warm/paper": {
+        "ratio": 10.3385,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "cash-ink/cash": {
+        "ratio": 9.8114,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "status-ink/status": {
+        "ratio": 9.2618,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "hold-ink/hold": {
+        "ratio": 9.9123,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "error/paper": {
+        "ratio": 10.1681,
+        "minimum": 4.5,
+        "passed": true
+      },
+      "outline/input": {
+        "ratio": 4.9901,
+        "minimum": 3,
+        "passed": true
+      }
+    }
+  },
+  "browser_checks": [
+    "Light and Dark selectors work with keyboard/click",
+    "light preference persists after reload",
+    "dark preference persists after reload",
+    "mode switch preserves R600/R400 synthetic calculation",
+    "wide layout 1280px: no horizontal overflow",
+    "phone layout 390px: no horizontal overflow; both mode controls present",
+    "PNG loads at original natural width 1254"
+  ],
+  "http_checks": [
+    "logo: 200 image/png with byte-identical body",
+    "theme.js: 200 JavaScript with byte-identical body"
+  ],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "e0510ee545f74a4d5709a32767fff0756334e9233b09d79a21a1031c3eaf83e6"
+    },
+    {
+      "path": "README.md",
+      "sha256": "faffb023a64b8e07ae8f2bfd4f7a98174455e467fce5ea941a3e352493433863"
+    },
+    {
+      "path": "docs/BRAND-AND-THEMES.md",
+      "sha256": "8489a27e428da9ede299661a5e8026d787a4a17346068996306bfbca8930bf0d"
+    },
+    {
+      "path": "kasimargin/server.py",
+      "sha256": "0d28fd0755fc7c3ebe31e89d01be8fa51d708ff7ac70d923264de4ebbd31c367"
+    },
+    {
+      "path": "kasimargin/web/index.html",
+      "sha256": "fcc6902603910a5b94965770003725b0b08c06da8c4846b1aa75911b242e3b60"
+    },
+    {
+      "path": "kasimargin/web/app.js",
+      "sha256": "4ff48ee18c1ed9075af96268235ce89e113f2d34bcc8077dba564c79ff84417c"
+    },
+    {
+      "path": "kasimargin/web/theme.js",
+      "sha256": "0bd18cae4fe75243b0072f0cb8421ce6b1c6fe93bc0748fb9e129f18c9268b6a"
+    },
+    {
+      "path": "kasimargin/web/style.css",
+      "sha256": "1235ad59f6a74d9e28421a2051813d5150d151e40f1becccfb1d2e6e448db034"
+    },
+    {
+      "path": "kasimargin/web/assets/kasimargin-ribbon-emblem.png",
+      "sha256": "826227e7159120d085efb88b5f953606458a0ebd9ce683bb43ed8646a79e2be9"
+    },
+    {
+      "path": "docs/receipts/brand-light-2026-10-13.jpg",
+      "sha256": "19830759d90530b98cbd5d5a97a48f61f5cc06b7f503db193f0a03407fa56f57"
+    },
+    {
+      "path": "docs/receipts/brand-dark-2026-10-13.jpg",
+      "sha256": "1ffb4dc0377bafb7e0bd6d759d0fd04e963f9cb39eea07b308d330f8937ecd0d"
+    }
+  ],
+  "limits": [
+    "bounded colour and keyboard review, not a complete accessibility audit",
+    "no real model or operator/economic validation added",
+    "Cloud branding push/checks pending at this validation snapshot"
+  ]
+}

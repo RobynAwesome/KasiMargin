@@ -50,11 +50,13 @@ class Handler(BaseHTTPRequestHandler):
             cases = [loads((ROOT / "fixtures" / f"{number:02}.json").read_text(encoding="utf-8")) for number in range(1, 7)]
             cases.append(loads((ROOT / "fixtures" / "itemized" / "01.json").read_text(encoding="utf-8")))
             self.reply(200, cases)
-        elif self.path in ("/", "/app.js", "/style.css"):
+        elif self.path in ("/", "/app.js", "/theme.js", "/style.css", "/assets/kasimargin-ribbon-emblem.png"):
             filename, content_type = {
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript; charset=utf-8"),
+                "/theme.js": ("theme.js", "text/javascript; charset=utf-8"),
                 "/style.css": ("style.css", "text/css; charset=utf-8"),
+                "/assets/kasimargin-ribbon-emblem.png": ("assets/kasimargin-ribbon-emblem.png", "image/png"),
             }[self.path]
             self.reply(200, (WEB / filename).read_bytes(), content_type)
         else:
@@ -72,6 +74,15 @@ class Handler(BaseHTTPRequestHandler):
         try:
             length = int(self.headers.get("Content-Length", "0"))
             if not 0 < length <= MAX_INPUT_BYTES:
+                # Closing with an unread body can reset the Windows connection
+                # before the client receives 413. Drain only a bounded amount,
+                # with a timeout; never parse or persist the oversized payload.
+                if length > 0:
+                    self.connection.settimeout(2)
+                    try:
+                        self.rfile.read(min(length, MAX_INPUT_BYTES + 1))
+                    except OSError:
+                        pass
                 self.reply(413, {"error": "Request size is outside the demo limit"})
                 return
             value = loads(self.rfile.read(length).decode("utf-8"))

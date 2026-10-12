@@ -1,0 +1,38 @@
+{
+  "schema_version": "kasimargin-brand-delivery-checkpoint-v1",
+  "recorded_at": "2026-10-12T23:30:33.711660+00:00",
+  "pr": "https://github.com/RobynAwesome/KasiMargin/pull/2",
+  "observed_head": "ecd01f508403cdcf3827881b572ff619331bba15",
+  "initial_checks": {
+    "pull_request_run": {
+      "id": 38322315530,
+      "conclusion": "success"
+    },
+    "push_run": {
+      "id": 38322309519,
+      "conclusion": "failure",
+      "failed_job": "windows-latest / Python 3.14",
+      "failed_test": "test_invalid_and_oversized_requests",
+      "error": "ConnectionAbortedError: WinError 10053 while receiving rejection response"
+    }
+  },
+  "correction": "Bounded oversized-body drain with two-second timeout before returning 413; no parsing or persistence of rejected data",
+  "validation": {
+    "unittest_methods": 44,
+    "unittest_result": "OK",
+    "oversized_rejection_repeats": 20,
+    "expected_status": 413,
+    "observed_result": "20 of 20 HTTP 413; no files written",
+    "compileall": "PASS",
+    "diff_check": "PASS"
+  },
+  "files": [
+    {
+      "path": "kasimargin/server.py",
+      "sha256": "7874077b4000bd5d63776d94e221cb0ba885762a58a89afc48c449a24d224845"
+    }
+  ],
+  "final_provider_checks": "PENDING_AT_THIS_CHECKPOINT",
+  "merge": "NOT_PERFORMED",
+  "deployment": "NOT_PERFORMED"
+}

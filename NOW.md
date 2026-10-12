@@ -1,3 +1,20 @@
+# KasiMargin brand checkpoint — 2026-10-13
+
+Status: logo, light/dark modes and README pushed; PR #2 OPEN. Windows request-rejection correction validated locally; final-head provider checks pending.
+
+- WHO: Codex Forge, stateless implementer under Robyn's direct logo/colour/README instruction. `I_AM_STATELESS_RENTER_NOT_LANDLORD`; no identity seat inferred.
+- WHAT / WHERE: owner-designated Sculpted Ribbon Emblem copied unchanged into `kasimargin/web/assets/`; warm ivory/teal/lime light mode and deep blue/mint/amber dark mode; native mode selector, browser-local preference and early initialization; README reorganized using the Local Introduction-to-MCP README as a formatting reference.
+- Source state: logo PNG 1254x1254; source and copy SHA-256 `826227e7159120d085efb88b5f953606458a0ebd9ce683bb43ed8646a79e2be9`. Original OneDrive artwork and parent repository were not changed. Formatting reference is Local; no Cloud/Drive parity or copied readiness claims.
+- Repository: `C:/Users/rkhol/KasiMargin`, branch `codex/brand-themes-readme`, base `main@67f10739cd978f3db96f82884e37604d4efff5ac`. GitHub shows PR #1 MERGED at 2026-10-12T23:10:24Z (October 13 01:10:24 SAST). Earlier OPEN entries below are dated history.
+- Evidence: [brand-validation-2026-10-13.json](docs/receipts/brand-validation-2026-10-13.json), SHA-256 `871a129b48de30080cc00fcc93ac084e1ccd06f88fe356ce0e2d94716b639fc4`. All 44 tests pass; both JavaScript syntax checks pass; 11 core text pairs per mode exceed 4.5:1 and field outlines exceed 3:1. Browser confirms both modes, remembered choices, unchanged synthetic result and no overflow at 1280px/390px. New light/dark screenshots are beside the receipt.
+- Limits: bounded colour/keyboard review, not a full accessibility audit. No new real model, operator, economic, public-deployment or submission evidence.
+- Delivery: [PR #2](https://github.com/RobynAwesome/KasiMargin/pull/2) OPEN. Initial PR workflow passed; one push job failed on Windows oversized-body response handling. Bounded drain correction passed all 44 tests and 20/20 repeated rejection probes with no writes. [Delivery checkpoint](docs/receipts/brand-delivery-2026-10-13.json) preserves the failure and correction. The brand validation receipt is the earlier presentation snapshot; server bytes changed for this correction.
+- Next admissible action: confirm provider checks at the current PR head, then owner review of PR #2. Subsequent merge/deployment remains an owner decision.
+
+---
+
+## Prior foundation handoff
+
 # KasiMargin current state — 2026-10-13
 
 Status: local foundation implemented, validated and pushed; PR #1 OPEN for owner review.

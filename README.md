@@ -1,24 +1,92 @@
-# KasiMargin — From sales to growth
+<p align="center">
+  <img src="kasimargin/web/assets/kasimargin-ribbon-emblem.png" alt="KasiMargin Sculpted Ribbon Emblem" width="280">
+</p>
 
-A local financial decision prototype for an owner-operated township micro-enterprise. It separates **estimated operating margin** from **conditional cash headroom**, preserves unknowns, and lets an optional local Gemma model select approved explanations without doing arithmetic or authorizing spending.
+<h1 align="center">KasiMargin</h1>
+<p align="center"><strong>From sales to growth.</strong><br>Good sales. Clearer decisions.</p>
 
-Working hypothesis: can an open-weight assistant help an operator understand the daily financial position and evaluate a potential restock decision without manufacturing financial certainty?
+<p align="center">
+  <a href="https://github.com/RobynAwesome/KasiMargin/actions/workflows/tests.yml"><img src="https://github.com/RobynAwesome/KasiMargin/actions/workflows/tests.yml/badge.svg?branch=main" alt="Prototype tests on main"></a>
+  <img src="https://img.shields.io/badge/Python-3.10%2B-177BC7?logo=python&logoColor=white" alt="Python 3.10 or newer">
+  <img src="https://img.shields.io/badge/Runtime-local-096B60" alt="Local runtime">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Code-MIT-F58A17" alt="Code license MIT"></a>
+</p>
 
-## Run locally
+> **What you earned and what you can spend are different.**
+>
+> KasiMargin helps an owner-operated township micro-enterprise understand estimated operating margin, protect recorded obligations, and see when cash headroom is still unknown.
+>
+> **Current stage: runnable local prototype.** Synthetic calculation and adapter tests are established; real Gemma inference and operator outcomes remain unmeasured.
 
-Python 3.10+; no third-party Python runtime dependency. In PowerShell:
+[Quick start](#-quick-start) · [Capabilities](#-key-capabilities) · [Design system](#-design-system) · [Evidence](#-validation-and-evidence) · [Roadmap](#-roadmap)
+
+---
+
+## 🌍 Purpose
+
+Can an open-weight assistant help a business operator understand the daily financial position and evaluate a potential restock decision without manufacturing financial certainty?
+
+The proposed first persona is an owner-operated spaza shop planning tomorrow’s restock. This is a test persona, not an observed customer. Better records and clearer decisions may support a livelihood pathway; synthetic examples do not establish revenue growth, economic value or employment outcomes.
+
+KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Kholofelo Robyn Rababalela’s research. It is an independent greenfield implementation. The README’s visual opening, capability sections, state tables, quick start, repository map, roadmap and design-system section follow the organization of [Introduction-to-MCP](https://github.com/RobynAwesome/Introduction-to-MCP). The statements below are scoped to KasiMargin’s own evidence.
+
+## ✨ Key capabilities
+
+- **Profit and cash, separately** — Estimated operating margin does not become spendable money automatically.
+- **Exact ZAR cents** — Deterministic integer arithmetic, with strict types and explicit timestamps.
+- **Obligation reconciliation** — Itemized liabilities and committed spending, linked payments, and overlap checks.
+- **Unknown stays unknown** — Missing balances, incomplete obligations, stale snapshots and disputed records produce null headroom and HOLD.
+- **Local explanation options** — An optional Gemma selection passes programmatic checks before a trusted renderer supplies every amount.
+- **Private decision receipts** — Explicit saves retain the displayed result for deterministic reproduction.
+- **Light and dark modes** — The owner’s sculpted ribbon emblem sets the orange, lime, teal and blue brand palette.
+
+## 🧭 Product surfaces
+
+| Surface | Role | Current state |
+|---|---|---|
+| Financial engine | Separate estimated margin from conditional cash headroom | Tested with synthetic scenarios |
+| Browser demo | Review records, calculate, explain and save | Runnable locally; light and dark themes |
+| Gemma adapter | Select approved facts, warnings and options | Mock HTTP boundary tested; real model not run |
+| Decision receipts | Preserve input/output and replay calculations | Local save and reproduction tested |
+| Operator experiment | Measure understanding and usefulness against a baseline | Pending consented trial |
+| Public release | Hosted product, demo/video and challenge submission | Pending |
+
+---
+
+## 🚀 Quick start
+
+### 1. Open the checkout
+
+Python **3.10+** is required. There are no third-party Python runtime dependencies.
 
 ```powershell
 cd C:\Users\rkhol\KasiMargin
+```
+
+For a fresh checkout:
+
+```powershell
+git clone https://github.com/RobynAwesome/KasiMargin.git
+cd KasiMargin
+```
+
+### 2. Validate the prototype
+
+```powershell
 python -m unittest discover -s tests -v
+```
+
+### 3. Start the local demo
+
+```powershell
 python -m kasimargin --serve
 ```
 
-Open **http://127.0.0.1:8765**. The browser demo offers seven synthetic scenarios, editable rand inputs, full-record review, plain-language warnings, optional local inference, and explicit receipt saving. It has no external fonts, scripts, analytics or bank connection. It binds only to loopback and is a development demo; it is not a public production server.
+Open **[http://127.0.0.1:8765](http://127.0.0.1:8765)**. Choose a synthetic scenario, review its records, and calculate the position. Use the **Light / Dark** controls in the header; the preference is stored in this browser. The first visit follows the operating system’s colour preference.
 
-The six original scenarios cover a profitable cash position, low margin, a protected-cash deficit, missing records, uncollected credit sales and a suspected duplicate supplier payment. A seventh uses itemized obligations and a reconciled partial payment. Loading a scenario labels it synthetic; only choose operator-attested records after replacing the example with your own complete records and appropriate timestamps.
+The app serves its fonts, scripts and images locally without CDNs or analytics. It binds to loopback and is a development demo. Loading an example labels it synthetic. Only select operator-attested records after replacing the example with your own complete records and appropriate decision timestamps.
 
-## CLI and reproducible receipts
+### 4. Save or reproduce a decision
 
 ```powershell
 python -m kasimargin fixtures/01.json
@@ -27,48 +95,122 @@ python -m kasimargin fixtures/itemized/01.json --save
 python -m kasimargin --verify local-data/decisions/decision-REPLACE_WITH_ACTUAL_ID.json
 ```
 
-The CLI accepts either a fixture wrapper or a raw request JSON. Saving a raw request requires `--data-class OPERATOR_ATTESTED` or `--data-class SYNTHETIC`. Browser saves preserve the exact displayed result; they do not rerun the model. Receipts contain inputs, summary, permitted selection, baseline comparison, inference metadata and a content checksum. Replay checks the deterministic calculation and rendered explanation without calling a model. This proves reproducibility and detects content changes; it does **not** authenticate the author, independently verify a bank balance or certify human approval.
+The CLI accepts a fixture wrapper or raw request JSON. Saving raw requests requires `--data-class SYNTHETIC` or `--data-class OPERATOR_ATTESTED`. Browser saves retain the exact displayed result without rerunning inference. Ordinary calculations do not save records.
 
-Real business records and generated decision receipts belong in ignored `local-data/`. Ordinary calculation does not save records. Do not add merchant records, receipt images, personal identifiers or model responses to Git.
-
-## Financial boundary
-
-All calculation amounts use exact integer ZAR cents. Decimal floats, booleans, numeric strings and negative money inputs are rejected; signed calculated margins may be negative. The browser converts rand text through integer arithmetic and rejects values outside its exact number range. The CLI retains Python integer precision.
+## 🧮 Financial contract
 
 ```text
 estimated operating margin = recorded sales - attributable costs
-conditional cash headroom = max(0, confirmed cash - unpaid due liabilities
-                                  - separately committed spending - protected buffer)
+
+conditional cash headroom = max(0, confirmed cash
+                                  - unpaid due liabilities
+                                  - separately committed spending
+                                  - protected buffer)
 ```
 
-Margin and cash use separate evidence gates. Uncollected credit sales can contribute to recorded margin, but are excluded from available cash. Paid expenses and collected sales are already reflected in the cash snapshot and are never added or deducted again.
+All calculation amounts are integer ZAR cents. Decimal floats, booleans, numeric strings and negative money inputs are rejected; calculated margins may be negative. The browser converts rand text through integer arithmetic and rejects inputs outside its exact number range. The CLI retains Python integer precision.
 
-V1 accepts operator-prepared aggregate totals. V2 derives obligation totals from itemized records, matches paid amounts to confirmed payment transactions, excludes obligations beyond the horizon, and flags overlapping references, reused payment allocations, missing evidence and inconsistent amounts. A complete obligation list remains an operator assertion; the application cannot discover omitted debts. Legitimate split payments sharing one reference currently require human resolution under the conservative duplicate gate.
+Uncollected credit sales can contribute to recorded margin but are excluded from cash. Paid expenses and collected sales already belong in the cash snapshot and are never deducted or added again. Missing cash, buffer, obligations or unresolved cash records return **null headroom and HOLD**.
 
-Missing cash, a missing buffer, incomplete obligations, stale snapshots or unresolved cash records return **null headroom and HOLD**. Unknown is never silently replaced by zero. Positive headroom is conditional on recorded inputs and horizon, not a guarantee that any purchase is safe. See [the current implementation contract](docs/LOCAL-FOUNDATION.md).
+V1 uses operator-prepared aggregate totals. V2 derives totals from itemized obligations, reconciles paid amounts to confirmed transactions, and detects overlapping references and reused payment allocations. Completeness remains an operator assertion: omitted debts cannot be discovered automatically. Legitimate split payments sharing one reference currently require human resolution under the conservative duplicate gate.
 
-## Optional open-weight AI
+**Conditional headroom is not a purchase approval or a guarantee that spending is safe.** Margin uses operator-prepared attributable costs, and the system does not independently verify a bank balance. See [the implementation contract](docs/LOCAL-FOUNDATION.md) and the [v1](docs/input.schema.json) / [v2](docs/input-v2.schema.json) schemas.
 
-The adapter uses [Ollama's local chat API](https://docs.ollama.com/api/chat). Evaluation candidates are [Gemma 4 E2B and E4B](https://ollama.com/library/gemma4). It connects only to `127.0.0.1:11434`, never downloads weights automatically, and rejects cloud model tags. Once Ollama and a candidate model are installed, request it explicitly:
+## 🤖 Optional local Gemma
+
+Evaluation candidates: **[Gemma 4 E2B and E4B](https://ollama.com/library/gemma4)**, accessed through [Ollama’s local chat API](https://docs.ollama.com/api/chat). The adapter connects only to `127.0.0.1:11434`, rejects cloud tags and never downloads weights automatically.
+
+Once Ollama and a candidate are explicitly installed:
 
 ```powershell
 python -m kasimargin fixtures/05.json --model gemma4:e2b
 ```
 
-The model sees the deterministic summary catalogue, not raw transaction descriptions. It returns only approved fact, warning and action IDs. Programmatic validation requires known profit/cash figures, material risks and all warnings. A trusted renderer supplies every monetary value. Unsupported prose, omitted warnings, invented actions, incomplete responses and model-digest drift are rejected. An unavailable service or rejected output displays a labelled deterministic fallback.
+```mermaid
+flowchart LR
+    A[Operator records and confirms inputs] --> B[Deterministic financial engine]
+    B --> C[Approved summary catalogue]
+    C --> D[Optional local Gemma selection]
+    D --> E[Validate facts, warnings and options]
+    E --> F[Trusted renderer supplies amounts]
+    B --> G[Deterministic baseline]
+    G --> F
+    F --> H[Operator reviews; explicit local save]
+```
 
-**Current evidence:** the adapter has been tested against a synthetic local HTTP service. A live connection attempt found no available Ollama service on this machine. No Gemma weights were downloaded or run. Model latency, device fit, language quality and added operator value remain unmeasured. The restricted selection task may offer little benefit over the baseline; actual inference and a consented comparison must establish whether it is useful. An adapter alone is not proof that AI is essential.
+The model receives the approved catalogue rather than raw transaction descriptions. Only approved fact, warning and action IDs are admitted. Known profit/cash figures, material risks and all warnings must be surfaced. Unsupported prose, invented actions, omitted warnings, incomplete responses and digest drift are rejected; failures use a labelled deterministic fallback.
 
-## Project origin and challenge
+**Real Gemma inference has not been run.** A local connection probe found no available Ollama service. Adapter tests use a synthetic HTTP service. Device fit, latency, language quality and benefit over the deterministic baseline remain unmeasured. The narrow selection task must demonstrate usefulness before we claim AI is essential.
 
-This repository was created at **2026-10-12 22:07:26 UTC / 2026-10-13 00:07:26 SAST**. Its first Cloud commit is `5897456485b15474e8cbbf1c8b13f68a04533788` (the owner's README). The owner-supplied Day 1 scaffold has an October 12 receipt and has been imported with its historical records preserved. We do not backdate code or replace historical claims with later outcomes.
+---
 
-KasiMargin draws conceptual governance inspiration from Kopano Labs and Kholofelo Robyn Rababalela's research. This is a separate greenfield implementation, not a migration of the GSMB runtime or private source corpus. [Historical Cloud provenance](docs/cloud-provenance.json), [the original Day 1 contract](docs/DAY1-CONTRACT.md) and [the original validation receipt](docs/validation-receipt.json) retain their dated scope. Their statements about repository creation or unavailable local paths describe that earlier session; current state lives in [NOW.md](NOW.md).
+## 🎨 Design system
 
-Target: [Hacktoberfest 2026 Week 2 — Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12). The official deadline is October 18 at 11:59 PM PDT, equivalent to **October 19 at 08:59 SAST**. Individual eligibility, genuine use of an open model, a consented first-user experiment, demo/video and DEV submission remain pending. No economic value, customer payment, employment outcome, teacher review, formal ratification or production deployment is claimed.
+The **KasiMargin Sculpted Ribbon Emblem** is the owner-designated logo. Its original PNG is preserved unchanged at [`kasimargin/web/assets/kasimargin-ribbon-emblem.png`](kasimargin/web/assets/kasimargin-ribbon-emblem.png).
 
-## Development and license
+Its warm orange/yellow, lime, teal and blue inform the interface. Both modes use the same logo, type hierarchy and semantic states; colour never replaces the written HOLD/unknown labels.
 
-Read [AGENTS.md](AGENTS.md), then [NOW.md](NOW.md). Run the unittest suite and `git diff --check`; GitHub Actions is configured for Ubuntu and Windows on Python 3.10 and 3.14. Local test results and hosted checks are separate evidence.
+| Role | Light mode | Dark mode |
+|---|---|---|
+| Page | Warm ivory `#F8F5ED` | Deep blue `#0B1724` |
+| Surface | Soft white `#FFFEFA` | Blue slate `#112331` |
+| Main text | Deep green `#173B36` | Pale mint `#EDF6F1` |
+| Action | Deep teal `#096B60` | Mint teal `#73E0C7` |
+| Cash card | Lime wash `#E0EFA9` | Forest teal `#163E37` |
+| Warm accent | Burnt orange `#A95008` | Amber `#FFB55C` |
+| Shared ribbon colours | Orange `#F58A17`, lime `#C7ED63`, teal `#16BDA8`, blue `#177BC7` | Same brand family |
 
-Prototype code: [MIT](LICENSE). Ollama, model weights and other future dependencies retain their own licenses. Attribute meaningful reused work in the README and submission.
+The mode selector uses native buttons with `aria-pressed`, keyboard focus indicators and browser-local preference storage. It does not change financial inputs or invalidate a calculated result. Token definitions and interaction details are in [the brand and theme guide](docs/BRAND-AND-THEMES.md).
+
+## 📁 Repository layout
+
+| Path | Purpose |
+|---|---|
+| `kasimargin/engine.py` | Exact money calculations and evidence gates |
+| `kasimargin/obligations.py` | Itemized obligation/payment reconciliation |
+| `kasimargin/ollama.py` | Optional local inference adapter |
+| `kasimargin/explanations.py` | Selection validation and trusted rendering |
+| `kasimargin/receipts.py` | Explicit private saving and replay |
+| `kasimargin/server.py` | Loopback browser demo |
+| `kasimargin/web/` | Logo, theme tokens and browser interface |
+| `fixtures/` | Seven synthetic scenarios |
+| `tests/` | Calculation, reconciliation, model-boundary and receipt checks |
+| `docs/receipts/` | Dated public validation and delivery evidence |
+| `local-data/` | Ignored private business records and runtime receipts |
+| `NOW.md` | Current objective, evidence, uncertainty and handoff |
+
+## ✅ Validation and evidence
+
+The foundation has **44 passing unittest methods**, seven synthetic scenarios, compilation checks and staged whitespace checks. GitHub Actions runs on Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`.
+
+- [Foundation validation](docs/receipts/local-foundation-2026-10-13.json)
+- [Foundation Cloud delivery](docs/receipts/cloud-delivery-2026-10-13.json)
+- [Current handoff](NOW.md)
+
+Examples and screenshots are synthetic. Receipt replay confirms content integrity and deterministic reproduction; it does not authenticate an author or certify bank verification, consent or human approval. The original [Day 1 contract](docs/DAY1-CONTRACT.md), [Cloud provenance](docs/cloud-provenance.json) and [validation receipt](docs/validation-receipt.json) retain their dated scope.
+
+## 🗺️ Roadmap
+
+| Stage | Outcome | State |
+|---|---|---|
+| 1. Financial foundation | Exact calculations, uncertainty gates and seven scenarios | Implemented and tested |
+| 2. Brand and interface | Supplied logo, light/dark modes and readable decision workflow | Implemented; current review in progress |
+| 3. Model evaluation | E2B/E4B on target hardware versus deterministic baseline | Pending |
+| 4. Operator experiment | Consented comprehension, task time, errors and supervision evidence | Pending |
+| 5. Public demo and submission | Truthful demo/video and DEV article | Pending |
+
+## 🔒 Privacy and human choice
+
+Real records, receipt images, model responses and personal identifiers belong in ignored `local-data/`, never in Git. The app cannot authorize transfers, loans, purchases or tax determinations. Robyn retains consequential authority; technical validation and economic outcomes are separate.
+
+The theme preference stores only `light` or `dark` under `kasimargin-theme`. Business records are saved only on explicit action. The local server has no public authentication or multi-user isolation and remains a development surface.
+
+## 🏁 Project origin and challenge
+
+Repository created: **2026-10-12 22:07:26 UTC / 2026-10-13 00:07:26 SAST**. Initial Cloud commit: `5897456485b15474e8cbbf1c8b13f68a04533788`. The owner-supplied scaffold carries an October 12 receipt; dates and historical claims are preserved.
+
+Target: [Hacktoberfest 2026 Week 2 — Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12). Official cutoff: **October 19 at 08:59 SAST**, converted from October 18 at 11:59 PM PDT. Individual eligibility, meaningful model contribution, a consented first-user experiment and submission remain pending. No payment, economic value, job creation or production deployment is claimed.
+
+## License and contribution
+
+Prototype code: [MIT](LICENSE). Model weights, Ollama and future dependencies retain their own licenses. Read [AGENTS.md](AGENTS.md), then [NOW.md](NOW.md), and retain source attribution and exact validation receipts for material work.

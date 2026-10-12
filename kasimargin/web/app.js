@@ -1,5 +1,13 @@
 "use strict";
 const $ = id => document.getElementById(id);
+const themeButtons = [...document.querySelectorAll("[data-theme-choice]")];
+function applyTheme(theme, remember = false) {
+  document.documentElement.dataset.theme = theme;
+  themeButtons.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.themeChoice === theme)));
+  if (remember) { try { localStorage.setItem("kasimargin-theme", theme); } catch { /* The choice still works without storage. */ } }
+}
+themeButtons.forEach(button => button.addEventListener("click", () => applyTheme(button.dataset.themeChoice, true)));
+applyTheme(document.documentElement.dataset.theme || "light");
 let cases = [], current, lastResult, lastPayload, editorDirty = false;
 let revision = 0;
 const fields = [["performance","recorded_sales_cents","Recorded sales"],["performance","attributable_costs_cents","Attributable costs"],["cash_position","verified_cash_cents","Current cash"],["cash_position","minimum_buffer_cents","Protected buffer"],["cash_position","due_liabilities_cents","Unpaid due liabilities"],["cash_position","committed_spend_cents","Other committed spending"]];
