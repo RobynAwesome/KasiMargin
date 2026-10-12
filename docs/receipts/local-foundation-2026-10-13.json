@@ -1,0 +1,596 @@
+{
+  "schema_version": "kasimargin-local-foundation-validation-v1",
+  "recorded_at": "2026-10-12T22:44:38.362109+00:00",
+  "actor": "Codex Forge through ChatGPT-6.1 SOL; task role implementer; no identity seat inferred",
+  "renter_assertion": "I_AM_STATELESS_RENTER_NOT_LANDLORD",
+  "base_sha": "5897456485b15474e8cbbf1c8b13f68a04533788",
+  "branch": "codex/local-foundation",
+  "scope": "synthetic local implementation and validation; Cloud push pending at this snapshot",
+  "python": "3.14.3",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "checks": [
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "output": "test_cash_fact_omission_is_rejected (test_acceptance.Acceptance.test_cash_fact_omission_is_rejected) ... ok\ntest_duplicate_id_holds (test_acceptance.Acceptance.test_duplicate_id_holds) ... ok\ntest_each_unknown_cash_component_holds (test_acceptance.Acceptance.test_each_unknown_cash_component_holds) ... ok\ntest_free_text_and_unauthorized_facts_are_rejected (test_acceptance.Acceptance.test_free_text_and_unauthorized_facts_are_rejected) ... ok\ntest_hold_and_zero_cannot_offer_spending (test_acceptance.Acceptance.test_hold_and_zero_cannot_offer_spending) ... ok\ntest_integer_cents_render_without_float_rounding (test_acceptance.Acceptance.test_integer_cents_render_without_float_rounding) ... ok\ntest_invalid_money_is_rejected (test_acceptance.Acceptance.test_invalid_money_is_rejected) ... ok\ntest_known_profit_and_credit_context_cannot_be_hidden (test_acceptance.Acceptance.test_known_profit_and_credit_context_cannot_be_hidden) ... ok\ntest_post_snapshot_transaction_holds (test_acceptance.Acceptance.test_post_snapshot_transaction_holds) ... ok\ntest_profit_and_cash_are_independent (test_acceptance.Acceptance.test_profit_and_cash_are_independent) ... ok\ntest_six_acceptance_fixtures (test_acceptance.Acceptance.test_six_acceptance_fixtures) ... ok\ntest_snapshot_not_double_counted (test_acceptance.Acceptance.test_snapshot_not_double_counted) ... ok\ntest_stale_snapshot_holds (test_acceptance.Acceptance.test_stale_snapshot_holds) ... ok\ntest_timezone_and_horizon_required (test_acceptance.Acceptance.test_timezone_and_horizon_required) ... ok\ntest_unknown_margin_does_not_hide_independently_confirmed_cash (test_acceptance.Acceptance.test_unknown_margin_does_not_hide_independently_confirmed_cash) ... ok\ntest_warning_omission_is_rejected (test_acceptance.Acceptance.test_warning_omission_is_rejected) ... ok\ntest_cash_evidence_cannot_be_replaced_by_invoice_evidence (test_obligations.Obligations.test_cash_evidence_cannot_be_replaced_by_invoice_evidence) ... ok\ntest_duplicate_reference_across_buckets_holds (test_obligations.Obligations.test_duplicate_reference_across_buckets_holds) ... ok\ntest_future_obligation_excluded_and_overdue_included (test_obligations.Obligations.test_future_obligation_excluded_and_overdue_included) ... ok\ntest_missing_or_unconfirmed_obligations_hold (test_obligations.Obligations.test_missing_or_unconfirmed_obligations_hold) ... ok\ntest_one_payment_cannot_resolve_two_obligations (test_obligations.Obligations.test_one_payment_cannot_resolve_two_obligations) ... ok\ntest_overpayment_duplicate_ids_and_invalid_types (test_obligations.Obligations.test_overpayment_duplicate_ids_and_invalid_types) ... ok\ntest_paid_obligation_not_subtracted_again (test_obligations.Obligations.test_paid_obligation_not_subtracted_again) ... ok\ntest_partial_payment_is_subtracted_only_once (test_obligations.Obligations.test_partial_payment_is_subtracted_only_once) ... ok\ntest_payment_must_match_amount_reference_and_snapshot (test_obligations.Obligations.test_payment_must_match_amount_reference_and_snapshot) ... ok\ntest_payment_reference_reuse_across_transaction_kinds_holds (test_obligations.Obligations.test_payment_reference_reuse_across_transaction_kinds_holds) ... ok\ntest_unallocated_payment_prevents_double_subtraction (test_obligations.Obligations.test_unallocated_payment_prevents_double_subtraction) ... ok\ntest_cloud_tag_and_bad_connection_settings_rejected (test_ollama.OllamaBoundary.test_cloud_tag_and_bad_connection_settings_rejected) ... ok\ntest_hold_selection_cannot_offer_quote_comparison (test_ollama.OllamaBoundary.test_hold_selection_cannot_offer_quote_comparison) ... ok\ntest_invalid_model_prose_warning_omission_and_actions_fall_back (test_ollama.OllamaBoundary.test_invalid_model_prose_warning_omission_and_actions_fall_back) ... ok\ntest_local_http_adapter_admits_selection_and_records_identity (test_ollama.OllamaBoundary.test_local_http_adapter_admits_selection_and_records_identity) ... ok\ntest_missing_model_http_error_and_digest_drift_fall_back (test_ollama.OllamaBoundary.test_missing_model_http_error_and_digest_drift_fall_back) ... ok\ntest_no_model_call_without_explicit_request (test_ollama.OllamaBoundary.test_no_model_call_without_explicit_request) ... ok\ntest_duplicate_keys_and_nonstandard_numbers_rejected (test_receipts.Receipts.test_duplicate_keys_and_nonstandard_numbers_rejected) ... ok\ntest_invalid_evidence_class_and_altered_explanation_rejected (test_receipts.Receipts.test_invalid_evidence_class_and_altered_explanation_rejected) ... ok\ntest_modified_amount_or_forged_recalculation_rejected (test_receipts.Receipts.test_modified_amount_or_forged_recalculation_rejected) ... ok\ntest_save_and_replay_without_model_or_overwrite (test_receipts.Receipts.test_save_and_replay_without_model_or_overwrite) ... ok\ntest_assets_and_fixtures_are_served_without_external_dependencies (test_server.LocalDemo.test_assets_and_fixtures_are_served_without_external_dependencies) ... ok\ntest_calculation_is_read_only_unless_save_is_explicit (test_server.LocalDemo.test_calculation_is_read_only_unless_save_is_explicit) ... ok\ntest_cross_origin_host_and_form_requests_rejected (test_server.LocalDemo.test_cross_origin_host_and_form_requests_rejected) ... ok\ntest_invalid_and_oversized_requests (test_server.LocalDemo.test_invalid_and_oversized_requests) ... ok\ntest_save_reviewed_result_preserves_selection_without_reinference (test_server.LocalDemo.test_save_reviewed_result_preserves_selection_without_reinference) ... ok\ntest_strict_json_editing_and_browser_integer_range (test_server.LocalDemo.test_strict_json_editing_and_browser_integer_range) ... ok\ntest_unknown_cash_and_bad_money_do_not_return_reassuring_amounts (test_server.LocalDemo.test_unknown_cash_and_bad_money_do_not_return_reassuring_amounts) ... ok\n\n----------------------------------------------------------------------\nRan 44 tests in 1.159s\n\nOK\n"
+    },
+    {
+      "command": "python -m compileall -q kasimargin tests",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "test_methods": 44,
+  "synthetic_scenarios": 7,
+  "fixture_results": [
+    {
+      "path": "fixtures/01.json",
+      "data_class": "SYNTHETIC",
+      "summary": {
+        "schema_version": "kasimargin-summary-v1",
+        "currency": "ZAR",
+        "operating_margin_cents": 60000,
+        "cash_headroom_cents": 40000,
+        "protected_cash_deficit_cents": 0,
+        "recorded_receivables_delta_cents": 0,
+        "status": "CALCULATED",
+        "flags": [],
+        "blocking_flags": [],
+        "horizon_end": "2026-10-14T23:59:00+02:00",
+        "cash_basis": {
+          "verified_cash_cents": 100000,
+          "due_liabilities_cents": 30000,
+          "committed_spend_cents": 10000,
+          "minimum_buffer_cents": 20000,
+          "snapshot_at": "2026-10-13T18:00:00+02:00",
+          "decision_at": "2026-10-13T18:05:00+02:00"
+        },
+        "evidence_refs": [
+          "synthetic:fixture-cash-count",
+          "synthetic:fixture-unpaid-obligations"
+        ],
+        "evidence_scope": "synthetic_or_operator_attested; no bank verification"
+      },
+      "inference": {
+        "status": "NOT_REQUESTED",
+        "model": null
+      }
+    },
+    {
+      "path": "fixtures/02.json",
+      "data_class": "SYNTHETIC",
+      "summary": {
+        "schema_version": "kasimargin-summary-v1",
+        "currency": "ZAR",
+        "operating_margin_cents": 1000,
+        "cash_headroom_cents": 0,
+        "protected_cash_deficit_cents": 0,
+        "recorded_receivables_delta_cents": 0,
+        "status": "CALCULATED",
+        "flags": [
+          "NO_DISCRETIONARY_HEADROOM"
+        ],
+        "blocking_flags": [],
+        "horizon_end": "2026-10-14T23:59:00+02:00",
+        "cash_basis": {
+          "verified_cash_cents": 9000,
+          "due_liabilities_cents": 4000,
+          "committed_spend_cents": 0,
+          "minimum_buffer_cents": 5000,
+          "snapshot_at": "2026-10-13T18:00:00+02:00",
+          "decision_at": "2026-10-13T18:05:00+02:00"
+        },
+        "evidence_refs": [
+          "synthetic:fixture-cash-count",
+          "synthetic:fixture-unpaid-obligations"
+        ],
+        "evidence_scope": "synthetic_or_operator_attested; no bank verification"
+      },
+      "inference": {
+        "status": "NOT_REQUESTED",
+        "model": null
+      }
+    },
+    {
+      "path": "fixtures/03.json",
+      "data_class": "SYNTHETIC",
+      "summary": {
+        "schema_version": "kasimargin-summary-v1",
+        "currency": "ZAR",
+        "operating_margin_cents": -5000,
+        "cash_headroom_cents": 0,
+        "protected_cash_deficit_cents": 12000,
+        "recorded_receivables_delta_cents": 0,
+        "status": "CALCULATED",
+        "flags": [
+          "PROTECTED_CASH_DEFICIT",
+          "NO_DISCRETIONARY_HEADROOM"
+        ],
+        "blocking_flags": [],
+        "horizon_end": "2026-10-14T23:59:00+02:00",
+        "cash_basis": {
+          "verified_cash_cents": 10000,
+          "due_liabilities_cents": 15000,
+          "committed_spend_cents": 2000,
+          "minimum_buffer_cents": 5000,
+          "snapshot_at": "2026-10-13T18:00:00+02:00",
+          "decision_at": "2026-10-13T18:05:00+02:00"
+        },
+        "evidence_refs": [
+          "synthetic:fixture-cash-count",
+          "synthetic:fixture-unpaid-obligations"
+        ],
+        "evidence_scope": "synthetic_or_operator_attested; no bank verification"
+      },
+      "inference": {
+        "status": "NOT_REQUESTED",
+        "model": null
+      }
+    },
+    {
+      "path": "fixtures/04.json",
+      "data_class": "SYNTHETIC",
+      "summary": {
+        "schema_version": "kasimargin-summary-v1",
+        "currency": "ZAR",
+        "operating_margin_cents": null,
+        "cash_headroom_cents": null,
+        "protected_cash_deficit_cents": null,
+        "recorded_receivables_delta_cents": 0,
+        "status": "HOLD_INSUFFICIENT_DATA",
+        "flags": [
+          "MARGIN_UNKNOWN",
+          "UNKNOWN_VERIFIED_CASH_CENTS",
+          "UNKNOWN_DUE_LIABILITIES_CENTS",
+          "CASH_BASIS_UNCONFIRMED",
+          "MISSING_CASH_EVIDENCE",
+          "UNRESOLVED:MISSING_RECEIPT"
+        ],
+        "blocking_flags": [
+          "UNKNOWN_VERIFIED_CASH_CENTS",
+          "UNKNOWN_DUE_LIABILITIES_CENTS",
+          "CASH_BASIS_UNCONFIRMED",
+          "MISSING_CASH_EVIDENCE",
+          "UNRESOLVED:MISSING_RECEIPT"
+        ],
+        "horizon_end": "2026-10-14T23:59:00+02:00",
+        "cash_basis": {
+          "verified_cash_cents": null,
+          "due_liabilities_cents": null,
+          "committed_spend_cents": 0,
+          "minimum_buffer_cents": 10000,
+          "snapshot_at": "2026-10-13T18:00:00+02:00",
+          "decision_at": "2026-10-13T18:05:00+02:00"
+        },
+        "evidence_refs": [],
+        "evidence_scope": "synthetic_or_operator_attested; no bank verification"
+      },
+      "inference": {
+        "status": "NOT_REQUESTED",
+        "model": null
+      }
+    },
+    {
+      "path": "fixtures/05.json",
+      "data_class": "SYNTHETIC",
+      "summary": {
+        "schema_version": "kasimargin-summary-v1",
+        "currency": "ZAR",
+        "operating_margin_cents": 30000,
+        "cash_headroom_cents": 5000,
+        "protected_cash_deficit_cents": 0,
+        "recorded_receivables_delta_cents": 60000,
+        "status": "CALCULATED",
+        "flags": [
+          "CREDIT_SALES_NOT_CASH"
+        ],
+        "blocking_flags": [],
+        "horizon_end": "2026-10-14T23:59:00+02:00",
+        "cash_basis": {
+          "verified_cash_cents": 20000,
+          "due_liabilities_cents": 5000,
+          "committed_spend_cents": 0,
+          "minimum_buffer_cents": 10000,
+          "snapshot_at": "2026-10-13T18:00:00+02:00",
+          "decision_at": "2026-10-13T18:05:00+02:00"
+        },
+        "evidence_refs": [
+          "synthetic:fixture-cash-count",
+          "synthetic:fixture-unpaid-obligations"
+        ],
+        "evidence_scope": "synthetic_or_operator_attested; no bank verification"
+      },
+      "inference": {
+        "status": "NOT_REQUESTED",
+        "model": null
+      }
+    },
+    {
+      "path": "fixtures/06.json",
+      "data_class": "SYNTHETIC",
+      "summary": {
+        "schema_version": "kasimargin-summary-v1",
+        "currency": "ZAR",
+        "operating_margin_cents": 50000,
+        "cash_headroom_cents": null,
+        "protected_cash_deficit_cents": null,
+        "recorded_receivables_delta_cents": 0,
+        "status": "HOLD_INSUFFICIENT_DATA",
+        "flags": [
+          "POSSIBLE_DUPLICATE_PAYMENT"
+        ],
+        "blocking_flags": [
+          "POSSIBLE_DUPLICATE_PAYMENT"
+        ],
+        "horizon_end": "2026-10-14T23:59:00+02:00",
+        "cash_basis": {
+          "verified_cash_cents": 30000,
+          "due_liabilities_cents": 0,
+          "committed_spend_cents": 0,
+          "minimum_buffer_cents": 10000,
+          "snapshot_at": "2026-10-13T18:00:00+02:00",
+          "decision_at": "2026-10-13T18:05:00+02:00"
+        },
+        "evidence_refs": [
+          "synthetic:fixture-cash-count",
+          "synthetic:fixture-unpaid-obligations"
+        ],
+        "evidence_scope": "synthetic_or_operator_attested; no bank verification"
+      },
+      "inference": {
+        "status": "NOT_REQUESTED",
+        "model": null
+      }
+    },
+    {
+      "path": "fixtures/itemized/01.json",
+      "data_class": "SYNTHETIC",
+      "summary": {
+        "schema_version": "kasimargin-summary-v1",
+        "currency": "ZAR",
+        "operating_margin_cents": 60000,
+        "cash_headroom_cents": 40000,
+        "protected_cash_deficit_cents": 0,
+        "recorded_receivables_delta_cents": 0,
+        "status": "CALCULATED",
+        "flags": [],
+        "blocking_flags": [],
+        "horizon_end": "2026-10-14T23:59:00+02:00",
+        "cash_basis": {
+          "verified_cash_cents": 100000,
+          "due_liabilities_cents": 30000,
+          "committed_spend_cents": 10000,
+          "minimum_buffer_cents": 20000,
+          "snapshot_at": "2026-10-13T18:00:00+02:00",
+          "decision_at": "2026-10-13T18:05:00+02:00"
+        },
+        "evidence_refs": [
+          "synthetic:fixture-cash-count",
+          "synthetic:fixture-unpaid-obligations"
+        ],
+        "evidence_scope": "synthetic_or_operator_attested; no bank verification"
+      },
+      "inference": {
+        "status": "NOT_REQUESTED",
+        "model": null
+      }
+    }
+  ],
+  "original_source_package": [
+    {
+      "path": ".gitignore",
+      "sha256_expected": "3dc9f7fb2371655add41c638bbfe259eb59a650adf330962a0f38089b53bd9c8",
+      "sha256_observed": "3dc9f7fb2371655add41c638bbfe259eb59a650adf330962a0f38089b53bd9c8",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "LICENSE",
+      "sha256_expected": "8f7a23d6d1dc2c495a6cd9f53c52c611cf37a48370f8c9624a8f1991f281e68e",
+      "sha256_observed": "8f7a23d6d1dc2c495a6cd9f53c52c611cf37a48370f8c9624a8f1991f281e68e",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "README.md",
+      "sha256_expected": "514721887de57329d267e6c1c7d5555e3ae7f6b8ab9df3ead274a8b07f7a3d01",
+      "sha256_observed": "514721887de57329d267e6c1c7d5555e3ae7f6b8ab9df3ead274a8b07f7a3d01",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "docs/DAY1-CONTRACT.md",
+      "sha256_expected": "42e2dc8ee3c840b4b1ebfdd4bc236ab8f36ddf175370886138d0514a9dedd1be",
+      "sha256_observed": "42e2dc8ee3c840b4b1ebfdd4bc236ab8f36ddf175370886138d0514a9dedd1be",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "docs/cloud-provenance.json",
+      "sha256_expected": "fc4bc6dcffb2313e027f43be354f27fd35c7521c2f276220be00db541d1142fb",
+      "sha256_observed": "fc4bc6dcffb2313e027f43be354f27fd35c7521c2f276220be00db541d1142fb",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "docs/input.schema.json",
+      "sha256_expected": "215c044f1dcc88bb57f61dd62ebf17f6b0cfac69d592efa6c7b05e02eb94009c",
+      "sha256_observed": "215c044f1dcc88bb57f61dd62ebf17f6b0cfac69d592efa6c7b05e02eb94009c",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "docs/model-selection.schema.json",
+      "sha256_expected": "d8b1ad0e252cc1a1bfdfdbaa9dd1fee982a9974589921fe38aee7e2ef3e24c9f",
+      "sha256_observed": "d8b1ad0e252cc1a1bfdfdbaa9dd1fee982a9974589921fe38aee7e2ef3e24c9f",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "fixtures/01.json",
+      "sha256_expected": "8757311583900befa1d26575dd852ed607700de84f91f2b615fc87dc8e7f667a",
+      "sha256_observed": "8757311583900befa1d26575dd852ed607700de84f91f2b615fc87dc8e7f667a",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "fixtures/02.json",
+      "sha256_expected": "718b20fd2d5430e2531a706a0d7e590a9e9da40689bef12d52caf9d39103aea2",
+      "sha256_observed": "718b20fd2d5430e2531a706a0d7e590a9e9da40689bef12d52caf9d39103aea2",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "fixtures/03.json",
+      "sha256_expected": "1eceda0a66a81a69cd559b199181b5a6af5f1ed0e6e84299b2928487b3e57ea8",
+      "sha256_observed": "1eceda0a66a81a69cd559b199181b5a6af5f1ed0e6e84299b2928487b3e57ea8",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "fixtures/04.json",
+      "sha256_expected": "2226e92d01b70d76835f3f2f5a02ea5f638b4eed89b867209606995936418d8d",
+      "sha256_observed": "2226e92d01b70d76835f3f2f5a02ea5f638b4eed89b867209606995936418d8d",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "fixtures/05.json",
+      "sha256_expected": "19d6583106508ca9cb37f4e9f53fbf0d20b789433542f63f441762429ac26c0f",
+      "sha256_observed": "19d6583106508ca9cb37f4e9f53fbf0d20b789433542f63f441762429ac26c0f",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "fixtures/06.json",
+      "sha256_expected": "2262742b8ec9ece547446a066984674391d24a6ee1e700947947f34ea12b395b",
+      "sha256_observed": "2262742b8ec9ece547446a066984674391d24a6ee1e700947947f34ea12b395b",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "kasimargin/__init__.py",
+      "sha256_expected": "4502d63c7df80f65805cc5c939a38c9df2aba28ff2cd38c235c560d1ce1b788b",
+      "sha256_observed": "4502d63c7df80f65805cc5c939a38c9df2aba28ff2cd38c235c560d1ce1b788b",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "kasimargin/__main__.py",
+      "sha256_expected": "48dcd7ac8868ac1838789f9be6684ccd335b866935ba2254f85b6e7c6390ca2e",
+      "sha256_observed": "48dcd7ac8868ac1838789f9be6684ccd335b866935ba2254f85b6e7c6390ca2e",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "kasimargin/engine.py",
+      "sha256_expected": "b93d98288387ad918064b2de928fae3cbbcf7f427a1126a1845467a7d17dcb8f",
+      "sha256_observed": "b93d98288387ad918064b2de928fae3cbbcf7f427a1126a1845467a7d17dcb8f",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "kasimargin/explanations.py",
+      "sha256_expected": "ba9de3e33226de1494af30ef42223399e601f0e76f2a86687791b6d8165a24f2",
+      "sha256_observed": "ba9de3e33226de1494af30ef42223399e601f0e76f2a86687791b6d8165a24f2",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256_expected": "9180e2273b8a091604bda96ecf790d7d187dbbd76308af53fb699c60a76f55f0",
+      "sha256_observed": "9180e2273b8a091604bda96ecf790d7d187dbbd76308af53fb699c60a76f55f0",
+      "matches_original_receipt": true
+    },
+    {
+      "path": "tests/test_acceptance.py",
+      "sha256_expected": "3bcb69b9faba01abd8fdd559d0cc639048b10911796675ac08a3d1afe7b5c557",
+      "sha256_observed": "3bcb69b9faba01abd8fdd559d0cc639048b10911796675ac08a3d1afe7b5c557",
+      "matches_original_receipt": true
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "985e5c0aa8fb3a205811e705bad1676c54369de17991f0bf7d5960a5b52dd718"
+    },
+    {
+      "path": ".github/workflows/tests.yml",
+      "sha256": "298284425384bcbddfcbef6727e41c751b8aedca21fe469825873bd6f09d1943"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "51e9d2fbeb42e191f6fca1069f42c7474abde13c36a052eeaa121d8cf4190cb2"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "55677bf1d057896ac601b697df05173bda5fd34f80e1cfc7441ba814506234e7"
+    },
+    {
+      "path": "docs/cloud-provenance.json",
+      "sha256": "fc4bc6dcffb2313e027f43be354f27fd35c7521c2f276220be00db541d1142fb"
+    },
+    {
+      "path": "docs/DAY1-CONTRACT.md",
+      "sha256": "42e2dc8ee3c840b4b1ebfdd4bc236ab8f36ddf175370886138d0514a9dedd1be"
+    },
+    {
+      "path": "docs/input-v2.schema.json",
+      "sha256": "5e76ba73cdbe16bda6ed023a764e2d59110053e558d70ec68bea8349487aeafc"
+    },
+    {
+      "path": "docs/input.schema.json",
+      "sha256": "905e216fec7580635b90a1f0b5740d733e7bec8689620f864b72581cbbd3619a"
+    },
+    {
+      "path": "docs/LOCAL-FOUNDATION.md",
+      "sha256": "f0054cb89dcd3e4e35c563cad9f7e0d87ddb7b2c203eab5ef675413a1868905d"
+    },
+    {
+      "path": "docs/model-selection.schema.json",
+      "sha256": "d8b1ad0e252cc1a1bfdfdbaa9dd1fee982a9974589921fe38aee7e2ef3e24c9f"
+    },
+    {
+      "path": "docs/receipts/local-demo-2026-10-13.jpg",
+      "sha256": "d7215da37a227c8540c90fe734263b139c495f82218ce0a04c6b3b9e4485a908"
+    },
+    {
+      "path": "docs/receipts/local-demo-hold-2026-10-13.jpg",
+      "sha256": "1fc78472c4e31edbd5d781709118206a37aa320856ce3f278b005bca3e2c0079"
+    },
+    {
+      "path": "docs/validation-receipt.json",
+      "sha256": "abe333076d00e450aa1103a19d902a0d859bd529803b5aa4b3052582a8ebbddc"
+    },
+    {
+      "path": "fixtures/01.json",
+      "sha256": "01579fa1b0f85dfc652fd9474d6507adebe23f1fde546ac87e2a1e52c1309181"
+    },
+    {
+      "path": "fixtures/02.json",
+      "sha256": "86a04bb59da92ed29776ede46c7e30b81f6580b5dec11ef12594695cfa4c7a61"
+    },
+    {
+      "path": "fixtures/03.json",
+      "sha256": "a22ca7c36f7d35160285b7c6ce8ad1d54f85ec139a76de45c408ddc6c13cfef5"
+    },
+    {
+      "path": "fixtures/04.json",
+      "sha256": "c42d4acf8cf97d753d3b326ce31be1addddb0527922baf44e9ffa9463e125c75"
+    },
+    {
+      "path": "fixtures/05.json",
+      "sha256": "777abf46f45deed4fc140f93a9778e9010fcb001a6369220e354ac09e94e15a8"
+    },
+    {
+      "path": "fixtures/06.json",
+      "sha256": "01fe62f750d6f22969a8e6e2b579a3e9ed517f4bd020554dd785aac049b69d29"
+    },
+    {
+      "path": "fixtures/itemized/01.json",
+      "sha256": "3dc4c129e2ef1ec417af330e938ff42ee3c4b6090e1e53479465ac23bab3713d"
+    },
+    {
+      "path": "kasimargin/__init__.py",
+      "sha256": "4502d63c7df80f65805cc5c939a38c9df2aba28ff2cd38c235c560d1ce1b788b"
+    },
+    {
+      "path": "kasimargin/__main__.py",
+      "sha256": "739604bc05102a1992ceae69019044c32a4fd3f4d968b7bb08cdc188a6247bc5"
+    },
+    {
+      "path": "kasimargin/engine.py",
+      "sha256": "52e83d3ac070f43ccf5b1422d46e4d8898474d56a982f9852b0f59cab3786395"
+    },
+    {
+      "path": "kasimargin/explanations.py",
+      "sha256": "f869b269614f531a8c3d747314ddf91833672e9ece932de8a528f74653dc22be"
+    },
+    {
+      "path": "kasimargin/jsonio.py",
+      "sha256": "ca72746c7212fd41e3587f61686f85f418a07b24d7ff6d22f345825ac8d0ec9e"
+    },
+    {
+      "path": "kasimargin/obligations.py",
+      "sha256": "ab3fbc02cf731b4d31989f67e44785074cf3e50d9dc770956a25dbf057b16a71"
+    },
+    {
+      "path": "kasimargin/ollama.py",
+      "sha256": "050e41910586f6e9de48d4f1a138a6ecdb858b4ab51eda20bdd59a75dc1fbc43"
+    },
+    {
+      "path": "kasimargin/receipts.py",
+      "sha256": "bfcfb1674c822b10d5c48114d8dd616477e72d0393555f53d4f6a2d4c7f09cc6"
+    },
+    {
+      "path": "kasimargin/server.py",
+      "sha256": "767d0d526f112448bc378b600d49c29ef6011e6f10019021ad7426dbf02e1b86"
+    },
+    {
+      "path": "kasimargin/web/app.js",
+      "sha256": "9299c0313b1fa9cc591a1fba9b19610fd6322583fe52c756b6ded0874210b1d8"
+    },
+    {
+      "path": "kasimargin/web/index.html",
+      "sha256": "d0765c7cf69e4906a6a7e601a3f8ef4e400a76bee81bf0dad0b35e4920b0e096"
+    },
+    {
+      "path": "kasimargin/web/style.css",
+      "sha256": "8d247dcf0312bc971e97927135f76dc6ea70fafd3ac7a00af29b174ecac5b489"
+    },
+    {
+      "path": "kasimargin/workflow.py",
+      "sha256": "e65525a4257817fd96031b492e506f9a7dec62a3decd6d115b013cd8f0dd8c1e"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "8f7a23d6d1dc2c495a6cd9f53c52c611cf37a48370f8c9624a8f1991f281e68e"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "c12b28f22f021ec6b7cf9a4fbde15ae3b8de0371d77c8c898d0ba09ed41510a1"
+    },
+    {
+      "path": "README.md",
+      "sha256": "477cc2693e3c61f931796d2495966b4cfe72762027ebff8bd4799e0dd35ac2ba"
+    },
+    {
+      "path": "tests/test_acceptance.py",
+      "sha256": "f986aecaac4b7c3bf79acdc2952e6d7af7cdcb1de16717803f2b156ba78968b8"
+    },
+    {
+      "path": "tests/test_obligations.py",
+      "sha256": "d06e51a78d23c721d2c15c9278fec79e19916a3234008c1b4715fbee41382cbb"
+    },
+    {
+      "path": "tests/test_ollama.py",
+      "sha256": "0eacc3d679a03e9199ebde69e1b47fa0de756e841b75d10967066e5ec0e384d7"
+    },
+    {
+      "path": "tests/test_receipts.py",
+      "sha256": "f826666786150947710d46412aeee6c7f06d23c03984a6b5c9fc5d5faa0bbf84"
+    },
+    {
+      "path": "tests/test_server.py",
+      "sha256": "b5e5bd7979416724be59220ca584234629b472603cf7e1e2b71e4e98199488b4"
+    }
+  ],
+  "live_model_probe": {
+    "model": "gemma4:e2b",
+    "status": "REJECTED_OR_UNAVAILABLE",
+    "reason": "local Ollama unavailable or returned invalid JSON",
+    "model_execution": "NOT_ESTABLISHED"
+  },
+  "browser_checks": [
+    "profitable fixture: R600 margin / R400 conditional headroom",
+    "itemized partial payment: R400 conditional headroom",
+    "missing-data fixture: null headroom and HOLD",
+    "explicit synthetic save: replay checked in separate local receipt"
+  ],
+  "boundaries": {
+    "real_gemma_inference": "NOT_RUN",
+    "operator_trial": "NOT_RUN",
+    "teacher_review": "NOT_PRESENT",
+    "economic_value": "UNPROVEN",
+    "merge": "NOT_PERFORMED",
+    "deployment": "NOT_PERFORMED",
+    "submission": "NOT_SUBMITTED"
+  },
+  "manifest_exclusions": [
+    "NOW.md: mutable continuity record",
+    "docs/receipts: append-only validation records; screenshots included explicitly",
+    "local-data: private runtime receipts and records",
+    ".git: repository internals",
+    "__pycache__: generated files"
+  ],
+  "manifest_representation": "working-tree bytes with LF normalization; mutable NOW excluded",
+  "formatting_correction": "Initial staged diff detected inherited trailing blank lines; active fixtures/schema normalized; original source package unchanged."
+}

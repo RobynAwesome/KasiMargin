@@ -1,0 +1,39 @@
+{
+  "fixture_id": "02",
+  "scenario": "Low margin with independently constrained cash",
+  "data_class": "SYNTHETIC",
+  "input": {
+    "currency": "ZAR",
+    "performance": {
+      "recorded_sales_cents": 120000,
+      "attributable_costs_cents": 119000,
+      "complete": true
+    },
+    "cash_position": {
+      "verified_cash_cents": 9000,
+      "due_liabilities_cents": 4000,
+      "committed_spend_cents": 0,
+      "minimum_buffer_cents": 5000,
+      "snapshot_at": "2026-10-13T18:00:00+02:00",
+      "decision_at": "2026-10-13T18:05:00+02:00",
+      "horizon_end": "2026-10-14T23:59:00+02:00",
+      "max_snapshot_age_seconds": 900,
+      "basis_confirmed": true,
+      "unresolved_flags": [],
+      "evidence_refs": [
+        "synthetic:fixture-cash-count",
+        "synthetic:fixture-unpaid-obligations"
+      ]
+    },
+    "transactions": []
+  },
+  "expected": {
+    "operating_margin_cents": 1000,
+    "cash_headroom_cents": 0,
+    "protected_cash_deficit_cents": 0,
+    "status": "CALCULATED",
+    "flags": [
+      "NO_DISCRETIONARY_HEADROOM"
+    ]
+  }
+}

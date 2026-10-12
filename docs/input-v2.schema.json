@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KasiMargin request v2 with itemized obligations",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "currency",
+    "performance",
+    "cash_position",
+    "transactions",
+    "schema_version",
+    "obligations"
+  ],
+  "$defs": {
+    "money": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "strings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "properties": {
+    "currency": {
+      "const": "ZAR"
+    },
+    "performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recorded_sales_cents",
+        "attributable_costs_cents",
+        "complete"
+      ],
+      "properties": {
+        "recorded_sales_cents": {
+          "$ref": "#/$defs/money"
+        },
+        "attributable_costs_cents": {
+          "$ref": "#/$defs/money"
+        },
+        "complete": {
+          "type": "boolean"
+        }
+      }
+    },
+    "cash_position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_cash_cents",
+        "minimum_buffer_cents",
+        "snapshot_at",
+        "decision_at",
+        "horizon_end",
+        "max_snapshot_age_seconds",
+        "basis_confirmed",
+        "unresolved_flags",
+        "evidence_refs",
+        "obligations_complete"
+      ],
+      "properties": {
+        "verified_cash_cents": {
+          "$ref": "#/$defs/money"
+        },
+        "minimum_buffer_cents": {
+          "$ref": "#/$defs/money"
+        },
+        "snapshot_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "decision_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "horizon_end": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "max_snapshot_age_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "basis_confirmed": {
+          "type": "boolean"
+        },
+        "unresolved_flags": {
+          "$ref": "#/$defs/strings"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/strings"
+        },
+        "obligations_complete": {
+          "type": "boolean"
+        }
+      }
+    },
+    "transactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "amount_cents",
+          "is_confirmed",
+          "reference_id",
+          "timestamp",
+          "source_description"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "cash_sale",
+              "credit_sale",
+              "credit_collection",
+              "supplier_payment",
+              "operating_payment"
+            ]
+          },
+          "amount_cents": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "is_confirmed": {
+            "type": "boolean"
+          },
+          "reference_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "timestamp": {
+            "$ref": "#/$defs/timestamp"
+          },
+          "source_description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "schema_version": {
+      "const": "kasimargin-input-v2"
+    },
+    "obligations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "reference_id",
+          "bucket",
+          "amount_cents",
+          "paid_cents",
+          "due_at",
+          "is_confirmed",
+          "payment_transaction_ids",
+          "evidence_ref"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reference_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bucket": {
+            "enum": [
+              "liability",
+              "committed"
+            ]
+          },
+          "amount_cents": {
+            "$ref": "#/$defs/money"
+          },
+          "paid_cents": {
+            "$ref": "#/$defs/money"
+          },
+          "due_at": {
+            "$ref": "#/$defs/timestamp"
+          },
+          "is_confirmed": {
+            "type": "boolean"
+          },
+          "payment_transaction_ids": {
+            "$ref": "#/$defs/strings"
+          },
+          "evidence_ref": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}
