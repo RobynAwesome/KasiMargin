@@ -1,0 +1,10 @@
+[project]
+name = "kasimargin"
+version = "0.2.0"
+description = "Local SME cash decision prototype with itemized obligations and constrained Gemma selection"
+requires-python = ">=3.10"
+
+[tool.kasimargin]
+stage = "local-foundation-synthetic-prototype"
+models = ["gemma4:e2b", "gemma4:e4b"]
+model_execution = "OPTIONAL_EXPLICIT_LOCAL_REQUEST"

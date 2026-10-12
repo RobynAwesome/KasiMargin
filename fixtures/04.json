@@ -1,0 +1,43 @@
+{
+  "fixture_id": "04",
+  "scenario": "Missing receipts and unknown cash / liabilities",
+  "data_class": "SYNTHETIC",
+  "input": {
+    "currency": "ZAR",
+    "performance": {
+      "recorded_sales_cents": 150000,
+      "attributable_costs_cents": null,
+      "complete": false
+    },
+    "cash_position": {
+      "verified_cash_cents": null,
+      "due_liabilities_cents": null,
+      "committed_spend_cents": 0,
+      "minimum_buffer_cents": 10000,
+      "snapshot_at": "2026-10-13T18:00:00+02:00",
+      "decision_at": "2026-10-13T18:05:00+02:00",
+      "horizon_end": "2026-10-14T23:59:00+02:00",
+      "max_snapshot_age_seconds": 900,
+      "basis_confirmed": false,
+      "unresolved_flags": [
+        "MISSING_RECEIPT"
+      ],
+      "evidence_refs": []
+    },
+    "transactions": []
+  },
+  "expected": {
+    "operating_margin_cents": null,
+    "cash_headroom_cents": null,
+    "protected_cash_deficit_cents": null,
+    "status": "HOLD_INSUFFICIENT_DATA",
+    "flags": [
+      "MARGIN_UNKNOWN",
+      "UNKNOWN_VERIFIED_CASH_CENTS",
+      "UNKNOWN_DUE_LIABILITIES_CENTS",
+      "CASH_BASIS_UNCONFIRMED",
+      "MISSING_CASH_EVIDENCE",
+      "UNRESOLVED:MISSING_RECEIPT"
+    ]
+  }
+}

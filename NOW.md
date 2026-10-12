@@ -1,0 +1,15 @@
+# KasiMargin current state â€” 2026-10-13
+
+Status: local foundation validated; Cloud review delivery in progress.
+
+- WHO: Codex Forge through ChatGPT-6.1 SOL, assigned task implementer under Robyn's direct request. `I_AM_STATELESS_RENTER_NOT_LANDLORD`. No identity seat inferred.
+- WHAT / WHERE: independent local clone at `C:/Users/rkhol/KasiMargin`, remote `https://github.com/RobynAwesome/KasiMargin.git`, branch `codex/local-foundation`, based on `main@5897456485b15474e8cbbf1c8b13f68a04533788`.
+- WHY: investigate whether a township micro-enterprise operator can distinguish estimated operating margin from conditional cash headroom without invented certainty.
+- Implemented: preserved/imported Day 1 scaffold; v2 itemized obligations and paid-amount reconciliation; exact cents; strict model output selection; optional loopback Ollama adapter; explicit private receipts and deterministic replay; local browser demo; test workflow.
+- Local evidence: Python 3.14.3, 44 unittest methods passed, seven synthetic scenarios passed, compileall and diff check passed. Browser confirmed R600 margin/R400 conditional headroom and null headroom/HOLD; explicit synthetic receipt save reproduced successfully.
+- Validation receipt: [local-foundation-2026-10-13.json](docs/receipts/local-foundation-2026-10-13.json), SHA-256 `05ebd27ea31774128ebbd56c0f427d5062615cab9d4e7a82a7edb832684be55a`. Screenshot receipts are beside it. The mutable NOW record is excluded from the content manifest.
+- Source populations: Local OneDrive Day 1 source preserved; 19/19 original receipt file hashes match. Its historical provenance/validation records are retained as history. Cloud KasiMargin creation observed at 2026-10-12T22:07:26Z, equivalent to October 13 00:07:26 SAST. The larger dirty Introduction-to-MCP checkout was not changed. Google Drive remains uninspected; no population parity claimed.
+- Known limits: the local Ollama service was unavailable on an explicit probe; no real Gemma inference or weights download. Adapter tests use synthetic HTTP responses. Model quality/device fit and operator/economic outcomes remain unmeasured. Aggregate v1 remains attestation-based; v2 cannot discover omitted obligations; legitimate split payments sharing one reference remain HOLD pending human resolution. Saved receipts reproduce content but do not authenticate authors or certify external approval.
+- Local runtime: `python -m kasimargin --serve` at `http://127.0.0.1:8765`. Private receipts under ignored `local-data/decisions/`. The demo is a development server.
+- Cloud state at this checkpoint: `main` remains the original owner README. Scoped commit/push/PR and hosted checks are pending; those results will be appended in a separate delivery receipt.
+- Next admissible action: commit/push this tested branch, open owner review, and record exact Cloud head/check outcomes. Then benchmark an explicitly installed Gemma candidate against the baseline and prepare a consented operator experiment. Merge, public deployment, financial actions and DEV submission remain separate owner decisions.

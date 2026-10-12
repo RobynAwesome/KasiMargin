@@ -1,0 +1,59 @@
+{
+  "fixture_id": "05",
+  "scenario": "Uncollected credit sale earns recorded margin without cash",
+  "data_class": "SYNTHETIC",
+  "input": {
+    "currency": "ZAR",
+    "performance": {
+      "recorded_sales_cents": 100000,
+      "attributable_costs_cents": 70000,
+      "complete": true
+    },
+    "cash_position": {
+      "verified_cash_cents": 20000,
+      "due_liabilities_cents": 5000,
+      "committed_spend_cents": 0,
+      "minimum_buffer_cents": 10000,
+      "snapshot_at": "2026-10-13T18:00:00+02:00",
+      "decision_at": "2026-10-13T18:05:00+02:00",
+      "horizon_end": "2026-10-14T23:59:00+02:00",
+      "max_snapshot_age_seconds": 900,
+      "basis_confirmed": true,
+      "unresolved_flags": [],
+      "evidence_refs": [
+        "synthetic:fixture-cash-count",
+        "synthetic:fixture-unpaid-obligations"
+      ]
+    },
+    "transactions": [
+      {
+        "id": "sale-credit-1",
+        "kind": "credit_sale",
+        "amount_cents": 60000,
+        "is_confirmed": true,
+        "reference_id": "customer-account-1",
+        "timestamp": "2026-10-13T17:00:00+02:00",
+        "source_description": "Synthetic record; no real business data"
+      },
+      {
+        "id": "sale-cash-1",
+        "kind": "cash_sale",
+        "amount_cents": 40000,
+        "is_confirmed": true,
+        "reference_id": "till-receipt-1",
+        "timestamp": "2026-10-13T17:00:00+02:00",
+        "source_description": "Synthetic record; no real business data"
+      }
+    ]
+  },
+  "expected": {
+    "operating_margin_cents": 30000,
+    "cash_headroom_cents": 5000,
+    "protected_cash_deficit_cents": 0,
+    "recorded_receivables_delta_cents": 60000,
+    "status": "CALCULATED",
+    "flags": [
+      "CREDIT_SALES_NOT_CASH"
+    ]
+  }
+}

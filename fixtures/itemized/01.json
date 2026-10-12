@@ -1,0 +1,73 @@
+{
+  "fixture_id": "itemized-01",
+  "scenario": "Itemized liabilities with a reconciled partial payment",
+  "data_class": "SYNTHETIC",
+  "input": {
+    "currency": "ZAR",
+    "performance": {
+      "recorded_sales_cents": 180000,
+      "attributable_costs_cents": 120000,
+      "complete": true
+    },
+    "cash_position": {
+      "verified_cash_cents": 100000,
+      "minimum_buffer_cents": 20000,
+      "snapshot_at": "2026-10-13T18:00:00+02:00",
+      "decision_at": "2026-10-13T18:05:00+02:00",
+      "horizon_end": "2026-10-14T23:59:00+02:00",
+      "max_snapshot_age_seconds": 900,
+      "basis_confirmed": true,
+      "unresolved_flags": [],
+      "evidence_refs": [
+        "synthetic:fixture-cash-count",
+        "synthetic:fixture-unpaid-obligations"
+      ],
+      "obligations_complete": true
+    },
+    "transactions": [
+      {
+        "id": "payment-1",
+        "kind": "supplier_payment",
+        "amount_cents": 10000,
+        "is_confirmed": true,
+        "reference_id": "supplier-a:invoice-1",
+        "timestamp": "2026-10-13T17:00:00+02:00",
+        "source_description": "Synthetic partial payment already included in the cash snapshot"
+      }
+    ],
+    "schema_version": "kasimargin-input-v2",
+    "obligations": [
+      {
+        "id": "invoice-1",
+        "reference_id": "supplier-a:invoice-1",
+        "bucket": "liability",
+        "amount_cents": 40000,
+        "paid_cents": 10000,
+        "due_at": "2026-10-14T12:00:00+02:00",
+        "is_confirmed": true,
+        "payment_transaction_ids": [
+          "payment-1"
+        ],
+        "evidence_ref": "synthetic:supplier-a-invoice-1"
+      },
+      {
+        "id": "delivery-1",
+        "reference_id": "courier-a:booking-1",
+        "bucket": "committed",
+        "amount_cents": 10000,
+        "paid_cents": 0,
+        "due_at": "2026-10-14T12:00:00+02:00",
+        "is_confirmed": true,
+        "payment_transaction_ids": [],
+        "evidence_ref": "synthetic:courier-booking-1"
+      }
+    ]
+  },
+  "expected": {
+    "operating_margin_cents": 60000,
+    "cash_headroom_cents": 40000,
+    "protected_cash_deficit_cents": 0,
+    "status": "CALCULATED",
+    "blocking_flags": []
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KasiMargin request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "currency",
+    "performance",
+    "cash_position",
+    "transactions"
+  ],
+  "$defs": {
+    "money": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "strings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "properties": {
+    "currency": {
+      "const": "ZAR"
+    },
+    "performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recorded_sales_cents",
+        "attributable_costs_cents",
+        "complete"
+      ],
+      "properties": {
+        "recorded_sales_cents": {
+          "$ref": "#/$defs/money"
+        },
+        "attributable_costs_cents": {
+          "$ref": "#/$defs/money"
+        },
+        "complete": {
+          "type": "boolean"
+        }
+      }
+    },
+    "cash_position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_cash_cents",
+        "due_liabilities_cents",
+        "committed_spend_cents",
+        "minimum_buffer_cents",
+        "snapshot_at",
+        "decision_at",
+        "horizon_end",
+        "max_snapshot_age_seconds",
+        "basis_confirmed",
+        "unresolved_flags",
+        "evidence_refs"
+      ],
+      "properties": {
+        "verified_cash_cents": {
+          "$ref": "#/$defs/money"
+        },
+        "due_liabilities_cents": {
+          "$ref": "#/$defs/money"
+        },
+        "committed_spend_cents": {
+          "$ref": "#/$defs/money"
+        },
+        "minimum_buffer_cents": {
+          "$ref": "#/$defs/money"
+        },
+        "snapshot_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "decision_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "horizon_end": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "max_snapshot_age_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "basis_confirmed": {
+          "type": "boolean"
+        },
+        "unresolved_flags": {
+          "$ref": "#/$defs/strings"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/strings"
+        }
+      }
+    },
+    "transactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "amount_cents",
+          "is_confirmed",
+          "reference_id",
+          "timestamp",
+          "source_description"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "cash_sale",
+              "credit_sale",
+              "credit_collection",
+              "supplier_payment",
+              "operating_payment"
+            ]
+          },
+          "amount_cents": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "is_confirmed": {
+            "type": "boolean"
+          },
+          "reference_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "timestamp": {
+            "$ref": "#/$defs/timestamp"
+          },
+          "source_description": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "source_population": "Cloud",
+  "snapshot_sha": "0e5d23cab3c2621d3678a9cdddb0ef4f299de0d8",
+  "observed_at": "2026-10-12T21:56:50.033Z",
+  "sources": [
+    {
+      "path": "AGENTS.md",
+      "blob_sha": "0ec2c96589a861939ed4e93621f7796a3e12ae08",
+      "url": "https://github.com/RobynAwesome/Introduction-to-MCP/blob/0e5d23cab3c2621d3678a9cdddb0ef4f299de0d8/AGENTS.md",
+      "representation": "utf8_full"
+    },
+    {
+      "path": "Schematics/21-KOPANO-PHU GOVERNACE SYSTEMS/MAIN-BRAIN/Legacy.md",
+      "blob_sha": "ad4b7726dec1bb11af0b1516112af3a10bd44bd3",
+      "url": "https://github.com/RobynAwesome/Introduction-to-MCP/blob/0e5d23cab3c2621d3678a9cdddb0ef4f299de0d8/Schematics/21-KOPANO-PHU%20GOVERNACE%20SYSTEMS/MAIN-BRAIN/Legacy.md",
+      "representation": "utf8_full"
+    },
+    {
+      "path": "NOW.md",
+      "blob_sha": "1251e14afba8f16452f4c5b5362809da121ee61a",
+      "url": "https://github.com/RobynAwesome/Introduction-to-MCP/blob/0e5d23cab3c2621d3678a9cdddb0ef4f299de0d8/NOW.md",
+      "representation": "lines_1_65"
+    },
+    {
+      "path": "skills/pka/economic-consequence/SKILL.md",
+      "blob_sha": "d617950ab0745d6d8c5d6c5f672670d1061b0db4",
+      "url": "https://github.com/RobynAwesome/Introduction-to-MCP/blob/0e5d23cab3c2621d3678a9cdddb0ef4f299de0d8/skills/pka/economic-consequence/SKILL.md",
+      "representation": "utf8_full"
+    },
+    {
+      "path": "skills/pka/stateless-renter-consistency/SKILL.md",
+      "blob_sha": "96d491d9aef18707f76499f148be757588f8de24",
+      "url": "https://github.com/RobynAwesome/Introduction-to-MCP/blob/0e5d23cab3c2621d3678a9cdddb0ef4f299de0d8/skills/pka/stateless-renter-consistency/SKILL.md",
+      "representation": "utf8_full"
+    },
+    {
+      "path": "docs/swarm-ops/BLACK_MASK_COMMANDMENTS.json",
+      "blob_sha": "a509669a97517536cc9da083791665a214cccc86",
+      "url": "https://github.com/RobynAwesome/Introduction-to-MCP/blob/0e5d23cab3c2621d3678a9cdddb0ef4f299de0d8/docs/swarm-ops/BLACK_MASK_COMMANDMENTS.json",
+      "representation": "utf8_full"
+    },
+    {
+      "path": "docs/swarm-ops/KPEFS_FOUR_VECTOR_DOCTRINE.json",
+      "blob_sha": "9de839b9c1c422bb04a3e29f6e8d7d2443888cef",
+      "url": "https://github.com/RobynAwesome/Introduction-to-MCP/blob/0e5d23cab3c2621d3678a9cdddb0ef4f299de0d8/docs/swarm-ops/KPEFS_FOUR_VECTOR_DOCTRINE.json",
+      "representation": "utf8_full"
+    }
+  ],
+  "local_windows": "NOT_ACCESSED",
+  "google_drive": "NOT_ACCESSED",
+  "kc_activation": "NOT_EXECUTED",
+  "cassey_activation": "NOT_EXECUTED",
+  "pka_execution": "NOT_EXECUTED",
+  "economic_validation": "UNPROVEN"
+}

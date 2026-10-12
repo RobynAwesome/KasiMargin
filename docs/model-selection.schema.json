@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KasiMargin model selection v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "fact_ids",
+    "flag_ids",
+    "action_ids"
+  ],
+  "properties": {
+    "fact_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "flag_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "action_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  }
+}
