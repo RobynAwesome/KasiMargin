@@ -1,3 +1,20 @@
+# TypeScript / Flask / local Gemma checkpoint — 2026-10-13
+
+Status: implementation and local runtime recovery in progress.
+
+- Actor: Codex Forge, task implementer under direct owner instruction. `I_AM_STATELESS_RENTER_NOT_LANDLORD`. No identity seat inferred.
+- Worktree: `C:/Users/rkhol/KasiMargin`, branch `codex/typescript-flask-gemma`, base merged `main@737f3b9fc8df3793992168922b61ddf524d225df`. GitHub now shows branding PR #2 MERGED; older OPEN handoffs below are history.
+- Scope: retain approved logo/modes and README; migrate browser source to strict TypeScript and web layer to Flask; install/start local Ollama; run real E2B comparisons on all seven synthetic scenarios; preserve cents, unknowns and output validation.
+- Local code: TypeScript compiles; Flask factory/loopback transport replaces the standard-library handler; strict JSON parsing, local Host/Origin checks, body cap, no-store/CSP and explicit receipt saves retained. 46 regression test methods pass, including new Flask wire parsing and private-trace rejection checks. Generated browser JavaScript and private data are ignored.
+- Runtime recovery: initial inventory found no Ollama installation/process and refused endpoint. Official signed Windows installer completed; CLI version 0.40.3 observed. The local-only service was started, but endpoint readiness is still being diagnosed before any model pull/inference claim.
+- Resources: hardware and machine-specific measurements are private in ignored `local-data/gemma-evaluation/`. E2B Q4_K_M chosen provisionally; E4B deferred until resource headroom is established. No private machine details or raw model output are approved for publication.
+- Evidence boundary: no real inference results yet. Evaluation script is prepared for seven unloaded-model cold calls and two warm repeats per scenario, with private wire/resource traces and a redacted technical receipt. Technical admission does not establish operator comprehension or economic value.
+- Next admissible action: confirm local endpoint readiness, download the explicit E2B quantized tag, record full digest, run real adapter comparisons, repair compatibility with regression tests without weakening gates, then update docs/receipts and owner-review PR. Prepare consented operator comparison separately.
+
+---
+
+## Prior branding and foundation handoffs
+
 # KasiMargin brand checkpoint — 2026-10-13
 
 Status: logo, light/dark modes and README pushed; PR #2 OPEN. Windows request-rejection correction validated locally; final-head provider checks pending.

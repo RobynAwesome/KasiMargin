@@ -57,7 +57,7 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 
 ### 1. Open the checkout
 
-Python **3.10+** is required. There are no third-party Python runtime dependencies.
+Python **3.10+** and Node.js **24+** are required. The local web layer uses Flask; TypeScript compiles to browser JavaScript. The integer-cents engine remains Python.
 
 ```powershell
 cd C:\Users\rkhol\KasiMargin
@@ -70,16 +70,22 @@ git clone https://github.com/RobynAwesome/KasiMargin.git
 cd KasiMargin
 ```
 
-### 2. Validate the prototype
+### 2. Install and build locally
 
 ```powershell
-python -m unittest discover -s tests -v
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -e .
+npm ci
+npm run check
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
+
+Browser source lives in `kasimargin/web/src/*.ts`. The strict compiler writes ignored `kasimargin/web/build/*.js`; rebuild after editing TypeScript. Flask serves only those generated assets and the existing local logo/styles.
 
 ### 3. Start the local demo
 
 ```powershell
-python -m kasimargin --serve
+.\.venv\Scripts\python.exe -m kasimargin --serve
 ```
 
 Open **[http://127.0.0.1:8765](http://127.0.0.1:8765)**. Choose a synthetic scenario, review its records, and calculate the position. Use the **Light / Dark** controls in the header; the preference is stored in this browser. The first visit follows the operating system’s colour preference.
@@ -89,10 +95,10 @@ The app serves its fonts, scripts and images locally without CDNs or analytics. 
 ### 4. Save or reproduce a decision
 
 ```powershell
-python -m kasimargin fixtures/01.json
-python -m kasimargin fixtures/04.json
-python -m kasimargin fixtures/itemized/01.json --save
-python -m kasimargin --verify local-data/decisions/decision-REPLACE_WITH_ACTUAL_ID.json
+.\.venv\Scripts\python.exe -m kasimargin fixtures/01.json
+.\.venv\Scripts\python.exe -m kasimargin fixtures/04.json
+.\.venv\Scripts\python.exe -m kasimargin fixtures/itemized/01.json --save
+.\.venv\Scripts\python.exe -m kasimargin --verify local-data/decisions/decision-REPLACE_WITH_ACTUAL_ID.json
 ```
 
 The CLI accepts a fixture wrapper or raw request JSON. Saving raw requests requires `--data-class SYNTHETIC` or `--data-class OPERATOR_ATTESTED`. Browser saves retain the exact displayed result without rerunning inference. Ordinary calculations do not save records.
@@ -123,7 +129,7 @@ Evaluation candidates: **[Gemma 4 E2B and E4B](https://ollama.com/library/gemma4
 Once Ollama and a candidate are explicitly installed:
 
 ```powershell
-python -m kasimargin fixtures/05.json --model gemma4:e2b
+.\.venv\Scripts\python.exe -m kasimargin fixtures/05.json --model gemma4:e2b-it-q4_K_M
 ```
 
 ```mermaid
@@ -171,7 +177,9 @@ The mode selector uses native buttons with `aria-pressed`, keyboard focus indica
 | `kasimargin/ollama.py` | Optional local inference adapter |
 | `kasimargin/explanations.py` | Selection validation and trusted rendering |
 | `kasimargin/receipts.py` | Explicit private saving and replay |
-| `kasimargin/server.py` | Loopback browser demo |
+| `kasimargin/server.py` | Flask application factory and loopback WSGI server |
+| `kasimargin/web/src/` | Strict TypeScript browser source and API contracts |
+| `kasimargin/web/build/` | Ignored JavaScript emitted by the compiler |
 | `kasimargin/web/` | Logo, theme tokens and browser interface |
 | `fixtures/` | Seven synthetic scenarios |
 | `tests/` | Calculation, reconciliation, model-boundary and receipt checks |
