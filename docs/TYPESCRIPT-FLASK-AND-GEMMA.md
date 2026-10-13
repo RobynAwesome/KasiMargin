@@ -25,6 +25,22 @@ Python 3.10+ and Node 24+ are the tested targets. Flask is pinned in `pyproject.
 
 ## Local model evaluation
 
+Current observed state on October 13: official signed Windows Ollama 0.40.3 is installed, its loopback endpoint responds, and cloud use is disabled. The E2B download failed with insufficient disk space. No installed model or model digest exists; no real inference has run. Task-created failed-pull weights were removed to restore working space. Hardware details and raw diagnostics remain private. The [redacted blocker receipt](receipts/gemma-runtime-blocker-2026-10-13.json) records seven actual endpoint checks that retained the labelled deterministic fallback, including its warnings and unknown/HOLD states.
+
+Free enough owner-selected space to leave **at least 8 GiB available on C:** before retrying. Alternatively, the owner can designate another local volume with that capacity and configure Ollama's model directory there. A remote/cloud endpoint is not an alternative in this experiment. The [official tag catalogue](https://ollama.com/library/gemma4/tags) lists approximately 4.6 GB for E2B Q4_K_M and 6.6 GB for E4B; neither listing establishes measured inference fit.
+
+With the existing loopback service running, retry from PowerShell:
+
+```powershell
+cd C:\Users\rkhol\KasiMargin
+if ((Get-PSDrive C).Free -lt 8GB) { throw 'Free at least 8 GiB on C: before pulling Gemma.' }
+& "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe" pull gemma4:e2b-it-q4_K_M
+if ($LASTEXITCODE -ne 0) { throw 'Model pull failed; do not report inference or a model digest.' }
+.\.venv\Scripts\python.exe scripts/evaluate_local_gemma.py --model gemma4:e2b-it-q4_K_M --repeats 2
+```
+
+The evaluator obtains the full installed digest before any inference. Preserve failures and rejected selections instead of changing the validation gate. A missing model remains an unavailable-runtime fallback, not a rejected model answer.
+
 The selected initial candidate is the official `gemma4:e2b-it-q4_K_M` tag. Alias and larger-model candidates remain explicit choices; cloud tags and remote inference endpoints are not admitted. The adapter uses 4096 context tokens, a 512-token output budget, deterministic seed/temperature settings, and disabled thinking output. The exact installed digest and Ollama version belong in each technical evaluation receipt.
 
 The optional wire observer is for private synthetic evaluation. It never appears in the normal browser response. The evaluator stores raw model responses, model metadata and machine/resource samples under ignored `local-data/gemma-evaluation/`, and publishes only a redacted technical receipt.

@@ -1,0 +1,193 @@
+{
+  "schema_version": "kasimargin-gemma-runtime-blocker-v1",
+  "recorded_at": "2026-10-13T06:59:26.051540+00:00",
+  "user_reported_telemetry_time": "2026-10-13T08:31:00+02:00",
+  "data_class": "SYNTHETIC",
+  "status": "BLOCKED_DISK_CAPACITY",
+  "state_sequence": [
+    {
+      "state": "NOT_INSTALLED",
+      "evidence": "Initial command, registry and executable inspection found no installation; no process; endpoint refused."
+    },
+    {
+      "state": "INSTALLED",
+      "evidence": "Official Windows installer signature validated; installation completed."
+    },
+    {
+      "state": "RUNNING_ENDPOINT_ACCESSIBLE",
+      "evidence": "Loopback /api/version HTTP 200; cloud disabled in service configuration."
+    },
+    {
+      "state": "MODEL_ABSENT",
+      "evidence": "/api/tags HTTP 200 with no installed model; explicit pull failed with insufficient disk space."
+    }
+  ],
+  "ollama_version": "0.40.3",
+  "model_tag": "gemma4:e2b-it-q4_K_M",
+  "model_digest": null,
+  "digest_status": "UNAVAILABLE_MODEL_NOT_INSTALLED",
+  "capacity_decision": {
+    "candidate": "Official E2B Q4_K_M advertised download approximately 4.6 GB",
+    "e4b": "Deferred; advertised approximately 6.6 GB and local resource headroom unestablished",
+    "result": "Pull failed when the local volume had no free space",
+    "cleanup": "Removed only task-created failed-pull weights and zero-completion shard; retained installation and private diagnostic records",
+    "retry_requirement": "At least 8 GiB free on the model volume before retry; includes a working reserve, not a proven inference-fit threshold"
+  },
+  "real_inference_calls": 0,
+  "model_outputs_received": 0,
+  "admitted_model_outputs": 0,
+  "rejected_model_outputs": 0,
+  "model_absence_fallback_checks": 7,
+  "cold_model_latency_seconds": null,
+  "warm_model_latency_seconds": null,
+  "latency_scope": "Per-row times measure deterministic work and installed-model lookup/fallback only; they are not model inference latency",
+  "observations": [
+    {
+      "fixture_id": "01",
+      "scenario": "Profitable day with confirmed cash position",
+      "summary_status": "CALCULATED",
+      "flags": [],
+      "surfaced_fallback_warning_ids": [],
+      "baseline_elapsed_ms": 0.554,
+      "model_absence_check_and_fallback_elapsed_ms": 8.308,
+      "model_output_received": false,
+      "model_output_admitted": false,
+      "fallback_used": true,
+      "baseline_summary_and_selection_unchanged": true,
+      "failure": "MODEL_ABSENT"
+    },
+    {
+      "fixture_id": "02",
+      "scenario": "Low margin with independently constrained cash",
+      "summary_status": "CALCULATED",
+      "flags": [
+        "NO_DISCRETIONARY_HEADROOM"
+      ],
+      "surfaced_fallback_warning_ids": [
+        "NO_DISCRETIONARY_HEADROOM"
+      ],
+      "baseline_elapsed_ms": 0.165,
+      "model_absence_check_and_fallback_elapsed_ms": 4.881,
+      "model_output_received": false,
+      "model_output_admitted": false,
+      "fallback_used": true,
+      "baseline_summary_and_selection_unchanged": true,
+      "failure": "MODEL_ABSENT"
+    },
+    {
+      "fixture_id": "03",
+      "scenario": "Cash shortfall against obligations and protected buffer",
+      "summary_status": "CALCULATED",
+      "flags": [
+        "PROTECTED_CASH_DEFICIT",
+        "NO_DISCRETIONARY_HEADROOM"
+      ],
+      "surfaced_fallback_warning_ids": [
+        "PROTECTED_CASH_DEFICIT",
+        "NO_DISCRETIONARY_HEADROOM"
+      ],
+      "baseline_elapsed_ms": 0.159,
+      "model_absence_check_and_fallback_elapsed_ms": 21.678,
+      "model_output_received": false,
+      "model_output_admitted": false,
+      "fallback_used": true,
+      "baseline_summary_and_selection_unchanged": true,
+      "failure": "MODEL_ABSENT"
+    },
+    {
+      "fixture_id": "04",
+      "scenario": "Missing receipts and unknown cash / liabilities",
+      "summary_status": "HOLD_INSUFFICIENT_DATA",
+      "flags": [
+        "MARGIN_UNKNOWN",
+        "UNKNOWN_VERIFIED_CASH_CENTS",
+        "UNKNOWN_DUE_LIABILITIES_CENTS",
+        "CASH_BASIS_UNCONFIRMED",
+        "MISSING_CASH_EVIDENCE",
+        "UNRESOLVED:MISSING_RECEIPT"
+      ],
+      "surfaced_fallback_warning_ids": [
+        "MARGIN_UNKNOWN",
+        "UNKNOWN_VERIFIED_CASH_CENTS",
+        "UNKNOWN_DUE_LIABILITIES_CENTS",
+        "CASH_BASIS_UNCONFIRMED",
+        "MISSING_CASH_EVIDENCE",
+        "UNRESOLVED:MISSING_RECEIPT"
+      ],
+      "baseline_elapsed_ms": 0.289,
+      "model_absence_check_and_fallback_elapsed_ms": 12.5,
+      "model_output_received": false,
+      "model_output_admitted": false,
+      "fallback_used": true,
+      "baseline_summary_and_selection_unchanged": true,
+      "failure": "MODEL_ABSENT"
+    },
+    {
+      "fixture_id": "05",
+      "scenario": "Uncollected credit sale earns recorded margin without cash",
+      "summary_status": "CALCULATED",
+      "flags": [
+        "CREDIT_SALES_NOT_CASH"
+      ],
+      "surfaced_fallback_warning_ids": [
+        "CREDIT_SALES_NOT_CASH"
+      ],
+      "baseline_elapsed_ms": 0.319,
+      "model_absence_check_and_fallback_elapsed_ms": 5.1,
+      "model_output_received": false,
+      "model_output_admitted": false,
+      "fallback_used": true,
+      "baseline_summary_and_selection_unchanged": true,
+      "failure": "MODEL_ABSENT"
+    },
+    {
+      "fixture_id": "06",
+      "scenario": "Suspected duplicate supplier payment requires human resolution",
+      "summary_status": "HOLD_INSUFFICIENT_DATA",
+      "flags": [
+        "POSSIBLE_DUPLICATE_PAYMENT"
+      ],
+      "surfaced_fallback_warning_ids": [
+        "POSSIBLE_DUPLICATE_PAYMENT"
+      ],
+      "baseline_elapsed_ms": 0.238,
+      "model_absence_check_and_fallback_elapsed_ms": 7.771,
+      "model_output_received": false,
+      "model_output_admitted": false,
+      "fallback_used": true,
+      "baseline_summary_and_selection_unchanged": true,
+      "failure": "MODEL_ABSENT"
+    },
+    {
+      "fixture_id": "itemized-01",
+      "scenario": "Itemized liabilities with a reconciled partial payment",
+      "summary_status": "CALCULATED",
+      "flags": [],
+      "surfaced_fallback_warning_ids": [],
+      "baseline_elapsed_ms": 7.7,
+      "model_absence_check_and_fallback_elapsed_ms": 5.623,
+      "model_output_received": false,
+      "model_output_admitted": false,
+      "fallback_used": true,
+      "baseline_summary_and_selection_unchanged": true,
+      "failure": "MODEL_ABSENT"
+    }
+  ],
+  "prepared_benchmark": {
+    "scenarios": 7,
+    "cold_calls_per_scenario": 1,
+    "warm_calls_per_scenario": 2,
+    "total_planned_calls": 21,
+    "executed": false
+  },
+  "resource_measurements": "Hardware inventory, RAM/GPU/process/disk observations and installation/download failures retained privately",
+  "raw_outputs": "PRIVATE_NOT_PUBLISHED",
+  "comprehension_benefit": "NOT_MEASURED",
+  "operator_trial": "PREPARED_NOT_RUN",
+  "economic_value": "UNPROVEN",
+  "official_sources": [
+    "https://ollama.com/download/windows",
+    "https://docs.ollama.com/windows",
+    "https://ollama.com/library/gemma4/tags"
+  ]
+}
