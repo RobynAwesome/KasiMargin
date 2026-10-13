@@ -94,3 +94,13 @@ class OllamaBoundary(unittest.TestCase):
         for setting in ({"port": True}, {"port": 0}, {"timeout": float("nan")}, {"timeout": 500}):
             with self.subTest(setting=setting):
                 with self.assertRaises(ValueError): LocalOllama(**setting)
+
+    def test_private_trace_records_transport_without_bypassing_selection_gate(self):
+        records = []
+        client = LocalOllama(port=self.server.server_port, timeout=2, trace=records.append)
+        self.server.output = json.dumps({**self.selection, "advice": "Spend R9000"})
+        result = decision(self.request, MODEL, client)
+        self.assertEqual(result["inference"]["status"], "REJECTED_OR_UNAVAILABLE")
+        self.assertTrue(any(row["path"] == "/api/chat" and "Spend R9000" in row["raw_response"] for row in records))
+        self.assertNotIn("Spend R9000", result["explanation"])
+        self.assertEqual(self.server.calls[0]["options"]["num_ctx"], 4096)

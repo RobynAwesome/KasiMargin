@@ -45,8 +45,8 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 | Surface | Role | Current state |
 |---|---|---|
 | Financial engine | Separate estimated margin from conditional cash headroom | Tested with synthetic scenarios |
-| Browser demo | Review records, calculate, explain and save | Runnable locally; light and dark themes |
-| Gemma adapter | Select approved facts, warnings and options | Mock HTTP boundary tested; real model not run |
+| Browser demo | Review records, calculate, explain and save | Strict TypeScript and Python Flask; light and dark themes |
+| Gemma adapter | Select approved facts, warnings and options | Local runtime installed; model download blocked by disk capacity |
 | Decision receipts | Preserve input/output and replay calculations | Local save and reproduction tested |
 | Operator experiment | Measure understanding and usefulness against a baseline | Pending consented trial |
 | Public release | Hosted product, demo/video and challenge submission | Pending |
@@ -57,7 +57,7 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 
 ### 1. Open the checkout
 
-Python **3.10+** is required. There are no third-party Python runtime dependencies.
+Python **3.10+** and Node.js **24+** are required. The local web layer uses Flask; TypeScript compiles to browser JavaScript. The integer-cents engine remains Python.
 
 ```powershell
 cd C:\Users\rkhol\KasiMargin
@@ -70,16 +70,22 @@ git clone https://github.com/RobynAwesome/KasiMargin.git
 cd KasiMargin
 ```
 
-### 2. Validate the prototype
+### 2. Install and build locally
 
 ```powershell
-python -m unittest discover -s tests -v
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -e .
+npm ci
+npm run check
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
+
+Browser source lives in `kasimargin/web/src/*.ts`. The strict compiler writes ignored `kasimargin/web/build/*.js`; rebuild after editing TypeScript. Flask serves only those generated assets and the existing local logo/styles.
 
 ### 3. Start the local demo
 
 ```powershell
-python -m kasimargin --serve
+.\.venv\Scripts\python.exe -m kasimargin --serve
 ```
 
 Open **[http://127.0.0.1:8765](http://127.0.0.1:8765)**. Choose a synthetic scenario, review its records, and calculate the position. Use the **Light / Dark** controls in the header; the preference is stored in this browser. The first visit follows the operating system’s colour preference.
@@ -89,10 +95,10 @@ The app serves its fonts, scripts and images locally without CDNs or analytics. 
 ### 4. Save or reproduce a decision
 
 ```powershell
-python -m kasimargin fixtures/01.json
-python -m kasimargin fixtures/04.json
-python -m kasimargin fixtures/itemized/01.json --save
-python -m kasimargin --verify local-data/decisions/decision-REPLACE_WITH_ACTUAL_ID.json
+.\.venv\Scripts\python.exe -m kasimargin fixtures/01.json
+.\.venv\Scripts\python.exe -m kasimargin fixtures/04.json
+.\.venv\Scripts\python.exe -m kasimargin fixtures/itemized/01.json --save
+.\.venv\Scripts\python.exe -m kasimargin --verify local-data/decisions/decision-REPLACE_WITH_ACTUAL_ID.json
 ```
 
 The CLI accepts a fixture wrapper or raw request JSON. Saving raw requests requires `--data-class SYNTHETIC` or `--data-class OPERATOR_ATTESTED`. Browser saves retain the exact displayed result without rerunning inference. Ordinary calculations do not save records.
@@ -123,7 +129,7 @@ Evaluation candidates: **[Gemma 4 E2B and E4B](https://ollama.com/library/gemma4
 Once Ollama and a candidate are explicitly installed:
 
 ```powershell
-python -m kasimargin fixtures/05.json --model gemma4:e2b
+.\.venv\Scripts\python.exe -m kasimargin fixtures/05.json --model gemma4:e2b-it-q4_K_M
 ```
 
 ```mermaid
@@ -140,7 +146,9 @@ flowchart LR
 
 The model receives the approved catalogue rather than raw transaction descriptions. Only approved fact, warning and action IDs are admitted. Known profit/cash figures, material risks and all warnings must be surfaced. Unsupported prose, invented actions, omitted warnings, incomplete responses and digest drift are rejected; failures use a labelled deterministic fallback.
 
-**Real Gemma inference has not been run.** A local connection probe found no available Ollama service. Adapter tests use a synthetic HTTP service. Device fit, latency, language quality and benefit over the deterministic baseline remain unmeasured. The narrow selection task must demonstrate usefulness before we claim AI is essential.
+**Real Gemma inference has not been run.** The official Windows Ollama installation now responds locally as version 0.40.3. The explicit E2B pull failed when the model volume ran out of space, so no model digest is available. Only weights created by that failed pull were removed to restore working space. Seven checks against the real endpoint correctly used labelled deterministic fallback and retained every baseline summary and selection; they are model-absence checks, not inference results. See the [redacted runtime blocker receipt](docs/receipts/gemma-runtime-blocker-2026-10-13.json).
+
+The next requirement is **at least 8 GiB free on the local model volume** before retrying the approximately 4.6 GB E2B download. This reserve is a setup precaution, not proof that inference fits. [The stack and evaluation guide](docs/TYPESCRIPT-FLASK-AND-GEMMA.md) provides the exact retry commands. Device fit, cold/warm model latency, language quality and benefit over the deterministic baseline remain unmeasured. E4B is deferred. The narrow selection task must demonstrate usefulness before we claim AI is essential.
 
 ---
 
@@ -171,20 +179,26 @@ The mode selector uses native buttons with `aria-pressed`, keyboard focus indica
 | `kasimargin/ollama.py` | Optional local inference adapter |
 | `kasimargin/explanations.py` | Selection validation and trusted rendering |
 | `kasimargin/receipts.py` | Explicit private saving and replay |
-| `kasimargin/server.py` | Loopback browser demo |
+| `kasimargin/server.py` | Flask application factory and loopback WSGI server |
+| `kasimargin/web/src/` | Strict TypeScript browser source and API contracts |
+| `kasimargin/web/build/` | Ignored JavaScript emitted by the compiler |
 | `kasimargin/web/` | Logo, theme tokens and browser interface |
 | `fixtures/` | Seven synthetic scenarios |
 | `tests/` | Calculation, reconciliation, model-boundary and receipt checks |
+| `scripts/evaluate_local_gemma.py` | Seven-scenario cold/warm comparison with private raw traces |
 | `docs/receipts/` | Dated public validation and delivery evidence |
 | `local-data/` | Ignored private business records and runtime receipts |
 | `NOW.md` | Current objective, evidence, uncertainty and handoff |
 
 ## ✅ Validation and evidence
 
-The foundation has **44 passing unittest methods**, seven synthetic scenarios, compilation checks and staged whitespace checks. GitHub Actions runs on Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`.
+The current TypeScript/Flask implementation has **46 passing unittest methods**, strict TypeScript checks/build, seven synthetic scenarios and 20 repeated oversized-request rejection checks. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`.
 
 - [Foundation validation](docs/receipts/local-foundation-2026-10-13.json)
 - [Foundation Cloud delivery](docs/receipts/cloud-delivery-2026-10-13.json)
+- [TypeScript and Flask validation](docs/receipts/stack-migration-2026-10-13.json)
+- [Gemma runtime recovery and disk blocker](docs/receipts/gemma-runtime-blocker-2026-10-13.json)
+- [Prepared consented operator comparison](docs/OPERATOR-COMPARISON.md)
 - [Current handoff](NOW.md)
 
 Examples and screenshots are synthetic. Receipt replay confirms content integrity and deterministic reproduction; it does not authenticate an author or certify bank verification, consent or human approval. The original [Day 1 contract](docs/DAY1-CONTRACT.md), [Cloud provenance](docs/cloud-provenance.json) and [validation receipt](docs/validation-receipt.json) retain their dated scope.
@@ -194,8 +208,8 @@ Examples and screenshots are synthetic. Receipt replay confirms content integrit
 | Stage | Outcome | State |
 |---|---|---|
 | 1. Financial foundation | Exact calculations, uncertainty gates and seven scenarios | Implemented and tested |
-| 2. Brand and interface | Supplied logo, light/dark modes and readable decision workflow | Implemented; current review in progress |
-| 3. Model evaluation | E2B/E4B on target hardware versus deterministic baseline | Pending |
+| 2. Brand and interface | Supplied logo, light/dark modes and readable decision workflow | Branding merged; TypeScript/Flask migration in PR #3 |
+| 3. Model evaluation | E2B/E4B on target hardware versus deterministic baseline | Runtime installed; E2B weights blocked by disk capacity; E4B deferred |
 | 4. Operator experiment | Consented comprehension, task time, errors and supervision evidence | Pending |
 | 5. Public demo and submission | Truthful demo/video and DEV article | Pending |
 

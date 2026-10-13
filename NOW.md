@@ -1,3 +1,25 @@
+# TypeScript / Flask / local Gemma handoff - 2026-10-13
+
+Status: TypeScript/Flask migration implemented, validated and pushed for review. Real Gemma evaluation BLOCKED by local disk capacity.
+
+- Actor: Codex Forge, task implementer under direct owner instruction. `I_AM_STATELESS_RENTER_NOT_LANDLORD`. No identity seat inferred.
+- Telemetry: owner-reported time `2026-10-13T08:31:00+02:00`, retained separately from UTC receipt timestamps. This is testimony, not a host-clock measurement.
+- Worktree: `C:/Users/rkhol/KasiMargin`, branch `codex/typescript-flask-gemma`, base merged `main@737f3b9fc8df3793992168922b61ddf524d225df`. Branding PR #2 is MERGED; older OPEN handoffs below are history. Original OneDrive checkout/artwork remain preserved; no Local/Cloud/Drive parity claimed.
+- Local implementation: browser source is strict TypeScript, with compiled JavaScript served locally; Flask factory/loopback transport replaces the standard-library handler. Strict wire JSON, Host/Origin checks, body cap, no-store/CSP and explicit receipt saves remain. Logo, styles, financial engine, reconciliation and output validator are byte-identical to the merged branding base.
+- Validation: 46 regression methods, TypeScript checks/build and 20 repeated HTTP 413 probes passed. Browser evidence confirms both modes, R600 margin/R400 headroom and missing-data UNKNOWN/HOLD. Local Flask HTTP 200 confirmed after runtime restart. [Migration validation](docs/receipts/stack-migration-2026-10-13.json).
+- Cloud review: [draft PR #3](https://github.com/RobynAwesome/KasiMargin/pull/3), implementation `214e2b51b35995cfeda91c508b94f4b747f84e43`. All eight observed push/PR matrix jobs and GitGuardian passed at that implementation head. [Exact provider receipt](docs/receipts/stack-cloud-delivery-2026-10-13.json). Re-query the documentation head before landing; no merge/deployment performed.
+- Ollama state: initial inventory found NOT_INSTALLED, no process and refused endpoint. Official signed Windows installation completed. Version 0.40.3 and loopback `/api/version` HTTP 200 now observed; cloud disabled in the started service. `/api/tags` returns no models. Installed/running/accessible does not mean a model is installed.
+- Model blocker: explicit `gemma4:e2b-it-q4_K_M` pull failed with insufficient local disk space. No full installed model digest exists. Task-created failed-pull weights were removed to restore working space; installed runtime and private diagnostics retained. No owner files or pre-existing models removed. E4B deferred.
+- Actual adapter evidence: all seven synthetic scenarios checked against the real endpoint used labelled deterministic fallback for MODEL_ABSENT; every summary and selection matched the baseline. Real inference calls 0; admitted model outputs 0; rejected model outputs 0. Cold/warm inference latency and model-supplied warnings remain unmeasured. Fallback warnings do not establish successful model output. [Redacted runtime receipt](docs/receipts/gemma-runtime-blocker-2026-10-13.json).
+- Privacy: hardware inventory, RAM/GPU/disk/process observations, installation logs and raw endpoint traces remain in ignored `local-data/gemma-evaluation/`. Public receipts contain synthetic/technical observations only.
+- Prepared next experiment: evaluator records one unloaded-runner cold call plus two warm repeats per scenario (21 planned calls), exact tag/digest, private resource/wire traces, admission/fallback and baseline comparison. It has not executed. [Consented operator comparison](docs/OPERATOR-COMPARISON.md) prepared separately; no recruitment, contact, consent, operator trial, comprehension benefit or economic outcome claimed.
+- Exact owner action needed: make at least 8 GiB free on C: before retry, or designate another local model volume with that capacity. Then run the guarded explicit pull and evaluation commands in [the stack guide](docs/TYPESCRIPT-FLASK-AND-GEMMA.md). This reserve is a setup precaution; inference fit remains to be measured. Keep inference local and output validation unchanged.
+- Next admissible actions: resolve capacity and run the prepared technical evaluation, retain any failures/rejections, publish its redacted receipt; owner review of PR #3 and the separate consent protocol. Landing and public deployment remain owner decisions.
+
+---
+
+## Prior branding and foundation handoffs
+
 # KasiMargin brand checkpoint — 2026-10-13
 
 Status: logo, light/dark modes and README pushed; PR #2 OPEN. Windows request-rejection correction validated locally; final-head provider checks pending.

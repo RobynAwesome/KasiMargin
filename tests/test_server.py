@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 from threading import Thread
 import unittest
-from kasimargin.server import make_server
+from kasimargin.server import make_server, create_app
 from kasimargin.receipts import verify
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -91,3 +91,14 @@ class LocalDemo(unittest.TestCase):
         self.assertEqual(self.call("POST", "/api/decision", raw="x"*262145)[0], 413)
         payload = self.payload(); payload["model"] = "gemma4:cloud"
         self.assertEqual(self.call("POST", "/api/decision", payload)[0], 400)
+
+    def test_flask_factory_keeps_strict_wire_json_and_size_gate(self):
+        client = create_app(self.directory.name).test_client()
+        raw = json.dumps(self.payload())
+        raw = raw[:-1] + ',"model":"gemma4:cloud"}'
+        rejected = client.post("/api/decision", base_url="http://127.0.0.1:8765", data=raw, content_type="application/json")
+        self.assertEqual(rejected.status_code, 400)
+        oversized = client.post("/api/decision", base_url="http://127.0.0.1:8765", data=b"x"*262145, content_type="application/json")
+        self.assertEqual(oversized.status_code, 413)
+        health = client.get("/health", base_url="http://127.0.0.1:8765")
+        self.assertEqual(health.json["framework"], "Flask")

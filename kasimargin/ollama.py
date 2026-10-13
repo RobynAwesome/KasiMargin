@@ -5,7 +5,7 @@ from time import perf_counter
 from .explanations import catalogue, validate_selection
 from .jsonio import loads
 
-MODELS = ("gemma4:e2b", "gemma4:e4b")
+MODELS = ("gemma4:e2b-it-q4_K_M", "gemma4:e2b", "gemma4:e4b")
 MAX_RESPONSE_BYTES = 262144
 
 
@@ -14,12 +14,13 @@ class ModelUnavailable(ValueError):
 
 
 class LocalOllama:
-    def __init__(self, port=11434, timeout=90):
+    def __init__(self, port=11434, timeout=90, trace=None):
         if type(port) is not int or not 1 <= port <= 65535:
             raise ValueError("port must be an integer from 1 to 65535")
         if type(timeout) not in (int, float) or not 0 < timeout <= 300:
             raise ValueError("timeout must be between 0 and 300 seconds")
         self.port, self.timeout = port, timeout
+        self.trace = trace
 
     def _request(self, method, path, payload=None):
         connection = HTTPConnection("127.0.0.1", self.port, timeout=self.timeout)
@@ -28,6 +29,9 @@ class LocalOllama:
             connection.request(method, path, body=body, headers={"Content-Type": "application/json"})
             response = connection.getresponse()
             raw = response.read(MAX_RESPONSE_BYTES + 1)
+            if self.trace is not None:
+                self.trace({"method": method, "path": path, "request": payload,
+                            "status": response.status, "raw_response": raw.decode("utf-8", errors="replace")})
             if response.status != 200:
                 raise ModelUnavailable(f"local Ollama returned HTTP {response.status}")
             if len(raw) > MAX_RESPONSE_BYTES:
@@ -75,9 +79,9 @@ class LocalOllama:
         started = perf_counter()
         response = self._request("POST", "/api/chat", {
             "model": model, "stream": False, "think": False, "format": schema,
-            "options": {"temperature": 0, "num_predict": 512}, "keep_alive": "5m",
+            "options": {"temperature": 0, "seed": 0, "num_predict": 512, "num_ctx": 4096}, "keep_alive": "5m",
             "messages": [
-                {"role": "system", "content": "Select catalogue IDs to help an operator understand profit versus cash. Return only the selection JSON. Include every required flag and the cash_headroom fact when available. Choose only approved action options; never invent amounts or add advice. The renderer supplies all financial values."},
+                {"role": "system", "content": "Select catalogue IDs to help an operator understand profit versus cash. Return only the selection JSON. Include operating_margin and cash_headroom whenever available. Include protected_cash_deficit for a nonzero shortfall and receivables_delta when credit sales are flagged. Include every required flag exactly once. Choose only approved action options; never invent amounts or add advice. The renderer supplies all financial values."},
                 {"role": "user", "content": json.dumps({"status": summary["status"], "catalogue": allowed}, allow_nan=False)},
             ],
         })
