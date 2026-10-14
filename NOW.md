@@ -2,6 +2,8 @@
 
 Status: local E2B technical run COMPLETE; TypeScript/Flask migration is MERGED through PR #3 at main 5a0326a45f91f0bde7485e16bc1e1e4a3233f3f9 (provider observation, merge time 2026-10-13T23:28:13Z). Evaluation/resume/calendar follow-up prepared on codex/gemma-evaluation-calendar; owner controls landing.
 
+- Delivery: [PR #4](https://github.com/RobynAwesome/KasiMargin/pull/4) OPEN, implementation head 7cdc2784ee3339fce68a5e64a4edef74a5bd6b82 pushed. All nine observed provider checks succeeded at that head (eight push/PR matrix jobs plus GitGuardian). [Provider receipt](docs/receipts/gemma-calendar-cloud-delivery-2026-10-14.json). Re-query the final documentation head before landing. Local Flask HTTP 200 and explicit installed E2B tag re-confirmed after evaluation.
+
 - Actor: Codex Forge. `I_AM_STATELESS_RENTER_NOT_LANDLORD`; stateless task implementer, no RTC seat inferred.
 - Runtime: explicit `gemma4:e2b-it-q4_K_M`, digest `b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2`, Ollama `0.40.3`; local loopback, cloud disabled. Installed, running, accessible and model-present states separately verified. Prior disk blocker is superseded by this receipt, not erased.
 - Actual inference: all seven synthetic scenarios, 21 recorded completed comparisons across two segments: 21/21 admitted, 0 rejected model outputs, 0 fallback results, 0 unavailable or malformed responses. 18/21 admitted selections equal the deterministic baseline; every financial summary and required warning retained. First segment stopped after 15; cause UNKNOWN. One resume preflight failed with refused local endpoint, then services restarted. Additional interrupted activity has no captured response and remains UNKNOWN. Cold unload confirmed per scenario. [Receipt](docs/receipts/gemma-evaluation-20261013T222027Z.json).
@@ -11,7 +13,7 @@ Status: local E2B technical run COMPLETE; TypeScript/Flask migration is MERGED t
 - Preserved: exact cents, UNKNOWN/HOLD, strict output validator, original logo and light/dark modes. All 49 regressions and strict TypeScript check/build pass. No user application uninstalled or closed; no source, user records, security tools or Git history deleted.
 - Limits: technical admission does not establish comprehension benefit, language quality or economic value. No operator trial, recruitment, consent or deployment claimed. PR #3 merge is provider-observed; this actor did not merge it. Local, Cloud and Drive populations remain separate.
 - Calendar task binding: [Day 1/Day 2 acceptance checklist](docs/CALENDAR-DELIVERABLES.md). Scheduled work is a deliverable with tests and exact delivery evidence; outstanding contract mapping and transaction-entry work stay visible. No calendar item marked complete.
-- Next admissible action: deliver the evaluation/calendar follow-up through existing CI; complete the calendar checklist gaps in order, then the separate [consented operator comparison](docs/OPERATOR-COMPARISON.md). Preserve findings even if AI adds no benefit. Owner reviews landing.
+- Next admissible action: verify final PR #4 head/checks and owner review; complete the calendar checklist gaps in order, then the separate [consented operator comparison](docs/OPERATOR-COMPARISON.md). Preserve findings even if AI adds no benefit. Owner reviews landing.
 
 ---
 

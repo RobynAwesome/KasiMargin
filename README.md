@@ -200,6 +200,8 @@ The current TypeScript/Flask implementation has **46 passing unittest methods**,
 - [Foundation Cloud delivery](docs/receipts/cloud-delivery-2026-10-13.json)
 - [TypeScript and Flask validation](docs/receipts/stack-migration-2026-10-13.json)
 - [Real local Gemma technical comparison](docs/GEMMA-TECHNICAL-EVALUATION.md)
+- [Calendar deliverables and delivery checks](docs/CALENDAR-DELIVERABLES.md)
+- [Evaluation/calendar provider receipt](docs/receipts/gemma-calendar-cloud-delivery-2026-10-14.json)
 - [Partial storage recovery](docs/receipts/storage-recovery-2026-10-13.json)
 - [Historical Gemma runtime recovery and disk blocker](docs/receipts/gemma-runtime-blocker-2026-10-13.json)
 - [Prepared consented operator comparison](docs/OPERATOR-COMPARISON.md)

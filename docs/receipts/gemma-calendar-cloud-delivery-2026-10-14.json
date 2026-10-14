@@ -1,0 +1,68 @@
+{
+  "schema_version": "kasimargin-followup-cloud-delivery-v1",
+  "recorded_at": "2026-10-14T09:48:54.610502+00:00",
+  "pull_request": "https://github.com/RobynAwesome/KasiMargin/pull/4",
+  "observed_head": "7cdc2784ee3339fce68a5e64a4edef74a5bd6b82",
+  "observed_state": "OPEN",
+  "checks": [
+    {
+      "name": "ubuntu-latest / Python 3.10",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38544810221/job/115788128325"
+    },
+    {
+      "name": "ubuntu-latest / Python 3.10",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38544798065/job/115788078332"
+    },
+    {
+      "name": "ubuntu-latest / Python 3.14",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38544810221/job/115788127957"
+    },
+    {
+      "name": "ubuntu-latest / Python 3.14",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38544798065/job/115788078456"
+    },
+    {
+      "name": "windows-latest / Python 3.10",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38544810221/job/115788128969"
+    },
+    {
+      "name": "windows-latest / Python 3.10",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38544798065/job/115788078389"
+    },
+    {
+      "name": "windows-latest / Python 3.14",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38544810221/job/115788128569"
+    },
+    {
+      "name": "windows-latest / Python 3.14",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38544798065/job/115788078036"
+    },
+    {
+      "name": "GitGuardian Security Checks",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "url": "https://dashboard.gitguardian.com"
+    }
+  ],
+  "local_regression_methods": 49,
+  "technical_comparisons_recorded": 21,
+  "technical_outputs_admitted": 21,
+  "scope": "Exact implementation-head provider checks; re-query subsequent documentation head before landing",
+  "merge_or_deployment_by_actor": false
+}
