@@ -1,5 +1,7 @@
 # Local foundation contract — 2026-10-13
 
+Current-state addendum — October 14: TypeScript/Flask migration is merged through PR #3. Real E2B execution completed 21 recorded comparisons over seven synthetic scenarios, with 21 admitted outputs. The interrupted segment and failed resume preflight are retained in the [technical comparison](GEMMA-TECHNICAL-EVALUATION.md). The scope below describes the original foundation; its model-not-run statement is historical. [Calendar acceptance gaps](CALENDAR-DELIVERABLES.md), operator benefit and formal governance-engine integration remain open. Root NOW.md records current state.
+
 This document describes the executable 0.2.0 prototype. `DAY1-CONTRACT.md`, `cloud-provenance.json` and `validation-receipt.json` are preserved historical artifacts. Their October 12 environment assertions are not current runtime or repository truth.
 
 ## Input versions and financial checks

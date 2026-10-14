@@ -1,0 +1,28 @@
+{
+  "schema_version": "kasimargin-gemma-source-validation-v1",
+  "recorded_at": "2026-10-14T09:41:27.114505+00:00",
+  "evaluated_base_commit": "abb6e725379b7f2e9e8c5f39ec4cb203c549637e",
+  "initial_segment_source_sha256": {
+    "scripts/evaluate_local_gemma.py": "a80349681e11699507dd493f61429857613d42871c20683ac334c39baa47c100",
+    "kasimargin/ollama.py": "af78197ba290e0132660b26ec10846865b182e0c840f681c9e1cb2c7c6f22f2c",
+    "kasimargin/workflow.py": "e65525a4257817fd96031b492e506f9a7dec62a3decd6d115b013cd8f0dd8c1e",
+    "kasimargin/explanations.py": "f869b269614f531a8c3d747314ddf91833672e9ece932de8a528f74653dc22be",
+    "kasimargin/engine.py": "52e83d3ac070f43ccf5b1422d46e4d8898474d56a982f9852b0f59cab3786395",
+    "kasimargin/obligations.py": "ab3fbc02cf731b4d31989f67e44785074cf3e50d9dc770956a25dbf057b16a71"
+  },
+  "resumed_segment_source_sha256": {
+    "scripts/evaluate_local_gemma.py": "15a364e19c7c10d95aa6af7ba5c1553f6444340ec94ec3dbde4634d7887ed6bb",
+    "kasimargin/ollama.py": "af78197ba290e0132660b26ec10846865b182e0c840f681c9e1cb2c7c6f22f2c",
+    "kasimargin/workflow.py": "e65525a4257817fd96031b492e506f9a7dec62a3decd6d115b013cd8f0dd8c1e",
+    "kasimargin/explanations.py": "f869b269614f531a8c3d747314ddf91833672e9ece932de8a528f74653dc22be",
+    "kasimargin/engine.py": "52e83d3ac070f43ccf5b1422d46e4d8898474d56a982f9852b0f59cab3786395",
+    "kasimargin/obligations.py": "ab3fbc02cf731b4d31989f67e44785074cf3e50d9dc770956a25dbf057b16a71"
+  },
+  "technical_receipt_sha256": "39448a91000a114ff8255b4f93e90a659200fe2e64813d3aab3692c051565b98",
+  "regression_methods_passed": 49,
+  "strict_typescript_check_and_build": "PASS",
+  "output_validator_changed": false,
+  "raw_outputs": "PRIVATE_NOT_PUBLISHED",
+  "scope": "Synthetic technical evaluation across recorded run segments; owner review required for landing",
+  "receipt_redaction_addendum": "Clarifies sampling cadence and retained interruption/preflight/approval observations; outcome and timing values unchanged"
+}

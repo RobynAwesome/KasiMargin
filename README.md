@@ -16,7 +16,7 @@
 >
 > KasiMargin helps an owner-operated township micro-enterprise understand estimated operating margin, protect recorded obligations, and see when cash headroom is still unknown.
 >
-> **Current stage: runnable local prototype.** Synthetic calculation and adapter tests are established; real Gemma inference and operator outcomes remain unmeasured.
+> **Current stage: runnable local prototype.** Synthetic calculation and real local E2B output admission are established; operator understanding and economic outcomes remain unmeasured.
 
 [Quick start](#-quick-start) · [Capabilities](#-key-capabilities) · [Design system](#-design-system) · [Evidence](#-validation-and-evidence) · [Roadmap](#-roadmap)
 
@@ -46,7 +46,7 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 |---|---|---|
 | Financial engine | Separate estimated margin from conditional cash headroom | Tested with synthetic scenarios |
 | Browser demo | Review records, calculate, explain and save | Strict TypeScript and Python Flask; light and dark themes |
-| Gemma adapter | Select approved facts, warnings and options | Local runtime installed; model download blocked by disk capacity |
+| Gemma adapter | Select approved facts, warnings and options | Local E2B installed; 21/21 synthetic outputs admitted |
 | Decision receipts | Preserve input/output and replay calculations | Local save and reproduction tested |
 | Operator experiment | Measure understanding and usefulness against a baseline | Pending consented trial |
 | Public release | Hosted product, demo/video and challenge submission | Pending |
@@ -146,9 +146,11 @@ flowchart LR
 
 The model receives the approved catalogue rather than raw transaction descriptions. Only approved fact, warning and action IDs are admitted. Known profit/cash figures, material risks and all warnings must be surfaced. Unsupported prose, invented actions, omitted warnings, incomplete responses and digest drift are rejected; failures use a labelled deterministic fallback.
 
-**Real Gemma inference has not been run.** The official Windows Ollama installation now responds locally as version 0.40.3. The explicit E2B pull failed when the model volume ran out of space, so no model digest is available. Only weights created by that failed pull were removed to restore working space. Seven checks against the real endpoint correctly used labelled deterministic fallback and retained every baseline summary and selection; they are model-absence checks, not inference results. See the [redacted runtime blocker receipt](docs/receipts/gemma-runtime-blocker-2026-10-13.json).
+**Real local Gemma inference has completed on all seven synthetic scenarios.** One unloaded-runner cold call and two warm repeats per scenario produced 21/21 admitted, 0 rejected model outputs, 0 fallback results, 0 unavailable or malformed responses. Every deterministic financial summary and required warning was preserved; 18/21 model selections matched the baseline exactly.
 
-The next requirement is **at least 8 GiB free on the local model volume** before retrying the approximately 4.6 GB E2B download. This reserve is a setup precaution, not proof that inference fits. [The stack and evaluation guide](docs/TYPESCRIPT-FLASK-AND-GEMMA.md) provides the exact retry commands. Device fit, cold/warm model latency, language quality and benefit over the deterministic baseline remain unmeasured. E4B is deferred. The narrow selection task must demonstrate usefulness before we claim AI is essential.
+Cold attempts: 56.34-294.94 seconds, median 89.23. Warm attempts: 2.74-42.22 seconds, median 5.00. Low available RAM was observed on the busy machine. The evaluator used a 300-second socket timeout; normal app requests retain 90 seconds and may fall back on a slow cold load. See the [redacted technical comparison](docs/GEMMA-TECHNICAL-EVALUATION.md) and [exact tag/digest receipt](docs/receipts/gemma-evaluation-20261013T222027Z.json). Raw outputs and machine details remain private.
+
+The earlier disk failure is preserved in the [historical blocker receipt](docs/receipts/gemma-runtime-blocker-2026-10-13.json). Supported maintenance enabled the retry, but the requested 24 GiB working reserve was not reached; estate cleanup is closed under the owner's direction. E4B remains deferred. Technical admission and agreement with the baseline do not establish better understanding or economic value; [the consented operator comparison](docs/OPERATOR-COMPARISON.md) is the next separate experiment.
 
 ---
 
@@ -197,7 +199,9 @@ The current TypeScript/Flask implementation has **46 passing unittest methods**,
 - [Foundation validation](docs/receipts/local-foundation-2026-10-13.json)
 - [Foundation Cloud delivery](docs/receipts/cloud-delivery-2026-10-13.json)
 - [TypeScript and Flask validation](docs/receipts/stack-migration-2026-10-13.json)
-- [Gemma runtime recovery and disk blocker](docs/receipts/gemma-runtime-blocker-2026-10-13.json)
+- [Real local Gemma technical comparison](docs/GEMMA-TECHNICAL-EVALUATION.md)
+- [Partial storage recovery](docs/receipts/storage-recovery-2026-10-13.json)
+- [Historical Gemma runtime recovery and disk blocker](docs/receipts/gemma-runtime-blocker-2026-10-13.json)
 - [Prepared consented operator comparison](docs/OPERATOR-COMPARISON.md)
 - [Current handoff](NOW.md)
 
@@ -209,7 +213,7 @@ Examples and screenshots are synthetic. Receipt replay confirms content integrit
 |---|---|---|
 | 1. Financial foundation | Exact calculations, uncertainty gates and seven scenarios | Implemented and tested |
 | 2. Brand and interface | Supplied logo, light/dark modes and readable decision workflow | Branding merged; TypeScript/Flask migration in PR #3 |
-| 3. Model evaluation | E2B/E4B on target hardware versus deterministic baseline | Runtime installed; E2B weights blocked by disk capacity; E4B deferred |
+| 3. Model evaluation | E2B/E4B on target hardware versus deterministic baseline | E2B technical run complete on seven synthetic scenarios; E4B deferred |
 | 4. Operator experiment | Consented comprehension, task time, errors and supervision evidence | Pending |
 | 5. Public demo and submission | Truthful demo/video and DEV article | Pending |
 

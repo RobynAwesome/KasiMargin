@@ -25,9 +25,9 @@ Python 3.10+ and Node 24+ are the tested targets. Flask is pinned in `pyproject.
 
 ## Local model evaluation
 
-Current observed state on October 13: official signed Windows Ollama 0.40.3 is installed, its loopback endpoint responds, and cloud use is disabled. The E2B download failed with insufficient disk space. No installed model or model digest exists; no real inference has run. Task-created failed-pull weights were removed to restore working space. Hardware details and raw diagnostics remain private. The [redacted blocker receipt](receipts/gemma-runtime-blocker-2026-10-13.json) records seven actual endpoint checks that retained the labelled deterministic fallback, including its warnings and unknown/HOLD states.
+Current observed state: official Windows Ollama 0.40.3 runs on loopback with cloud disabled; explicit `gemma4:e2b-it-q4_K_M` is installed with digest `b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2`. All seven scenarios completed one cold and two warm calls. Result: 21/21 admitted, 0 rejected model outputs, 0 fallback results, 0 unavailable or malformed responses. [Technical comparison](GEMMA-TECHNICAL-EVALUATION.md). Raw outputs and machine/resource details remain private.
 
-Free enough owner-selected space to leave **at least 8 GiB available on C:** before retrying. Alternatively, the owner can designate another local volume with that capacity and configure Ollama's model directory there. A remote/cloud endpoint is not an alternative in this experiment. The [official tag catalogue](https://ollama.com/library/gemma4/tags) lists approximately 4.6 GB for E2B Q4_K_M and 6.6 GB for E4B; neither listing establishes measured inference fit.
+The original disk failure and model-absence fallback checks remain in the [historical blocker receipt](receipts/gemma-runtime-blocker-2026-10-13.json). Partial supported maintenance enabled the retry; the requested 24 GiB reserve was not achieved and no further estate cleanup is running. For a fresh setup, leave at least 8 GiB free before the approximately 4.6 GB E2B download. This is a setup threshold, not a guaranteed post-download reserve or inference fit. E4B is deferred.
 
 With the existing loopback service running, retry from PowerShell:
 

@@ -1,3 +1,35 @@
+# KasiMargin technical evaluation completed - 2026-10-14
+
+Status: local E2B technical run COMPLETE; TypeScript/Flask migration is MERGED through PR #3 at main 5a0326a45f91f0bde7485e16bc1e1e4a3233f3f9 (provider observation, merge time 2026-10-13T23:28:13Z). Evaluation/resume/calendar follow-up prepared on codex/gemma-evaluation-calendar; owner controls landing.
+
+- Actor: Codex Forge. `I_AM_STATELESS_RENTER_NOT_LANDLORD`; stateless task implementer, no RTC seat inferred.
+- Runtime: explicit `gemma4:e2b-it-q4_K_M`, digest `b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2`, Ollama `0.40.3`; local loopback, cloud disabled. Installed, running, accessible and model-present states separately verified. Prior disk blocker is superseded by this receipt, not erased.
+- Actual inference: all seven synthetic scenarios, 21 recorded completed comparisons across two segments: 21/21 admitted, 0 rejected model outputs, 0 fallback results, 0 unavailable or malformed responses. 18/21 admitted selections equal the deterministic baseline; every financial summary and required warning retained. First segment stopped after 15; cause UNKNOWN. One resume preflight failed with refused local endpoint, then services restarted. Additional interrupted activity has no captured response and remains UNKNOWN. Cold unload confirmed per scenario. [Receipt](docs/receipts/gemma-evaluation-20261013T222027Z.json).
+- Timing: Cold attempts: 56.34-294.94 seconds, median 89.23. Warm attempts: 2.74-42.22 seconds, median 5.00. Busy-machine observations, not an isolated benchmark. Normal adapter timeout remains 90 seconds; evaluator used 300 seconds. Slow cold loads can cause normal-app fallback.
+- Resources/privacy: private CPU/RAM, Ollama RSS and GPU samples recorded; low available RAM observed. Full wire replies, model selections, inventories and exact disk measurements remain ignored under local-data. E4B deferred.
+- Maintenance: CLOSED_WITH_PARTIAL_RECOVERY under the owner's instruction to return to KasiMargin. Requested 24 GiB reserve not achieved. No further cleanup, uninstall or restart launched. [Maintenance receipt](docs/receipts/storage-recovery-2026-10-13.json).
+- Preserved: exact cents, UNKNOWN/HOLD, strict output validator, original logo and light/dark modes. All 49 regressions and strict TypeScript check/build pass. No user application uninstalled or closed; no source, user records, security tools or Git history deleted.
+- Limits: technical admission does not establish comprehension benefit, language quality or economic value. No operator trial, recruitment, consent or deployment claimed. PR #3 merge is provider-observed; this actor did not merge it. Local, Cloud and Drive populations remain separate.
+- Calendar task binding: [Day 1/Day 2 acceptance checklist](docs/CALENDAR-DELIVERABLES.md). Scheduled work is a deliverable with tests and exact delivery evidence; outstanding contract mapping and transaction-entry work stay visible. No calendar item marked complete.
+- Next admissible action: deliver the evaluation/calendar follow-up through existing CI; complete the calendar checklist gaps in order, then the separate [consented operator comparison](docs/OPERATOR-COMPARISON.md). Preserve findings even if AI adds no benefit. Owner reviews landing.
+
+---
+
+# Storage recovery continuation - 2026-10-13
+
+Status: estate maintenance CLOSED_WITH_PARTIAL_RECOVERY under the owner's instruction to return to KasiMargin. Explicit E2B pull is completing; technical evaluation remains pending.
+
+- Actor: Codex Forge, stateless task implementer. `I_AM_STATELESS_RENTER_NOT_LANDLORD`; no identity seat inferred.
+- Authority: direct owner instruction to reclaim space, uninstall/delete/close nonessential material while maintaining KPGS/GSMB functionality. This supersedes the prior handoff's requirement that the owner free space manually.
+- Scope: package-manager caches and Windows-supported maintenance; installed source, records, credentials, canonical continuity, security tools and active services preserved. Machine/app/process inventories and exact capacity measurements stay private under ignored `local-data/gemma-evaluation/storage-recovery/`.
+- Observed work: pip cache purge completed; npm cleanup encountered ENOTEMPTY, then npm verification completed with only one cache entry. DISM analysis and recommended component cleanup both returned 0, without ResetBase. Supported uv prune and Windows Disk Cleanup were started, but completion exits are unavailable and their workers are no longer observed. Powercfg ran elevated with exit 0 and hibernation reads disabled, but the large file remains present: no reclaim credit assigned to that file and the cause remains UNKNOWN.
+- Partial recovery: last static compression checkpoint records 1,431 processed files and no hash mismatch. No completion receipt exists and the worker is no longer observed. The additional queued pass has no recovered execution receipt. No further cleanup restarted. Requested 24 GiB reserve was not achieved; the original 8 GiB E2B setup threshold was met before the retry. Exact capacity observations remain private. [Redacted maintenance receipt](docs/receipts/storage-recovery-2026-10-13.json).
+- Approval boundary: automatic review rejected direct recursive removal of npm cache and a dormant ignored Next.js cache with `blocked by policy`; those direct deletions did not execute. Recovery uses supported vendor maintenance and content-preserving compression instead.
+- Current proof: services were stopped at re-entry; both restarted. Flask HTTP 200 and local Ollama 0.40.3 version endpoint confirmed. All 46 regressions and strict TypeScript check/build pass. Engine, obligations, output validator, logo and styles remain unchanged from merged branding base. This is bounded service/source evidence, not a full KPGS/GSMB functionality certification.
+- Next admissible action: finish the explicit E2B pull, run all seven real cold/warm comparisons and publish redacted receipts. Do not weaken output validation or promote fallback to model success. No further estate cleanup, application uninstall or restart requested.
+
+---
+
 # TypeScript / Flask / local Gemma handoff - 2026-10-13
 
 Status: TypeScript/Flask migration implemented, validated and pushed for review. Real Gemma evaluation BLOCKED by local disk capacity.
