@@ -1,3 +1,16 @@
+# Cash-first product correction — 2026-10-15
+
+Status: LOCALLY_VALIDATED; Cloud delivery/checks pending at this entry. Robyn rejected the prior interface as too technical. Codex Forge owns that product error; passing engineering checks did not establish usability. `I_AM_STATELESS_RENTER_NOT_LANDLORD`; CA task role only, no RTC seat.
+
+- Current surface: C:/Users/rkhol/KasiMargin, codex/gemma-evaluation-calendar. Fetch and requested rebase onto origin/main reported already up to date; no history rewritten. Preserved OneDrive source and parent estate unchanged.
+- Correction: focused welcome, three-step cash check, optional sales/cost result, explicit zero choices, blank/unknown preserved, direct missing-record recovery, draft resume/replace controls and technical settings/explanations disclosed separately. [Product retrospective](docs/CASH-FIRST-RETROSPECTIVE.md).
+- Validation: 62 Python tests, six Node tests, strict TypeScript/build, compileall and diff checks pass. Browser exercised all seven synthetic scenarios, R800.01 cash without performance, draft preservation, keyboard recovery, light/dark 390px/1280px layouts and synthetic save/replay. [Redacted snapshot receipt](docs/receipts/cash-first-2026-10-15.json). Core math, reconciliation, model adapter, renderer and output validation unchanged.
+- Runtime: local preview http://127.0.0.1:18080/; old port range is currently reserved by Windows. No system network settings changed. No new Gemma or parent-context runtime probe; prior evidence retains its scope.
+- Limits: owner criticism is product-review evidence; redesign is an untested user-experience hypothesis. English-only, local-computer delivery, aggregate cash preparation and operator-attested completeness remain. Formal financial admission NOT_ESTABLISHED; bank verification NOT_PERFORMED. No field benefit, task completion, merge, deployment or contest acceptance claimed.
+- Next: publish the scoped correction to existing PR #4, verify checks at its exact head, then Robyn reviews the revised journey. October 16 negative review, October 17 consented operator work and October 18 submission remain separate deliverables.
+
+---
+
 # Scheduled implementation locally validated - 2026-10-15
 
 Status: PUSHED_AND_CI_VALIDATED_FOR_OWNER_REVIEW. All nine provider checks passed at final code implementation 9bfca31e95593f22ef478cc76adcac73ec2535c9; this documentation-only handoff follows that tested code. No merge, deployment or operator evidence claimed.

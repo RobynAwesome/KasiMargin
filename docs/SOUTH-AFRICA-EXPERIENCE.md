@@ -1,5 +1,7 @@
 # A clearer daily picture for a South African micro-business
 
+Later October 15 correction: the owner found the prior journey too technical. The [cash-first retrospective](CASH-FIRST-RETROSPECTIVE.md) supersedes the first-use layout below: three cash steps, optional performance, focused unknown-state recovery and a separate technical disclosure. The research and authority limits here still apply. Neither version has merchant comprehension evidence; the earlier first-use description is retained as design history.
+
 Design decision, 15 October 2026. The owner asks for warmth, simplicity, efficiency and an interface that explains what a person is doing. This is a researched design hypothesis implemented in the local prototype; no merchant study has established that it improves understanding.
 
 ## Who, what, when, where and why

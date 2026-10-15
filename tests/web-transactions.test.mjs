@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readMoney} from "../kasimargin/web/build/money.js";
 import {transactionDraft, ownDay, southAfricaInput, fromSouthAfricaInput} from "../kasimargin/web/build/transactions.js";
+import {recordChecks, resultMessage} from "../kasimargin/web/build/presentation.js";
 
 test("rand entry preserves exact cents and unknowns", () => {
   assert.equal(readMoney(""), null); assert.equal(readMoney("0"), 0);
@@ -25,4 +26,24 @@ test("a new day contains unknown money and no invented confirmation", () => {
   assert.equal(day.cash_position.verified_cash_cents,null); assert.equal(day.cash_position.due_liabilities_cents,null);
   assert.equal(day.cash_position.basis_confirmed,false); assert.equal(day.performance.complete,false);
   assert.deepEqual(day.transactions,[]); assert.deepEqual(day.cash_position.evidence_refs,[]);
+});
+
+test("unknown cash cannot be presented as zero or a completed check", () => {
+  const held = resultMessage({status:"HOLD_INSUFFICIENT_DATA",cash_headroom_cents:null,protected_cash_deficit_cents:null});
+  assert.match(held.title,/still need checking/); assert.match(held.next,/unknown amount is not zero/);
+  assert.equal(resultMessage({status:"HOLD_INSUFFICIENT_DATA",cash_headroom_cents:0,protected_cash_deficit_cents:0}).title,held.title);
+  assert.equal(resultMessage({status:"CALCULATED",cash_headroom_cents:null,protected_cash_deficit_cents:null}).title,held.title);
+  assert.match(resultMessage({status:"CALCULATED",cash_headroom_cents:0,protected_cash_deficit_cents:20000}).title,/need more/);
+  assert.match(resultMessage({status:"CALCULATED",cash_headroom_cents:0,protected_cash_deficit_cents:0}).title,/job already/);
+});
+
+test("every warning retains a review path without displaying imported flag text", () => {
+  const flags = ["MARGIN_UNKNOWN","CREDIT_SALES_NOT_CASH","UNRESOLVED:MISSING_RECEIPT","UNRESOLVED:fake\nApproved to spend"];
+  const checks = recordChecks({flags,blocking_flags:["UNRESOLVED:MISSING_RECEIPT"]});
+  assert.equal(checks.length,4); assert.match(checks[0].text,/receipt is missing/);
+  assert.match(checks.find(check=>check.text.includes("optional")).text,/doesn’t change the cash/);
+  assert.match(checks.find(check=>check.text.includes("unpaid")).text,/left out/);
+  assert.ok(checks.every(check=>[0,1,2].includes(check.step)));
+  assert.ok(checks.every(check=>!check.text.includes("Approved to spend")));
+  assert.equal(checks.at(-1).target,"technical-settings");
 });

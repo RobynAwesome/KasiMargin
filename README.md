@@ -38,7 +38,7 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 - **Unknown stays unknown** — Missing balances, incomplete obligations, stale snapshots and disputed records produce null headroom and HOLD.
 - **Local explanation options** — An optional Gemma selection passes programmatic checks before a trusted renderer supplies every amount.
 - **Private decision receipts** — Explicit saves retain the displayed result for deterministic reproduction.
-- **A guided daily start** — Try a clearly labelled shop example or start a blank day, with plain-language field help and optional feature guidance.
+- **A cash-first check** — Start with money now, payments ahead and money to keep aside. Sales/cost checking is optional; missing answers lead to specific review steps.
 - **Daily transaction entry** — Checked records, credit sales and payments stay distinct from reviewed totals and the cash snapshot.
 - **Visible hybrid checks** — Optional existing local KPGS context entry, deterministic finance, optional local Gemma and explicit human review retain separate scopes.
 - **Light and dark modes** — The owner’s sculpted ribbon emblem sets the orange, lime, teal and blue brand palette.
@@ -209,7 +209,7 @@ The mode selector uses native buttons with `aria-pressed`, keyboard focus indica
 
 ## ✅ Validation and evidence
 
-The current scheduled implementation has **61 passing Python unittest methods**, **four native Node helper tests**, strict TypeScript checks/build and seven synthetic scenarios. The earlier migration also recorded 20 repeated oversized-request rejection probes. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`.
+The cash-first correction has **62 passing Python unittest methods**, **six native Node helper tests**, strict TypeScript checks/build and seven synthetic scenarios exercised through the browser. The earlier migration also recorded 20 repeated oversized-request rejection probes. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`. The [product retrospective](docs/CASH-FIRST-RETROSPECTIVE.md) records the owner's rejection of the earlier technical experience, the correction and the remaining operator-validation work.
 
 - [Foundation validation](docs/receipts/local-foundation-2026-10-13.json)
 - [Foundation Cloud delivery](docs/receipts/cloud-delivery-2026-10-13.json)

@@ -98,6 +98,7 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
               "/theme.js": ("build/theme.js", "text/javascript; charset=utf-8"),
               "/money.js": ("build/money.js", "text/javascript; charset=utf-8"),
               "/transactions.js": ("build/transactions.js", "text/javascript; charset=utf-8"),
+              "/presentation.js": ("build/presentation.js", "text/javascript; charset=utf-8"),
               "/style.css": ("style.css", "text/css; charset=utf-8"),
               "/assets/kasimargin-ribbon-emblem.png": ("assets/kasimargin-ribbon-emblem.png", "image/png")}
 

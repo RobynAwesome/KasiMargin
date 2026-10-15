@@ -36,7 +36,7 @@ class LocalDemo(unittest.TestCase):
         return {"input":json.loads((ROOT / "fixtures/itemized/01.json").read_text())["input"],"model":None,"save_receipt":False,"data_class":"SYNTHETIC"}
 
     def test_assets_and_fixtures_are_served_without_external_dependencies(self):
-        for path in ("/", "/app.js", "/style.css", "/health"):
+        for path in ("/", "/app.js", "/presentation.js", "/style.css", "/health"):
             with self.subTest(path=path):
                 status, data, headers = self.call("GET", path)
                 self.assertEqual(status, 200); self.assertTrue(data)
@@ -62,6 +62,20 @@ class LocalDemo(unittest.TestCase):
         self.assertEqual(status, 200); self.assertIsNone(json.loads(data)["summary"]["cash_headroom_cents"])
         payload["input"]["cash_position"]["verified_cash_cents"] = True
         self.assertEqual(self.call("POST", "/api/decision", payload)[0], 400)
+
+    def test_cash_check_does_not_require_optional_sales_or_invent_unknown_bills(self):
+        payload = self.payload()
+        payload["input"]["performance"] = {"recorded_sales_cents":None,"attributable_costs_cents":None,"complete":False}
+        status, data, _ = self.call("POST", "/api/decision", payload)
+        self.assertEqual(status, 200)
+        result = json.loads(data)
+        self.assertEqual(result["summary"]["cash_headroom_cents"], 40000)
+        self.assertIsNone(result["summary"]["operating_margin_cents"])
+        self.assertIn("MARGIN_UNKNOWN", result["selection"]["flag_ids"])
+        payload["input"]["obligations"][0]["amount_cents"] = None
+        status, data, _ = self.call("POST", "/api/decision", payload)
+        self.assertEqual(status, 200)
+        self.assertIsNone(json.loads(data)["summary"]["cash_headroom_cents"])
 
     def test_save_reviewed_result_preserves_selection_without_reinference(self):
         payload = self.payload()
