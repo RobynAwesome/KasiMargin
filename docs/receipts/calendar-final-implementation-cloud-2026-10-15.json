@@ -1,0 +1,128 @@
+{
+  "schema": "kasimargin-cloud-delivery-v1",
+  "observed_at": "2026-10-15T10:04:57.659211+00:00",
+  "pr": "https://github.com/RobynAwesome/KasiMargin/pull/4",
+  "state": "OPEN",
+  "implementation_head": "9bfca31e95593f22ef478cc76adcac73ec2535c9",
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T10:02:10Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38717305725/job/116363012013",
+      "name": "ubuntu-latest / Python 3.10",
+      "startedAt": "2026-10-15T10:01:51Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T10:02:05Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38717300576/job/116362995997",
+      "name": "ubuntu-latest / Python 3.10",
+      "startedAt": "2026-10-15T10:01:48Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T10:02:11Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38717305725/job/116363012238",
+      "name": "ubuntu-latest / Python 3.14",
+      "startedAt": "2026-10-15T10:01:51Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T10:02:07Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38717300576/job/116362995659",
+      "name": "ubuntu-latest / Python 3.14",
+      "startedAt": "2026-10-15T10:01:48Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T10:02:44Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38717305725/job/116363012036",
+      "name": "windows-latest / Python 3.10",
+      "startedAt": "2026-10-15T10:01:51Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T10:02:35Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38717300576/job/116362996106",
+      "name": "windows-latest / Python 3.10",
+      "startedAt": "2026-10-15T10:01:48Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T10:03:25Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38717305725/job/116363011670",
+      "name": "windows-latest / Python 3.14",
+      "startedAt": "2026-10-15T10:01:51Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T10:02:48Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38717300576/job/116362996071",
+      "name": "windows-latest / Python 3.14",
+      "startedAt": "2026-10-15T10:01:49Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T10:02:35Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://dashboard.gitguardian.com",
+      "name": "GitGuardian Security Checks",
+      "startedAt": "2026-10-15T10:02:02Z",
+      "status": "COMPLETED",
+      "workflowName": ""
+    }
+  ],
+  "all_nine_observed_checks_successful": true,
+  "code_validation": {
+    "python_regressions": 61,
+    "native_node_helper_tests": 4,
+    "platforms": [
+      "ubuntu-latest",
+      "windows-latest"
+    ],
+    "python_versions": [
+      "3.10",
+      "3.14"
+    ],
+    "events": [
+      "push",
+      "pull_request"
+    ],
+    "security": "GitGuardian SUCCESS"
+  },
+  "range_refinement_receipt": "calendar-browser-range-2026-10-15.json",
+  "browser_followup": "Final live browser displayed exact-range CLI guidance; ordinary example restored with R600 margin/R400 headroom and connected read-only context check",
+  "task_status": "Implementation tested and pushed; Calendar/Tasks remain unchecked pending owner acceptance",
+  "owner_review": "PENDING",
+  "merge": "NOT_PERFORMED",
+  "deployment": "NOT_PERFORMED",
+  "limits": [
+    "No operator-comprehension or economic-benefit claim",
+    "Context runtime is not financial admission or bank verification",
+    "A following documentation-only handoff has a separate current PR head; re-query provider checks before landing"
+  ]
+}

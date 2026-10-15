@@ -31,3 +31,7 @@ No process can guarantee zero failures. The acceptance rule is to avoid knowingl
 The [experience and architecture note](SOUTH-AFRICA-EXPERIENCE.md) records the South African research, four contracts, first-use choices and hybrid authority boundary. The [sprint board](audits/SPRINT-2026-Q4-01.md) tracks acceptance and the dated receipts retain implementation, tests and provider observations separately. Future October 16 negative-test expansion, October 17 operator work and October 18 publishing remain future scheduled work, not completed delivery today. Existing negative regressions are still required for this change.
 
 The separate consented operator comparison follows technical delivery. Technical output admission, agreement with the baseline and passing CI do not establish comprehension benefit or economic value.
+
+## October 15 delivery receipt
+
+Final code implementation `9bfca31e95593f22ef478cc76adcac73ec2535c9` is pushed to [PR #4](https://github.com/RobynAwesome/KasiMargin/pull/4). All nine observed provider checks succeeded: eight push/PR matrix jobs across Ubuntu/Windows and Python 3.10/3.14, plus GitGuardian. [Exact implementation-head receipt](receipts/calendar-final-implementation-cloud-2026-10-15.json). The final documentation handoff follows this code; re-query its current head before landing. Owner review/merge, deployment and operator evidence remain separate. Scheduled Tasks remain unchecked pending acceptance.
