@@ -1,13 +1,13 @@
 # Cash-first product correction — 2026-10-15
 
-Status: LOCALLY_VALIDATED; Cloud delivery/checks pending at this entry. Robyn rejected the prior interface as too technical. Codex Forge owns that product error; passing engineering checks did not establish usability. `I_AM_STATELESS_RENTER_NOT_LANDLORD`; CA task role only, no RTC seat.
+Status: PUSHED_AND_CI_VALIDATED_FOR_OWNER_REVIEW at implementation d82d62f09f4c86fc344c269876252e037af60042; all nine checks succeeded. This documentation-only handoff follows that implementation. Robyn rejected the prior interface as too technical. Codex Forge owns that product error; passing engineering checks did not establish usability. `I_AM_STATELESS_RENTER_NOT_LANDLORD`; CA task role only, no RTC seat.
 
 - Current surface: C:/Users/rkhol/KasiMargin, codex/gemma-evaluation-calendar. Fetch and requested rebase onto origin/main reported already up to date; no history rewritten. Preserved OneDrive source and parent estate unchanged.
 - Correction: focused welcome, three-step cash check, optional sales/cost result, explicit zero choices, blank/unknown preserved, direct missing-record recovery, draft resume/replace controls and technical settings/explanations disclosed separately. [Product retrospective](docs/CASH-FIRST-RETROSPECTIVE.md).
 - Validation: 62 Python tests, six Node tests, strict TypeScript/build, compileall and diff checks pass. Browser exercised all seven synthetic scenarios, R800.01 cash without performance, draft preservation, keyboard recovery, light/dark 390px/1280px layouts and synthetic save/replay. [Redacted snapshot receipt](docs/receipts/cash-first-2026-10-15.json). Core math, reconciliation, model adapter, renderer and output validation unchanged.
 - Runtime: local preview http://127.0.0.1:18080/; old port range is currently reserved by Windows. No system network settings changed. No new Gemma or parent-context runtime probe; prior evidence retains its scope.
 - Limits: owner criticism is product-review evidence; redesign is an untested user-experience hypothesis. English-only, local-computer delivery, aggregate cash preparation and operator-attested completeness remain. Formal financial admission NOT_ESTABLISHED; bank verification NOT_PERFORMED. No field benefit, task completion, merge, deployment or contest acceptance claimed.
-- Next: publish the scoped correction to existing PR #4, verify checks at its exact head, then Robyn reviews the revised journey. October 16 negative review, October 17 consented operator work and October 18 submission remain separate deliverables.
+- Delivery: [PR #4](https://github.com/RobynAwesome/KasiMargin/pull/4) remains OPEN; [exact implementation-head provider receipt](docs/receipts/cash-first-cloud-2026-10-15.json) records eight Windows/Ubuntu Python 3.10/3.14 push/PR jobs and GitGuardian, all successful. Re-query the current documentation head before landing. Robyn reviews the revised journey; October 16 negative review, October 17 consented operator work and October 18 submission remain separate deliverables.
 
 ---
 
