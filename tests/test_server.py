@@ -150,3 +150,15 @@ class LocalDemo(unittest.TestCase):
     def test_browser_decision_cannot_round_money_outside_its_integer_range(self):
         payload = self.payload(); payload["input"]["cash_position"]["verified_cash_cents"] = 9007199254740992
         self.assertEqual(self.call("POST","/api/decision",payload)[0],400)
+
+    def test_browser_cannot_round_a_derived_shortfall_from_individually_exact_inputs(self):
+        from kasimargin.workflow import decision
+        payload = self.payload()
+        payload["input"] = json.loads((ROOT / "fixtures/01.json").read_text())["input"]
+        cash = payload["input"]["cash_position"]
+        cash.update(verified_cash_cents=0,due_liabilities_cents=9007199254740991,committed_spend_cents=9007199254740991)
+        self.assertGreater(decision(payload["input"])["summary"]["protected_cash_deficit_cents"],9007199254740991)
+        before = set(Path(self.directory.name).iterdir())
+        status,data,_ = self.call("POST","/api/decision",payload)
+        self.assertEqual(status,400); self.assertIn("Python CLI",json.loads(data)["error"])
+        self.assertEqual(set(Path(self.directory.name).iterdir()),before)

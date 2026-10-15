@@ -1,0 +1,24 @@
+{
+  "schema": "kasimargin-browser-precision-refinement-v1",
+  "observed_at": "2026-10-15T10:01:39.877091+00:00",
+  "base_implementation_head": "d11e29c4992d0199626230dc93226ace9863612c",
+  "base_all_nine_provider_checks": "SUCCESS; see calendar-cloud-delivery-2026-10-15.json",
+  "change": "Reject computed totals outside browser exact integer range before JSON response; explain use of Python CLI",
+  "engine_and_cli": "unchanged; exact Python integer arithmetic retained",
+  "regression": "Valid aggregate request has individually safe integers but a larger exact shortfall; Python result verified before HTTP 400 and no-write assertion",
+  "observed_test_failure": "Initial incompatible itemized fixture produced generic contract rejection; corrected fixture and added exact Python-result precondition",
+  "validation": {
+    "python_methods_passed": 61,
+    "failures_final": 0,
+    "seconds": 2.373,
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "frontend": "unchanged from initial checked implementation"
+  },
+  "cloud": "PENDING at this new refinement head",
+  "sha256": {
+    "kasimargin/server.py": "e043b0670daed0c5c2f05d2fceca412ccead658a775ef7800149c27a96ac6656",
+    "tests/test_server.py": "ff4a0727b4aee4bf37af514b8fce80ab8d1e863a1e9a62fddf01db0fa393e69d"
+  },
+  "byte_basis": "local working files; committed blob parity checked at delivery"
+}

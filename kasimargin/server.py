@@ -22,6 +22,10 @@ WEB = Path(__file__).resolve().parent / "web"
 MAX_INPUT_BYTES = 262144
 
 
+class BrowserPrecisionError(ContractError):
+    pass
+
+
 def create_app(receipt_directory=None, port=8765, request_limit=120, context_runtime=None):
     if type(request_limit) is not int or not 1 <= request_limit <= 10000:
         raise ValueError("request_limit must be from 1 to 10000")
@@ -109,7 +113,7 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
 
     def browser_range(item):
         if type(item) is int and abs(item) > 9007199254740991:
-            raise ContractError("use the CLI for integers outside the browser range")
+            raise BrowserPrecisionError("use the CLI for integers outside the browser range")
         if isinstance(item, dict):
             for child in item.values(): browser_range(child)
         elif isinstance(item, list):
@@ -152,11 +156,14 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
             if value["data_class"] not in ("SYNTHETIC", "OPERATOR_ATTESTED"):
                 raise ContractError("choose a valid evidence class")
             result = decision(value["input"], value["model"])
+            browser_range(result)
             result["context_check"] = runtime.probe()
             if value["save_receipt"]:
                 path = save(value["input"], result, value["data_class"], app.config["RECEIPT_DIRECTORY"])
                 result["receipt_filename"] = path.name
             return reply(result)
+        except BrowserPrecisionError:
+            return reply({"error": "These figures exceed this browser's exact-cent range. Use the Python CLI for this record."}, 400)
         except (ContractError, ValueError, KeyError, TypeError, UnicodeError):
             return reply({"error": "Input rejected. Check exact integer cents, required fields, timestamps and evidence."}, 400)
         except OSError:

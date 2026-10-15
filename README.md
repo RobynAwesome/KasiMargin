@@ -129,7 +129,7 @@ conditional cash headroom = max(0, confirmed cash
                                   - protected buffer)
 ```
 
-All calculation amounts are integer ZAR cents. Decimal floats, booleans, numeric strings and negative money inputs are rejected; calculated margins may be negative. The browser converts rand text through integer arithmetic and rejects inputs outside its exact number range. The CLI retains Python integer precision.
+All calculation amounts are integer ZAR cents. Decimal floats, booleans, numeric strings and negative money inputs are rejected; calculated margins may be negative. The browser converts rand text through integer arithmetic and rejects inputs or computed totals outside its exact number range, with a clear instruction to use the Python CLI. The CLI retains Python integer precision.
 
 Uncollected credit sales can contribute to recorded margin but are excluded from cash. Paid expenses and collected sales already belong in the cash snapshot and are never deducted or added again. Missing cash, buffer, obligations or unresolved cash records return **null headroom and HOLD**.
 
@@ -209,7 +209,7 @@ The mode selector uses native buttons with `aria-pressed`, keyboard focus indica
 
 ## ✅ Validation and evidence
 
-The current scheduled implementation has **60 passing Python unittest methods**, **four native Node helper tests**, strict TypeScript checks/build and seven synthetic scenarios. The earlier migration also recorded 20 repeated oversized-request rejection probes. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`.
+The current scheduled implementation has **61 passing Python unittest methods**, **four native Node helper tests**, strict TypeScript checks/build and seven synthetic scenarios. The earlier migration also recorded 20 repeated oversized-request rejection probes. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`.
 
 - [Foundation validation](docs/receipts/local-foundation-2026-10-13.json)
 - [Foundation Cloud delivery](docs/receipts/cloud-delivery-2026-10-13.json)
