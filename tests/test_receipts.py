@@ -45,3 +45,21 @@ class Receipts(unittest.TestCase):
         for value in ('{"a":1,"a":2}', '{"a":NaN}', '{"a":Infinity}'):
             with self.subTest(value=value):
                 with self.assertRaises(ContractError): loads(value)
+
+    def test_historical_context_observation_replays_without_runtime_and_cannot_promote_authority(self):
+        from unittest.mock import patch
+        request = loads((ROOT / "fixtures/01.json").read_text())["input"]
+        result = decision(request)
+        result["context_check"] = {"status":"CONNECTED_READ_ONLY", "checked_at":"2026-10-15T08:00:00+02:00",
+                                   "scope":"READ_ONLY_CONTEXT_ENTRY", "financial_admission":"NOT_ESTABLISHED", "bank_verification":"NOT_PERFORMED"}
+        with tempfile.TemporaryDirectory() as directory, patch("kasimargin.kpgs.LocalKpgs.probe", side_effect=AssertionError("replay must not call runtime")):
+            path = save(request,result,"SYNTHETIC",directory)
+            self.assertEqual(verify(path)["status"],"REPRODUCED")
+            envelope = loads(path.read_text())
+            self.assertEqual(envelope["payload"]["result"]["context_check"],result["context_check"])
+            envelope["payload"]["result"]["context_check"]["financial_admission"] = "APPROVED"
+            envelope["sha256"] = digest(envelope["payload"])
+            path.write_text(dumps(envelope))
+            with self.assertRaises(ContractError): verify(path)
+            result["context_check"]["bank_verification"] = "VERIFIED"
+            with self.assertRaises(ContractError): save(request,result,"SYNTHETIC",directory)

@@ -14,7 +14,7 @@ The strict JSON parser is applied to wire bytes, preserving duplicate-key reject
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e .
+.\.venv\Scripts\python.exe -m pip install -e '.[test]'
 npm ci
 npm run check
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
@@ -24,6 +24,12 @@ npm run check
 Python 3.10+ and Node 24+ are the tested targets. Flask is pinned in `pyproject.toml`; TypeScript is pinned in the npm lockfile. CI builds the frontend before running Python tests. The application remains a local development surface, not an authenticated multi-user deployment.
 
 ## Local model evaluation
+
+The current browser transport requires a per-process request token. Same-origin clients obtain it from `GET /api/session` and send `X-KasiMargin-Session` on every JSON POST, including `/api/decision`, `/api/validate`, `/api/receipt` and `/api/context`. Tokens expire when the service restarts; reload to bootstrap again. A bounded process-wide budget allows 120 authenticated POSTs per minute and returns 429 with `Retry-After` beyond that. Host/Origin checks, body cap, strict JSON and no-store responses still apply. This is a trusted-device development boundary, not multi-user authentication or protection against malicious software already controlling the machine.
+
+Set `KASIMARGIN_KPGS_ROOT` to an existing authorized local checkout to enable read-only context entry. The bridge never receives browser-supplied executable paths or financial records. The context result's scope is `READ_ONLY_CONTEXT_ENTRY`; `financial_admission` stays `NOT_ESTABLISHED`, and `bank_verification` stays `NOT_PERFORMED`. Browser decisions carry this observation into explicit saves/exports. Replay validates historical metadata without invoking the runtime again; legacy receipts without it remain reproducible. A checksum and replay are not author authentication or independent runtime attestation.
+
+The test extra pins JSON Schema validation tooling; it is not a runtime browser dependency. `npm run check` now includes four native Node tests for exact-cent entry, South African timestamps, transaction identity and blank-day unknowns. Python tests validate all four contracts and perimeter/context/receipt failures. See [the experience and architecture note](SOUTH-AFRICA-EXPERIENCE.md).
 
 Current observed state: official Windows Ollama 0.40.3 runs on loopback with cloud disabled; explicit `gemma4:e2b-it-q4_K_M` is installed with digest `b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2`. All seven scenarios completed one cold and two warm calls. Result: 21/21 admitted, 0 rejected model outputs, 0 fallback results, 0 unavailable or malformed responses. [Technical comparison](GEMMA-TECHNICAL-EVALUATION.md). Raw outputs and machine/resource details remain private.
 

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KasiMargin financial summary v1",
+  "description": "Conditional results from supplied ZAR records; never bank verification or purchase approval.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "currency", "operating_margin_cents", "cash_headroom_cents", "protected_cash_deficit_cents", "recorded_receivables_delta_cents", "status", "flags", "blocking_flags", "horizon_end", "cash_basis", "evidence_refs", "evidence_scope"],
+  "$defs": {
+    "money": {"type": ["integer", "null"], "minimum": 0},
+    "strings": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "properties": {
+    "schema_version": {"const": "kasimargin-summary-v1"},
+    "currency": {"const": "ZAR"},
+    "operating_margin_cents": {"type": ["integer", "null"]},
+    "cash_headroom_cents": {"$ref": "#/$defs/money"},
+    "protected_cash_deficit_cents": {"$ref": "#/$defs/money"},
+    "recorded_receivables_delta_cents": {"type": ["integer", "null"]},
+    "status": {"enum": ["CALCULATED", "HOLD_INSUFFICIENT_DATA"]},
+    "flags": {"$ref": "#/$defs/strings"},
+    "blocking_flags": {"$ref": "#/$defs/strings"},
+    "horizon_end": {"type": "string", "format": "date-time"},
+    "cash_basis": {
+      "type": "object", "additionalProperties": false,
+      "required": ["verified_cash_cents", "due_liabilities_cents", "committed_spend_cents", "minimum_buffer_cents", "snapshot_at", "decision_at"],
+      "properties": {
+        "verified_cash_cents": {"$ref": "#/$defs/money"},
+        "due_liabilities_cents": {"$ref": "#/$defs/money"},
+        "committed_spend_cents": {"$ref": "#/$defs/money"},
+        "minimum_buffer_cents": {"$ref": "#/$defs/money"},
+        "snapshot_at": {"type": "string", "format": "date-time"},
+        "decision_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "evidence_scope": {"const": "synthetic_or_operator_attested; no bank verification"}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "HOLD_INSUFFICIENT_DATA"}}}, "then": {"properties": {"cash_headroom_cents": {"type": "null"}, "protected_cash_deficit_cents": {"type": "null"}}}},
+    {"if": {"properties": {"status": {"const": "CALCULATED"}}}, "then": {"properties": {"cash_headroom_cents": {"type": "integer", "minimum": 0}, "protected_cash_deficit_cents": {"type": "integer", "minimum": 0}, "blocking_flags": {"maxItems": 0}, "cash_basis": {"properties": {"verified_cash_cents": {"type": "integer"}, "due_liabilities_cents": {"type": "integer"}, "committed_spend_cents": {"type": "integer"}, "minimum_buffer_cents": {"type": "integer"}}}}}},
+    {"if": {"properties": {"cash_headroom_cents": {"type": "integer", "minimum": 1}}}, "then": {"properties": {"protected_cash_deficit_cents": {"const": 0}}}},
+    {"if": {"properties": {"protected_cash_deficit_cents": {"type": "integer", "minimum": 1}}}, "then": {"properties": {"cash_headroom_cents": {"const": 0}}}}
+  ]
+}

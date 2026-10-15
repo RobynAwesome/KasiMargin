@@ -7,6 +7,7 @@ from .engine import ContractError, exact_keys, instant
 from .explanations import render
 from .jsonio import dumps, loads
 from .workflow import decision
+from .kpgs import validate_observation
 
 
 def digest(payload):
@@ -17,6 +18,8 @@ def save(request, result, data_class, directory):
     if data_class not in ("SYNTHETIC", "OPERATOR_ATTESTED"):
         raise ContractError("data_class must be SYNTHETIC or OPERATOR_ATTESTED")
     expected = decision(request)
+    if "context_check" in result:
+        validate_observation(result["context_check"])
     if result["summary"] != expected["summary"] or result["explanation"] != render(expected["summary"], result["selection"]):
         raise ContractError("receipt result does not match the deterministic input")
     payload = {
@@ -45,6 +48,8 @@ def verify(path):
         raise ContractError("this receipt format cannot attest external verification or human approval")
     expected = decision(payload["input"])
     result = payload["result"]
+    if isinstance(result, dict) and "context_check" in result:
+        validate_observation(result["context_check"])
     if not isinstance(result, dict) or result.get("summary") != expected["summary"]:
         raise ContractError("receipt calculation cannot be reproduced")
     if result.get("explanation") != render(expected["summary"], result.get("selection")):

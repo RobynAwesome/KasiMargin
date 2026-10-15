@@ -2,10 +2,12 @@
   "name": "kasimargin-web",
   "version": "0.3.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsc",
-    "check": "npm run typecheck && npm run build"
+    "check": "npm run typecheck && npm run build && npm run test:web",
+    "test:web": "node --test tests/web-transactions.test.mjs"
   },
   "devDependencies": {
     "typescript": "7.0.2"

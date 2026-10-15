@@ -87,6 +87,16 @@ input:focus, select:focus, textarea:focus, button:focus-visible, summary:focus-v
 .money-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
 .money-grid label { margin-top: 12px; }
 .money-grid input { font-variant-numeric: tabular-nums; }
+.field-help { font-size: 11px; line-height: 1.6; color: var(--muted); margin: 6px 0 0; }
+.welcome { border: 1px solid var(--line); border-radius: 13px; padding: 24px; background: var(--surface); display: flex; align-items: center; gap: 24px; }
+.welcome h2 { font-size: 21px; margin: 8px 0; }
+.welcome p:not(.eyebrow), .help-grid p { font-size: 13px; line-height: 1.8; color: var(--muted); margin-bottom: 0; }
+.welcome-actions { display: flex; flex-wrap: wrap; gap: 12px; flex: 0 0 200px; }
+.welcome-actions button { width: 100%; min-height: 44px; }
+.feature-help { margin-bottom: 32px; }
+.feature-help summary { font-size: 14px; padding: 4px 0; }
+.help-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; margin: 22px 0; }
+.help-grid h3 { margin-bottom: 5px; }
 details { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 18px 0; padding: 13px 0; }
 summary { cursor: pointer; font-size: 12px; font-weight: 650; }
 textarea { font-family: ui-monospace, monospace; font-size: 11px; margin-bottom: 9px; }
@@ -119,6 +129,16 @@ dd { margin: 0; font-variant-numeric: tabular-nums; }
 .empty-state { padding: 60px 25px; border: 1px dashed var(--outline); border-radius: 12px; font-size: 14px; line-height: 1.8; color: var(--muted); }
 .error { font-size: 12px; line-height: 1.6; color: var(--error); }
 .error:empty { display: none; }
+.check-label { display: flex; gap: 10px; align-items: flex-start; line-height: 1.6; margin-top: 14px; }
+.check-label input { width: auto; flex: 0 0 auto; margin: 4px 0 0; accent-color: var(--cash-ink); }
+.transaction-list { list-style: none; padding: 0; margin: 8px 0 18px; max-height: 260px; overflow: auto; }
+.transaction-list li { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.transaction-list li div { min-width: 0; overflow-wrap: anywhere; }
+.transaction-list strong, .transaction-list span { display: block; font-size: 12px; line-height: 1.6; }
+.transaction-list span { color: var(--muted); }
+.transaction-list button { flex: 0 0 auto; font-size: 11px; }
+.next-check { padding: 14px 16px; border-left: 3px solid var(--cash-ink); background: var(--status); color: var(--status-ink); font-size: 13px; line-height: 1.8; border-radius: 6px; }
+#model-detail { overflow-wrap: anywhere; }
 footer { border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); gap: 20px; }
 @media(max-width: 900px) { .brand-emblem { width: 180px; } .intro { gap: 24px; } }
 @media(max-width: 760px) {
@@ -137,5 +157,8 @@ footer { border-top: 1px solid var(--line); font-size: 11px; color: var(--muted)
   .metric strong { font-size: 27px; }
   footer { flex-direction: column; align-items: flex-start; }
   .panel { padding: 20px; }
+  .welcome { display: block; padding: 20px; }
+  .welcome-actions { margin-top: 20px; }
+  .help-grid { grid-template-columns: 1fr; }
 }
 @media(prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }

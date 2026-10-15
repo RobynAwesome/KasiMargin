@@ -38,6 +38,9 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 - **Unknown stays unknown** — Missing balances, incomplete obligations, stale snapshots and disputed records produce null headroom and HOLD.
 - **Local explanation options** — An optional Gemma selection passes programmatic checks before a trusted renderer supplies every amount.
 - **Private decision receipts** — Explicit saves retain the displayed result for deterministic reproduction.
+- **A guided daily start** — Try a clearly labelled shop example or start a blank day, with plain-language field help and optional feature guidance.
+- **Daily transaction entry** — Checked records, credit sales and payments stay distinct from reviewed totals and the cash snapshot.
+- **Visible hybrid checks** — Optional existing local KPGS context entry, deterministic finance, optional local Gemma and explicit human review retain separate scopes.
 - **Light and dark modes** — The owner’s sculpted ribbon emblem sets the orange, lime, teal and blue brand palette.
 
 ## 🧭 Product surfaces
@@ -48,6 +51,7 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 | Browser demo | Review records, calculate, explain and save | Strict TypeScript and Python Flask; light and dark themes |
 | Gemma adapter | Select approved facts, warnings and options | Local E2B installed; 21/21 synthetic outputs admitted |
 | Decision receipts | Preserve input/output and replay calculations | Local save and reproduction tested |
+| KPGS context bridge | Observe existing local context entry without passing financial records | Read-only connection observed; formal financial admission not established |
 | Operator experiment | Measure understanding and usefulness against a baseline | Pending consented trial |
 | Public release | Hosted product, demo/video and challenge submission | Pending |
 
@@ -74,7 +78,7 @@ cd KasiMargin
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e .
+.\.venv\Scripts\python.exe -m pip install -e '.[test]'
 npm ci
 npm run check
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
@@ -88,9 +92,20 @@ Browser source lives in `kasimargin/web/src/*.ts`. The strict compiler writes ig
 .\.venv\Scripts\python.exe -m kasimargin --serve
 ```
 
-Open **[http://127.0.0.1:8765](http://127.0.0.1:8765)**. Choose a synthetic scenario, review its records, and calculate the position. Use the **Light / Dark** controls in the header; the preference is stored in this browser. The first visit follows the operating system’s colour preference.
+Open **[http://127.0.0.1:8765](http://127.0.0.1:8765)**. Choose **Try a shop example** or **Start my own day**, review the figures and calculate the position. **Help me understand KasiMargin** explains each stage; field notes explain what belongs in each amount. Use **Light / Dark** in the header; the preference is stored in this browser. The first visit follows the operating system’s colour preference.
 
-The app serves its fonts, scripts and images locally without CDNs or analytics. It binds to loopback and is a development demo. Loading an example labels it synthetic. Only select operator-attested records after replacing the example with your own complete records and appropriate decision timestamps.
+The app serves its fonts, scripts and images locally without CDNs or analytics. It binds to loopback and is a development demo. Loading an example labels it synthetic. Your own day starts with unknown money and unchecked confirmations. Edits stay in the page until an explicit save or export; closing/reloading can lose a draft. Responsive layout does not yet provide a remotely accessible phone service.
+
+The [South African experience and architecture note](docs/SOUTH-AFRICA-EXPERIENCE.md) connects research, the four schema contracts, help copy and the hybrid boundary. The [scheduled-deliverables checklist](docs/CALENDAR-DELIVERABLES.md) tracks implementation separately from delivery and operator evidence.
+
+To enable the existing local KPGS **read-only context-entry check**, set its checkout path before starting this process:
+
+```powershell
+$env:KASIMARGIN_KPGS_ROOT = 'C:\path\to\your\Introduction-to-MCP-checkout'
+.\.venv\Scripts\python.exe -m kasimargin --serve
+```
+
+This optional bridge requires that checkout's existing `scripts/kc_kpgs_governance.py entry` interface. No financial records are passed to it; it does not assert entry, approve spending or establish formal financial admission. Without configuration, the app reports the context check as not configured. See the [stack guide](docs/TYPESCRIPT-FLASK-AND-GEMMA.md) for transport and receipt limits.
 
 ### 4. Save or reproduce a decision
 
@@ -194,13 +209,15 @@ The mode selector uses native buttons with `aria-pressed`, keyboard focus indica
 
 ## ✅ Validation and evidence
 
-The current TypeScript/Flask implementation has **46 passing unittest methods**, strict TypeScript checks/build, seven synthetic scenarios and 20 repeated oversized-request rejection checks. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`.
+The current scheduled implementation has **60 passing Python unittest methods**, **four native Node helper tests**, strict TypeScript checks/build and seven synthetic scenarios. The earlier migration also recorded 20 repeated oversized-request rejection probes. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`.
 
 - [Foundation validation](docs/receipts/local-foundation-2026-10-13.json)
 - [Foundation Cloud delivery](docs/receipts/cloud-delivery-2026-10-13.json)
 - [TypeScript and Flask validation](docs/receipts/stack-migration-2026-10-13.json)
 - [Real local Gemma technical comparison](docs/GEMMA-TECHNICAL-EVALUATION.md)
 - [Calendar deliverables and delivery checks](docs/CALENDAR-DELIVERABLES.md)
+- [South African experience, four contracts and hybrid architecture](docs/SOUTH-AFRICA-EXPERIENCE.md)
+- [October 15 implementation acceptance](docs/audits/2026-10-15-completion.md)
 - [Evaluation/calendar provider receipt](docs/receipts/gemma-calendar-cloud-delivery-2026-10-14.json)
 - [Partial storage recovery](docs/receipts/storage-recovery-2026-10-13.json)
 - [Historical Gemma runtime recovery and disk blocker](docs/receipts/gemma-runtime-blocker-2026-10-13.json)
@@ -214,7 +231,7 @@ Examples and screenshots are synthetic. Receipt replay confirms content integrit
 | Stage | Outcome | State |
 |---|---|---|
 | 1. Financial foundation | Exact calculations, uncertainty gates and seven scenarios | Implemented and tested |
-| 2. Brand and interface | Supplied logo, light/dark modes and readable decision workflow | Branding merged; TypeScript/Flask migration in PR #3 |
+| 2. Brand and interface | Supplied logo, light/dark modes and readable decision workflow | Branding and TypeScript/Flask merged; daily entry and researched help prepared in PR #4 |
 | 3. Model evaluation | E2B/E4B on target hardware versus deterministic baseline | E2B technical run complete on seven synthetic scenarios; E4B deferred |
 | 4. Operator experiment | Consented comprehension, task time, errors and supervision evidence | Pending |
 | 5. Public demo and submission | Truthful demo/video and DEV article | Pending |
