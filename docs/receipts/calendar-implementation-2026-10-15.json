@@ -1,0 +1,130 @@
+{
+  "schema": "kasimargin-scheduled-implementation-receipt-v1",
+  "observed_at": "2026-10-15T09:55:48.335072+00:00",
+  "actor": "Codex Forge",
+  "task_role": "CA",
+  "identity_seat": "NONE_GRANTED",
+  "constraint": "I_AM_STATELESS_RENTER_NOT_LANDLORD",
+  "status": "LOCAL_VALIDATED_CLOUD_PENDING",
+  "pre_sprint_head": "33c98a9c898106089edab00968801ecd6f819669",
+  "scope": "Calendar Day 1-3 and today IDE audit, through 2026-10-15 Africa/Johannesburg",
+  "sources": {
+    "calendar": "live event descriptions read; private raw payload",
+    "tasks": "live titles, dates and unchecked state read; full detail notes NOT_RECOVERED",
+    "owner": "four-contract mapping, hybrid runtime and warm/simple help admitted"
+  },
+  "tests": {
+    "python_unittest": {
+      "passed": 60,
+      "failed": 0,
+      "seconds": 2.279
+    },
+    "native_node_helper_tests": {
+      "passed": 4,
+      "failed": 0
+    },
+    "typescript_strict_check": "PASS",
+    "typescript_build": "PASS",
+    "npm_ci": "PASS",
+    "python_compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "browser": {
+    "implementation": "actual local Flask/compiled TypeScript",
+    "synthetic_example": {
+      "margin_cents": 60000,
+      "headroom_cents": 40000
+    },
+    "blank_day": "UNKNOWN/HOLD and unchecked confirmation",
+    "synthetic_confirmed_day": "R600/R400",
+    "credit_sale": {
+      "amount_cents": 10001,
+      "cash_snapshot_changed": false,
+      "reviewed_totals_changed": false,
+      "receivables_delta_cents": 10001,
+      "required_credit_warning_surfaced": true
+    },
+    "unfinished_transaction": "blocks calculation with next-action guidance",
+    "removal": "record removed and old result invalidated",
+    "help_keyboard_enter": "PASS",
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "viewport_widths": [
+      390,
+      1280
+    ],
+    "horizontal_overflow": "none material observed; scrollWidth matched clientWidth in both explicit checks",
+    "explicit_synthetic_receipt_replay": "REPRODUCED; human review NOT_RECORDED, bank verification NOT_PERFORMED",
+    "screenshot_scope": "synthetic figures and public app only; full-page JPEG artifacts"
+  },
+  "runtime": {
+    "connection": "CONNECTED_READ_ONLY observed",
+    "scope": "READ_ONLY_CONTEXT_ENTRY",
+    "financial_admission": "NOT_ESTABLISHED",
+    "bank_verification": "NOT_PERFORMED",
+    "selected_parent_source_byte_window": "UNCHANGED; private hashes retained",
+    "contained_ledger_directory_created": false,
+    "all_estate_no_write_certification": false,
+    "unavailable_invalid_unconfigured_regressions": "PASS"
+  },
+  "gemma": {
+    "prior_real_evaluation": "docs/receipts/gemma-evaluation-20261013T222027Z.json",
+    "new_inference_calls_in_this_sprint": 0,
+    "today_service": "initial endpoint refused; existing installation restarted; version/tag/digest verified",
+    "tag": "gemma4:e2b-it-q4_K_M",
+    "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+    "e4b": "DEFERRED"
+  },
+  "privacy": {
+    "credential_pattern_scan_hits": 0,
+    "scan_scope": "recognizable patterns in bounded tracked/nonignored text population, not exhaustive",
+    "raw_data": "ignored local-data only",
+    "core_unchanged_from_pre_sprint_HEAD": {
+      "engine.py": true,
+      "obligations.py": true,
+      "explanations.py": true,
+      "ollama.py": true,
+      "workflow.py": true
+    }
+  },
+  "limits": [
+    "No operator consent/trial/comprehension or economic outcome evidence",
+    "No RTC ratification or financial-runtime admission",
+    "No Calendar or Task completion mutation",
+    "No merge or deployment",
+    "Local responsive prototype is not a hosted phone service",
+    "Source populations remain separate"
+  ],
+  "sha256": {
+    ".github/workflows/tests.yml": "b660734cf1881729089cbea2d4a10a5a2f3cb449d05a44c920106213cb4eb10b",
+    "README.md": "be2eabb10db6137d8f5f3438a9a51244c0a907fe5e7dacb051f303fed52a9e3e",
+    "docs/CALENDAR-DELIVERABLES.md": "93a1307b02168d6c517138885fb07e3de322fe396262aa39829b7e5cec06420b",
+    "docs/TYPESCRIPT-FLASK-AND-GEMMA.md": "b8834eae6d04ef9177b2db78f5ee421c27a13b741bd593e0ef2a21669d8c09a0",
+    "docs/SOUTH-AFRICA-EXPERIENCE.md": "5e6daa6ed4979396d799b63aa871889e9f501d5dde3c88d7eb5b9e348fde8274",
+    "docs/summary.schema.json": "92cb937a0a898824a470818d57f0d0b717a5538cc76037d75b49646374e411c9",
+    "kasimargin/kpgs.py": "a536b5982728559cf4cc722d3920bfa4c62868aac27dcda44765852f31f2a9d1",
+    "kasimargin/receipts.py": "0be30c638bcc24b7e101907937d39fcd4e3a777e8ecaa6e735d878d4099722ef",
+    "kasimargin/server.py": "dee0ae9f13d1920efcbb030ca8736892c5c78790f6068197a5acc8fefdf0d326",
+    "kasimargin/web/index.html": "707c6ec9409f9b58afbc396220b1e6e80b597ffea22e244e9ecad28bd3275296",
+    "kasimargin/web/src/app.ts": "04960e5e28139a58fe705281f61926cb4c22fc8befce399f23776944bf1b9a4d",
+    "kasimargin/web/src/types.ts": "1a1edcbbeb4397360d0ccd7c1c5472424f8982dd1c514e1875529b0546e25117",
+    "kasimargin/web/src/money.ts": "b29f4dad0b6579c5a3251453ef3645aa4e6b68fce89eff220392a2619157ed53",
+    "kasimargin/web/src/transactions.ts": "b92c7dc7da80b647e6fb487742fde4e797af0e3241144afa2998fa46c4c21b17",
+    "kasimargin/web/style.css": "efc3e88b05cd00b2adc4263f1410fb03f8036c01d2285a238622523c679ab0cc",
+    "package.json": "f125952b0a702ffe024f7e12c1ee78c5b777ed8dd6af47ce16efadd7fd9ca242",
+    "package-lock.json": "91722386e49e321befce6f0d784ea4a13c481307cbb0fae3772248bbb20fdf50",
+    "pyproject.toml": "5bd8883b1c80e49ff389fbcda820fff88cc005dfe7e338ce2e7840e68124615c",
+    "tests/test_receipts.py": "0ef7e0374253c5f60eadc22b4710e2ff26657bc2a29c39bec7f36fe40e911cea",
+    "tests/test_server.py": "5d332c7e7412fe0db7d6565ccbab31eb5ce935e40a80e1de87bc297b8a6c2f23",
+    "tests/test_contracts.py": "19c9b7256c4d582439b851293231b60f40cc1b5d7d080a2754de407ce2ea0b11",
+    "tests/test_kpgs.py": "4f2db569cb6d99d43d2361be7fc62b9bdeafba5a43bfd6a8a28f768379a2aede",
+    "tests/web-transactions.test.mjs": "7ce64dd5deed2ee7b35e6cd27bd7ea024a6631cff8c79b2bfb340ed1d086edd1",
+    "docs/receipts/experience-dark-2026-10-15.jpg": "cbe1ef08fa6971c625be895bbdbe47c01840ba6b7df0c58c196e7db2969586c0",
+    "docs/receipts/experience-light-2026-10-15.jpg": "777f6799069ce6c4da397ecf02c7314f4ce3f22d7cde347b11571e19618ed612",
+    "docs/receipts/experience-narrow-dark-2026-10-15.jpg": "7966e09d1edb15f6fd3d98bfb27f97e6eb39e08b87a63d602dc94ee3a3d42ba6"
+  },
+  "manifest_scope": "listed implementation and presentation files; mutable NOW, sprint status and future Cloud receipt excluded",
+  "manifest_byte_basis": "Staged Git blob bytes, including normal repository newline normalization; excludes this receipt itself"
+}

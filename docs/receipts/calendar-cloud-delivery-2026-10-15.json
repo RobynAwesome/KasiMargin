@@ -1,0 +1,103 @@
+{
+  "schema": "kasimargin-cloud-delivery-v1",
+  "observed_at": "2026-10-15T09:59:21.424592+00:00",
+  "pr": "https://github.com/RobynAwesome/KasiMargin/pull/4",
+  "state": "OPEN",
+  "implementation_head": "d11e29c4992d0199626230dc93226ace9863612c",
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T09:57:59Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38716787174/job/116361316402",
+      "name": "ubuntu-latest / Python 3.10",
+      "startedAt": "2026-10-15T09:57:41Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T09:57:55Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38716782189/job/116361298541",
+      "name": "ubuntu-latest / Python 3.10",
+      "startedAt": "2026-10-15T09:57:38Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T09:57:59Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38716787174/job/116361317051",
+      "name": "ubuntu-latest / Python 3.14",
+      "startedAt": "2026-10-15T09:57:41Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T09:57:55Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38716782189/job/116361298479",
+      "name": "ubuntu-latest / Python 3.14",
+      "startedAt": "2026-10-15T09:57:38Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T09:58:25Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38716787174/job/116361317166",
+      "name": "windows-latest / Python 3.10",
+      "startedAt": "2026-10-15T09:57:41Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T09:58:13Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38716782189/job/116361298120",
+      "name": "windows-latest / Python 3.10",
+      "startedAt": "2026-10-15T09:57:38Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T09:58:25Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38716787174/job/116361316837",
+      "name": "windows-latest / Python 3.14",
+      "startedAt": "2026-10-15T09:57:41Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T09:58:30Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/38716782189/job/116361298436",
+      "name": "windows-latest / Python 3.14",
+      "startedAt": "2026-10-15T09:57:39Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T09:57:42Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://dashboard.gitguardian.com",
+      "name": "GitGuardian Security Checks",
+      "startedAt": "2026-10-15T09:57:40Z",
+      "status": "COMPLETED",
+      "workflowName": ""
+    }
+  ],
+  "all_observed_checks_successful": true,
+  "scope": "Initial 60-test implementation head; a derived browser-integer-range regression/correction is locally validated and will require its own head checks",
+  "merge": "NOT_PERFORMED",
+  "deployment": "NOT_PERFORMED"
+}

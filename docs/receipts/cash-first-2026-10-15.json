@@ -1,0 +1,116 @@
+{
+  "schema": "kasimargin-implementation-receipt-v1",
+  "date": "2026-10-15",
+  "actor": "Codex Forge",
+  "scope": "Cash-first UX correction after owner product rejection",
+  "base_commit": "c64701c402da8b0fc2130ed58be8e3e7b6c4bcc0",
+  "rebase": "Fetched origin; origin/main is ancestor; requested rebase reported already up to date; no history rewriting",
+  "local_tests": {
+    "build": "PASS",
+    "python": 62,
+    "typescript": "PASS",
+    "compileall": "PASS",
+    "node": 6,
+    "diff_check": "PASS",
+    "core_financial_model_sources": "UNCHANGED_FROM_BASE"
+  },
+  "browser": {
+    "modes": [
+      "light",
+      "dark"
+    ],
+    "cash_results": [
+      "R400.00",
+      "R0.00",
+      "R0.00",
+      "Still checking",
+      "R50.00",
+      "Still checking",
+      "R400.00"
+    ],
+    "draft": "Replace/cancel/resume checked",
+    "save": "Synthetic result explicitly saved and replayed",
+    "viewports": [
+      "390x844",
+      "1280x900"
+    ],
+    "keyboard": "Missing-cash recovery focused cash input",
+    "cash_only": "R800.01 with unknown performance",
+    "synthetic_scenarios": 7
+  },
+  "failures": [
+    "Old preview ports refused by Windows reserved range; used a permitted loopback port without system changes",
+    "Browser input/navigation stalls were recovered by inspecting state and using a separate test tab"
+  ],
+  "privacy": "No merchant records, raw model replies or machine inventory published",
+  "limits": [
+    "No participant study",
+    "English only",
+    "Local computer prototype",
+    "Aggregate input still required",
+    "Formal financial admission NOT_ESTABLISHED",
+    "Bank verification NOT_PERFORMED",
+    "No new model benchmark",
+    "No merge or deployment"
+  ],
+  "provider_state": "PENDING_SEPARATE_EXACT_HEAD_RECEIPT",
+  "manifest_excludes": [
+    "NOW.md",
+    "This receipt",
+    "Future provider receipt"
+  ],
+  "files": [
+    {
+      "sha256": "2499fd6d4e079fca761a2f44556690f28a82000ae02747790139054406888638",
+      "path": "README.md"
+    },
+    {
+      "sha256": "0eede84c3146327ab08dcf5807fa5effa057848ae6f84d7742adbb2825d43649",
+      "path": "docs/CASH-FIRST-RETROSPECTIVE.md"
+    },
+    {
+      "sha256": "a3488d323865f4a83b0dc688194216b701b1711f052e86b5b5273ec98397a9da",
+      "path": "docs/SOUTH-AFRICA-EXPERIENCE.md"
+    },
+    {
+      "sha256": "6eb55df105362fe3a703cbb150e96396f0eb31ee0d505190355fc2e67aff441e",
+      "path": "kasimargin/server.py"
+    },
+    {
+      "sha256": "8bd8a19a9817befae9a2df1e13bdf9639b17dcd4b7bc42816f25a8242d496b1f",
+      "path": "kasimargin/web/index.html"
+    },
+    {
+      "sha256": "5604186e0a6e89316fe4caf489829f0c8fd7e5670239c639604d3f4f7eef6e34",
+      "path": "kasimargin/web/src/app.ts"
+    },
+    {
+      "sha256": "38c0e9f29b9dcd72a00ddf91dcc1d10696208cf0989d944bf2c3342199e00a37",
+      "path": "kasimargin/web/src/presentation.ts"
+    },
+    {
+      "sha256": "f2a953a75ac6c2253354922ecff6d62ad544d43168cb611297de875dfd5b3cf5",
+      "path": "kasimargin/web/style.css"
+    },
+    {
+      "sha256": "ff9e2f6b18b29ecb6b91e0cf587d22279332f7831a9a2baa00ec7c047b000e62",
+      "path": "tests/test_server.py"
+    },
+    {
+      "sha256": "1b7cd26597570bac78eb9be8004a64e67ed21875ac4254df98f4b28535e755b0",
+      "path": "tests/web-transactions.test.mjs"
+    },
+    {
+      "sha256": "1e8d7597ca06ba1bd7dca577bd7853c3df924dda4a781730edc84195a73d8b40",
+      "path": "docs/receipts/cash-first-welcome-2026-10-15.jpg"
+    },
+    {
+      "sha256": "d23e9bd4d91a24d30ad3ae59288209811642c874bceee6fe2f47e1c475f0685e",
+      "path": "docs/receipts/cash-first-money-dark-2026-10-15.jpg"
+    },
+    {
+      "sha256": "aaa55305bdc0c3e620e3906839ef3c4c438a549f106db1617c98b9d35f074b6f",
+      "path": "docs/receipts/cash-first-result-light-2026-10-15.jpg"
+    }
+  ]
+}

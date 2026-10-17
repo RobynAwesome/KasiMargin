@@ -81,5 +81,7 @@ export interface DecisionResult {
   baseline_selection: Selection;
   baseline_explanation: string;
   receipt_filename?: string;
+  context_check?: {status: "NOT_CONFIGURED" | "UNAVAILABLE" | "INVALID_REPLY" | "CONNECTED_READ_ONLY";
+    checked_at: string; scope: "READ_ONLY_CONTEXT_ENTRY"; financial_admission: "NOT_ESTABLISHED"; bank_verification: "NOT_PERFORMED"};
 }
 export interface DecisionPayload { input: FinancialRequest; model: string | null; save_receipt: boolean; data_class: DataClass; }

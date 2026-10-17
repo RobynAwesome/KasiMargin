@@ -16,7 +16,7 @@
 >
 > KasiMargin helps an owner-operated township micro-enterprise understand estimated operating margin, protect recorded obligations, and see when cash headroom is still unknown.
 >
-> **Current stage: runnable local prototype.** Synthetic calculation and adapter tests are established; real Gemma inference and operator outcomes remain unmeasured.
+> **Current stage: runnable local prototype.** Synthetic calculation and real local E2B output admission are established; operator understanding and economic outcomes remain unmeasured.
 
 [Quick start](#-quick-start) · [Capabilities](#-key-capabilities) · [Design system](#-design-system) · [Evidence](#-validation-and-evidence) · [Roadmap](#-roadmap)
 
@@ -38,6 +38,9 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 - **Unknown stays unknown** — Missing balances, incomplete obligations, stale snapshots and disputed records produce null headroom and HOLD.
 - **Local explanation options** — An optional Gemma selection passes programmatic checks before a trusted renderer supplies every amount.
 - **Private decision receipts** — Explicit saves retain the displayed result for deterministic reproduction.
+- **A cash-first check** — Start with money now, payments ahead and money to keep aside. Sales/cost checking is optional; missing answers lead to specific review steps.
+- **Daily transaction entry** — Checked records, credit sales and payments stay distinct from reviewed totals and the cash snapshot.
+- **Visible hybrid checks** — Optional existing local KPGS context entry, deterministic finance, optional local Gemma and explicit human review retain separate scopes.
 - **Light and dark modes** — The owner’s sculpted ribbon emblem sets the orange, lime, teal and blue brand palette.
 
 ## 🧭 Product surfaces
@@ -46,8 +49,9 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 |---|---|---|
 | Financial engine | Separate estimated margin from conditional cash headroom | Tested with synthetic scenarios |
 | Browser demo | Review records, calculate, explain and save | Strict TypeScript and Python Flask; light and dark themes |
-| Gemma adapter | Select approved facts, warnings and options | Local runtime installed; model download blocked by disk capacity |
+| Gemma adapter | Select approved facts, warnings and options | Local E2B installed; 21/21 synthetic outputs admitted |
 | Decision receipts | Preserve input/output and replay calculations | Local save and reproduction tested |
+| KPGS context bridge | Observe existing local context entry without passing financial records | Read-only connection observed; formal financial admission not established |
 | Operator experiment | Measure understanding and usefulness against a baseline | Pending consented trial |
 | Public release | Hosted product, demo/video and challenge submission | Pending |
 
@@ -74,7 +78,7 @@ cd KasiMargin
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e .
+.\.venv\Scripts\python.exe -m pip install -e '.[test]'
 npm ci
 npm run check
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
@@ -88,9 +92,20 @@ Browser source lives in `kasimargin/web/src/*.ts`. The strict compiler writes ig
 .\.venv\Scripts\python.exe -m kasimargin --serve
 ```
 
-Open **[http://127.0.0.1:8765](http://127.0.0.1:8765)**. Choose a synthetic scenario, review its records, and calculate the position. Use the **Light / Dark** controls in the header; the preference is stored in this browser. The first visit follows the operating system’s colour preference.
+Open **[http://127.0.0.1:8765](http://127.0.0.1:8765)**. Choose **Try a shop example** or **Start my own day**, review the figures and calculate the position. **Help me understand KasiMargin** explains each stage; field notes explain what belongs in each amount. Use **Light / Dark** in the header; the preference is stored in this browser. The first visit follows the operating system’s colour preference.
 
-The app serves its fonts, scripts and images locally without CDNs or analytics. It binds to loopback and is a development demo. Loading an example labels it synthetic. Only select operator-attested records after replacing the example with your own complete records and appropriate decision timestamps.
+The app serves its fonts, scripts and images locally without CDNs or analytics. It binds to loopback and is a development demo. Loading an example labels it synthetic. Your own day starts with unknown money and unchecked confirmations. Edits stay in the page until an explicit save or export; closing/reloading can lose a draft. Responsive layout does not yet provide a remotely accessible phone service.
+
+The [South African experience and architecture note](docs/SOUTH-AFRICA-EXPERIENCE.md) connects research, the four schema contracts, help copy and the hybrid boundary. The [scheduled-deliverables checklist](docs/CALENDAR-DELIVERABLES.md) tracks implementation separately from delivery and operator evidence.
+
+To enable the existing local KPGS **read-only context-entry check**, set its checkout path before starting this process:
+
+```powershell
+$env:KASIMARGIN_KPGS_ROOT = 'C:\path\to\your\Introduction-to-MCP-checkout'
+.\.venv\Scripts\python.exe -m kasimargin --serve
+```
+
+This optional bridge requires that checkout's existing `scripts/kc_kpgs_governance.py entry` interface. No financial records are passed to it; it does not assert entry, approve spending or establish formal financial admission. Without configuration, the app reports the context check as not configured. See the [stack guide](docs/TYPESCRIPT-FLASK-AND-GEMMA.md) for transport and receipt limits.
 
 ### 4. Save or reproduce a decision
 
@@ -114,7 +129,7 @@ conditional cash headroom = max(0, confirmed cash
                                   - protected buffer)
 ```
 
-All calculation amounts are integer ZAR cents. Decimal floats, booleans, numeric strings and negative money inputs are rejected; calculated margins may be negative. The browser converts rand text through integer arithmetic and rejects inputs outside its exact number range. The CLI retains Python integer precision.
+All calculation amounts are integer ZAR cents. Decimal floats, booleans, numeric strings and negative money inputs are rejected; calculated margins may be negative. The browser converts rand text through integer arithmetic and rejects inputs or computed totals outside its exact number range, with a clear instruction to use the Python CLI. The CLI retains Python integer precision.
 
 Uncollected credit sales can contribute to recorded margin but are excluded from cash. Paid expenses and collected sales already belong in the cash snapshot and are never deducted or added again. Missing cash, buffer, obligations or unresolved cash records return **null headroom and HOLD**.
 
@@ -146,9 +161,11 @@ flowchart LR
 
 The model receives the approved catalogue rather than raw transaction descriptions. Only approved fact, warning and action IDs are admitted. Known profit/cash figures, material risks and all warnings must be surfaced. Unsupported prose, invented actions, omitted warnings, incomplete responses and digest drift are rejected; failures use a labelled deterministic fallback.
 
-**Real Gemma inference has not been run.** The official Windows Ollama installation now responds locally as version 0.40.3. The explicit E2B pull failed when the model volume ran out of space, so no model digest is available. Only weights created by that failed pull were removed to restore working space. Seven checks against the real endpoint correctly used labelled deterministic fallback and retained every baseline summary and selection; they are model-absence checks, not inference results. See the [redacted runtime blocker receipt](docs/receipts/gemma-runtime-blocker-2026-10-13.json).
+**Real local Gemma inference has completed on all seven synthetic scenarios.** One unloaded-runner cold call and two warm repeats per scenario produced 21/21 admitted, 0 rejected model outputs, 0 fallback results, 0 unavailable or malformed responses. Every deterministic financial summary and required warning was preserved; 18/21 model selections matched the baseline exactly.
 
-The next requirement is **at least 8 GiB free on the local model volume** before retrying the approximately 4.6 GB E2B download. This reserve is a setup precaution, not proof that inference fits. [The stack and evaluation guide](docs/TYPESCRIPT-FLASK-AND-GEMMA.md) provides the exact retry commands. Device fit, cold/warm model latency, language quality and benefit over the deterministic baseline remain unmeasured. E4B is deferred. The narrow selection task must demonstrate usefulness before we claim AI is essential.
+Cold attempts: 56.34-294.94 seconds, median 89.23. Warm attempts: 2.74-42.22 seconds, median 5.00. Low available RAM was observed on the busy machine. The evaluator used a 300-second socket timeout; normal app requests retain 90 seconds and may fall back on a slow cold load. See the [redacted technical comparison](docs/GEMMA-TECHNICAL-EVALUATION.md) and [exact tag/digest receipt](docs/receipts/gemma-evaluation-20261013T222027Z.json). Raw outputs and machine details remain private.
+
+The earlier disk failure is preserved in the [historical blocker receipt](docs/receipts/gemma-runtime-blocker-2026-10-13.json). Supported maintenance enabled the retry, but the requested 24 GiB working reserve was not reached; estate cleanup is closed under the owner's direction. E4B remains deferred. Technical admission and agreement with the baseline do not establish better understanding or economic value; [the consented operator comparison](docs/OPERATOR-COMPARISON.md) is the next separate experiment.
 
 ---
 
@@ -192,12 +209,18 @@ The mode selector uses native buttons with `aria-pressed`, keyboard focus indica
 
 ## ✅ Validation and evidence
 
-The current TypeScript/Flask implementation has **46 passing unittest methods**, strict TypeScript checks/build, seven synthetic scenarios and 20 repeated oversized-request rejection checks. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`.
+The cash-first correction has **62 passing Python unittest methods**, **six native Node helper tests**, strict TypeScript checks/build and seven synthetic scenarios exercised through the browser. The earlier migration also recorded 20 repeated oversized-request rejection probes. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`. The [product retrospective](docs/CASH-FIRST-RETROSPECTIVE.md) records the owner's rejection of the earlier technical experience, the correction and the remaining operator-validation work.
 
 - [Foundation validation](docs/receipts/local-foundation-2026-10-13.json)
 - [Foundation Cloud delivery](docs/receipts/cloud-delivery-2026-10-13.json)
 - [TypeScript and Flask validation](docs/receipts/stack-migration-2026-10-13.json)
-- [Gemma runtime recovery and disk blocker](docs/receipts/gemma-runtime-blocker-2026-10-13.json)
+- [Real local Gemma technical comparison](docs/GEMMA-TECHNICAL-EVALUATION.md)
+- [Calendar deliverables and delivery checks](docs/CALENDAR-DELIVERABLES.md)
+- [South African experience, four contracts and hybrid architecture](docs/SOUTH-AFRICA-EXPERIENCE.md)
+- [October 15 implementation acceptance](docs/audits/2026-10-15-completion.md)
+- [Evaluation/calendar provider receipt](docs/receipts/gemma-calendar-cloud-delivery-2026-10-14.json)
+- [Partial storage recovery](docs/receipts/storage-recovery-2026-10-13.json)
+- [Historical Gemma runtime recovery and disk blocker](docs/receipts/gemma-runtime-blocker-2026-10-13.json)
 - [Prepared consented operator comparison](docs/OPERATOR-COMPARISON.md)
 - [Current handoff](NOW.md)
 
@@ -208,8 +231,8 @@ Examples and screenshots are synthetic. Receipt replay confirms content integrit
 | Stage | Outcome | State |
 |---|---|---|
 | 1. Financial foundation | Exact calculations, uncertainty gates and seven scenarios | Implemented and tested |
-| 2. Brand and interface | Supplied logo, light/dark modes and readable decision workflow | Branding merged; TypeScript/Flask migration in PR #3 |
-| 3. Model evaluation | E2B/E4B on target hardware versus deterministic baseline | Runtime installed; E2B weights blocked by disk capacity; E4B deferred |
+| 2. Brand and interface | Supplied logo, light/dark modes and readable decision workflow | Branding and TypeScript/Flask merged; daily entry and researched help prepared in PR #4 |
+| 3. Model evaluation | E2B/E4B on target hardware versus deterministic baseline | E2B technical run complete on seven synthetic scenarios; E4B deferred |
 | 4. Operator experiment | Consented comprehension, task time, errors and supervision evidence | Pending |
 | 5. Public demo and submission | Truthful demo/video and DEV article | Pending |
 

@@ -1,0 +1,1052 @@
+{
+  "schema_version": "kasimargin-real-gemma-evaluation-v1",
+  "recorded_at": "2026-10-14T09:41:27.114505+00:00",
+  "data_class": "SYNTHETIC",
+  "model": "gemma4:e2b-it-q4_K_M",
+  "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+  "ollama_version": "0.40.3",
+  "runtime_options": {
+    "num_ctx": 4096,
+    "num_predict": 512,
+    "temperature": 0,
+    "seed": 0,
+    "think": false
+  },
+  "scenario_count": 7,
+  "calls": 21,
+  "admitted": 21,
+  "fallback": 0,
+  "cold_latency_seconds": {
+    "min": 56.340509,
+    "median": 89.234886,
+    "max": 294.940126
+  },
+  "warm_latency_seconds": {
+    "min": 2.744975,
+    "median": 4.997857,
+    "max": 42.224335
+  },
+  "observations": [
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.000219,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": true,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 294.940126,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "01",
+      "flags": [],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 294.773291,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 58,
+          "eval_duration": 3434547000,
+          "load_duration": 226515132400,
+          "prompt_eval_count": 272,
+          "prompt_eval_duration": 55907313000,
+          "total_duration": 294346430200
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 58,
+        "eval_duration": 3434547000,
+        "load_duration": 226515132400,
+        "prompt_eval_count": 272,
+        "prompt_eval_duration": 55907313000,
+        "total_duration": 294346430200
+      },
+      "output_admitted": true,
+      "pass": "cold",
+      "resource_sample_count": 73,
+      "scenario": "Profitable day with confirmed cash position",
+      "selection_equals_baseline": true,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.000219,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": false,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 42.224335,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "01",
+      "flags": [],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 41.487907,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 58,
+          "eval_duration": 5755324000,
+          "load_duration": 282424400,
+          "prompt_eval_count": 272,
+          "prompt_eval_duration": 35002268000,
+          "total_duration": 41147953400
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 58,
+        "eval_duration": 5755324000,
+        "load_duration": 282424400,
+        "prompt_eval_count": 272,
+        "prompt_eval_duration": 35002268000,
+        "total_duration": 41147953400
+      },
+      "output_admitted": true,
+      "pass": "warm-1",
+      "resource_sample_count": 7,
+      "scenario": "Profitable day with confirmed cash position",
+      "selection_equals_baseline": true,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.000219,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": false,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 4.16398,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "01",
+      "flags": [],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 3.888616,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 58,
+          "eval_duration": 2916455000,
+          "load_duration": 169493400,
+          "prompt_eval_count": 272,
+          "prompt_eval_duration": 210180000,
+          "total_duration": 3330433700
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 58,
+        "eval_duration": 2916455000,
+        "load_duration": 169493400,
+        "prompt_eval_count": 272,
+        "prompt_eval_duration": 210180000,
+        "total_duration": 3330433700
+      },
+      "output_admitted": true,
+      "pass": "warm-2",
+      "resource_sample_count": 1,
+      "scenario": "Profitable day with confirmed cash position",
+      "selection_equals_baseline": true,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.002265,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": true,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 78.899864,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "02",
+      "flags": [
+        "NO_DISCRETIONARY_HEADROOM"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 78.54765,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 59,
+          "eval_duration": 2386023000,
+          "load_duration": 73120582800,
+          "prompt_eval_count": 247,
+          "prompt_eval_duration": 1894206000,
+          "total_duration": 77913722900
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 59,
+        "eval_duration": 2386023000,
+        "load_duration": 73120582800,
+        "prompt_eval_count": 247,
+        "prompt_eval_duration": 1894206000,
+        "total_duration": 77913722900
+      },
+      "output_admitted": true,
+      "pass": "cold",
+      "resource_sample_count": 18,
+      "scenario": "Low margin with independently constrained cash",
+      "selection_equals_baseline": true,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.002265,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": false,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 5.239606,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "02",
+      "flags": [
+        "NO_DISCRETIONARY_HEADROOM"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 5.024998,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 59,
+          "eval_duration": 3889906000,
+          "load_duration": 64454300,
+          "prompt_eval_count": 247,
+          "prompt_eval_duration": 300082000,
+          "total_duration": 4262119300
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 59,
+        "eval_duration": 3889906000,
+        "load_duration": 64454300,
+        "prompt_eval_count": 247,
+        "prompt_eval_duration": 300082000,
+        "total_duration": 4262119300
+      },
+      "output_admitted": true,
+      "pass": "warm-1",
+      "resource_sample_count": 2,
+      "scenario": "Low margin with independently constrained cash",
+      "selection_equals_baseline": true,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.002265,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": false,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 4.756108,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "02",
+      "flags": [
+        "NO_DISCRETIONARY_HEADROOM"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 4.12206,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 59,
+          "eval_duration": 2234783000,
+          "load_duration": 110129900,
+          "prompt_eval_count": 247,
+          "prompt_eval_duration": 494510000,
+          "total_duration": 2877127100
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 59,
+        "eval_duration": 2234783000,
+        "load_duration": 110129900,
+        "prompt_eval_count": 247,
+        "prompt_eval_duration": 494510000,
+        "total_duration": 2877127100
+      },
+      "output_admitted": true,
+      "pass": "warm-2",
+      "resource_sample_count": 2,
+      "scenario": "Low margin with independently constrained cash",
+      "selection_equals_baseline": true,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.000269,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": true,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 56.340509,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "03",
+      "flags": [
+        "PROTECTED_CASH_DEFICIT",
+        "NO_DISCRETIONARY_HEADROOM"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 55.948261,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 70,
+          "eval_duration": 2239789000,
+          "load_duration": 50720342200,
+          "prompt_eval_count": 262,
+          "prompt_eval_duration": 1017013000,
+          "total_duration": 54012857000
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 70,
+        "eval_duration": 2239789000,
+        "load_duration": 50720342200,
+        "prompt_eval_count": 262,
+        "prompt_eval_duration": 1017013000,
+        "total_duration": 54012857000
+      },
+      "output_admitted": true,
+      "pass": "cold",
+      "resource_sample_count": 14,
+      "scenario": "Cash shortfall against obligations and protected buffer",
+      "selection_equals_baseline": true,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.000269,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": false,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 4.629643,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "03",
+      "flags": [
+        "PROTECTED_CASH_DEFICIT",
+        "NO_DISCRETIONARY_HEADROOM"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 4.315688,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 70,
+          "eval_duration": 2684800000,
+          "load_duration": 349461000,
+          "prompt_eval_count": 262,
+          "prompt_eval_duration": 528010999,
+          "total_duration": 3576188200
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 70,
+        "eval_duration": 2684800000,
+        "load_duration": 349461000,
+        "prompt_eval_count": 262,
+        "prompt_eval_duration": 528010999,
+        "total_duration": 3576188200
+      },
+      "output_admitted": true,
+      "pass": "warm-1",
+      "resource_sample_count": 1,
+      "scenario": "Cash shortfall against obligations and protected buffer",
+      "selection_equals_baseline": true,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.000269,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": false,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 9.681655,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "03",
+      "flags": [
+        "PROTECTED_CASH_DEFICIT",
+        "NO_DISCRETIONARY_HEADROOM"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 9.031758,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 70,
+          "eval_duration": 2530889000,
+          "load_duration": 5313313300,
+          "prompt_eval_count": 262,
+          "prompt_eval_duration": 482246000,
+          "total_duration": 8461113700
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 70,
+        "eval_duration": 2530889000,
+        "load_duration": 5313313300,
+        "prompt_eval_count": 262,
+        "prompt_eval_duration": 482246000,
+        "total_duration": 8461113700
+      },
+      "output_admitted": true,
+      "pass": "warm-2",
+      "resource_sample_count": 2,
+      "scenario": "Cash shortfall against obligations and protected buffer",
+      "selection_equals_baseline": true,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.116647,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": true,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 89.234886,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "04",
+      "flags": [
+        "MARGIN_UNKNOWN",
+        "UNKNOWN_VERIFIED_CASH_CENTS",
+        "UNKNOWN_DUE_LIABILITIES_CENTS",
+        "CASH_BASIS_UNCONFIRMED",
+        "MISSING_CASH_EVIDENCE",
+        "UNRESOLVED:MISSING_RECEIPT"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 88.91455,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 92,
+          "eval_duration": 4978856000,
+          "load_duration": 74915685500,
+          "prompt_eval_count": 226,
+          "prompt_eval_duration": 6392388000,
+          "total_duration": 86653622300
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 92,
+        "eval_duration": 4978856000,
+        "load_duration": 74915685500,
+        "prompt_eval_count": 226,
+        "prompt_eval_duration": 6392388000,
+        "total_duration": 86653622300
+      },
+      "output_admitted": true,
+      "pass": "cold",
+      "resource_sample_count": 26,
+      "scenario": "Missing receipts and unknown cash / liabilities",
+      "selection_equals_baseline": true,
+      "status": "HOLD_INSUFFICIENT_DATA"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.116647,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": false,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 11.805103,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "04",
+      "flags": [
+        "MARGIN_UNKNOWN",
+        "UNKNOWN_VERIFIED_CASH_CENTS",
+        "UNKNOWN_DUE_LIABILITIES_CENTS",
+        "CASH_BASIS_UNCONFIRMED",
+        "MISSING_CASH_EVIDENCE",
+        "UNRESOLVED:MISSING_RECEIPT"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 11.313416,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 92,
+          "eval_duration": 5725709000,
+          "load_duration": 3097413000,
+          "prompt_eval_count": 226,
+          "prompt_eval_duration": 1639713000,
+          "total_duration": 10733479500
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 92,
+        "eval_duration": 5725709000,
+        "load_duration": 3097413000,
+        "prompt_eval_count": 226,
+        "prompt_eval_duration": 1639713000,
+        "total_duration": 10733479500
+      },
+      "output_admitted": true,
+      "pass": "warm-1",
+      "resource_sample_count": 3,
+      "scenario": "Missing receipts and unknown cash / liabilities",
+      "selection_equals_baseline": true,
+      "status": "HOLD_INSUFFICIENT_DATA"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.116647,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": false,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 7.634678,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "04",
+      "flags": [
+        "MARGIN_UNKNOWN",
+        "UNKNOWN_VERIFIED_CASH_CENTS",
+        "UNKNOWN_DUE_LIABILITIES_CENTS",
+        "CASH_BASIS_UNCONFIRMED",
+        "MISSING_CASH_EVIDENCE",
+        "UNRESOLVED:MISSING_RECEIPT"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 7.285142,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 92,
+          "eval_duration": 5657614000,
+          "load_duration": 118825500,
+          "prompt_eval_count": 226,
+          "prompt_eval_duration": 651199000,
+          "total_duration": 6447982700
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 92,
+        "eval_duration": 5657614000,
+        "load_duration": 118825500,
+        "prompt_eval_count": 226,
+        "prompt_eval_duration": 651199000,
+        "total_duration": 6447982700
+      },
+      "output_admitted": true,
+      "pass": "warm-2",
+      "resource_sample_count": 2,
+      "scenario": "Missing receipts and unknown cash / liabilities",
+      "selection_equals_baseline": true,
+      "status": "HOLD_INSUFFICIENT_DATA"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.034905,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": true,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 89.062689,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "05",
+      "flags": [
+        "CREDIT_SALES_NOT_CASH"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 88.616915,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 61,
+          "eval_duration": 1423077000,
+          "load_duration": 85798734600,
+          "prompt_eval_count": 286,
+          "prompt_eval_duration": 898309000,
+          "total_duration": 88179734200
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 61,
+        "eval_duration": 1423077000,
+        "load_duration": 85798734600,
+        "prompt_eval_count": 286,
+        "prompt_eval_duration": 898309000,
+        "total_duration": 88179734200
+      },
+      "output_admitted": true,
+      "pass": "cold",
+      "resource_sample_count": 15,
+      "scenario": "Uncollected credit sale earns recorded margin without cash",
+      "selection_equals_baseline": false,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.034905,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": false,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 3.016503,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "05",
+      "flags": [
+        "CREDIT_SALES_NOT_CASH"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 2.841399,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 61,
+          "eval_duration": 1958296000,
+          "load_duration": 98672100,
+          "prompt_eval_count": 286,
+          "prompt_eval_duration": 218153000,
+          "total_duration": 2289083400
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 61,
+        "eval_duration": 1958296000,
+        "load_duration": 98672100,
+        "prompt_eval_count": 286,
+        "prompt_eval_duration": 218153000,
+        "total_duration": 2289083400
+      },
+      "output_admitted": true,
+      "pass": "warm-1",
+      "resource_sample_count": 1,
+      "scenario": "Uncollected credit sale earns recorded margin without cash",
+      "selection_equals_baseline": false,
+      "status": "CALCULATED"
+    },
+    {
+      "all_warnings_surfaced": true,
+      "baseline_elapsed_seconds": 0.034905,
+      "chat_http_status": 200,
+      "cold_unload_confirmed": false,
+      "completed_chat_response_observed": true,
+      "deterministic_summary_unchanged": true,
+      "elapsed_seconds": 2.744975,
+      "failure_class": "NONE",
+      "fallback_used": false,
+      "fixture_id": "05",
+      "flags": [
+        "CREDIT_SALES_NOT_CASH"
+      ],
+      "inference": {
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "elapsed_seconds": 2.514419,
+        "endpoint": "http://127.0.0.1:11434",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "ollama_metrics": {
+          "eval_count": 61,
+          "eval_duration": 2048652000,
+          "load_duration": 41889200,
+          "prompt_eval_count": 286,
+          "prompt_eval_duration": 172592000,
+          "total_duration": 2274508200
+        },
+        "status": "ADMITTED"
+      },
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "model_warnings_surfaced": true,
+      "ollama_metrics": {
+        "eval_count": 61,
+        "eval_duration": 2048652000,
+        "load_duration": 41889200,
+        "prompt_eval_count": 286,
+        "prompt_eval_duration": 172592000,
+        "total_duration": 2274508200
+      },
+      "output_admitted": true,
+      "pass": "warm-2",
+      "resource_sample_count": 1,
+      "scenario": "Uncollected credit sale earns recorded margin without cash",
+      "selection_equals_baseline": false,
+      "status": "CALCULATED"
+    },
+    {
+      "fixture_id": "06",
+      "scenario": "Suspected duplicate supplier payment requires human resolution",
+      "pass": "cold",
+      "cold_unload_confirmed": true,
+      "elapsed_seconds": 96.22523,
+      "baseline_elapsed_seconds": 0.000792,
+      "inference": {
+        "status": "ADMITTED",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "endpoint": "http://127.0.0.1:11434",
+        "elapsed_seconds": 96.185437,
+        "ollama_metrics": {
+          "total_duration": 95669526700,
+          "load_duration": 90648842200,
+          "prompt_eval_count": 200,
+          "prompt_eval_duration": 1441686000,
+          "eval_count": 46,
+          "eval_duration": 2846432000
+        }
+      },
+      "output_admitted": true,
+      "fallback_used": false,
+      "all_warnings_surfaced": true,
+      "model_warnings_surfaced": true,
+      "selection_equals_baseline": true,
+      "deterministic_summary_unchanged": true,
+      "flags": [
+        "POSSIBLE_DUPLICATE_PAYMENT"
+      ],
+      "status": "HOLD_INSUFFICIENT_DATA",
+      "resource_sample_count": 19,
+      "completed_chat_response_observed": true,
+      "chat_http_status": 200,
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "ollama_metrics": {
+        "total_duration": 95669526700,
+        "load_duration": 90648842200,
+        "prompt_eval_count": 200,
+        "prompt_eval_duration": 1441686000,
+        "eval_count": 46,
+        "eval_duration": 2846432000
+      },
+      "failure_class": "NONE"
+    },
+    {
+      "fixture_id": "06",
+      "scenario": "Suspected duplicate supplier payment requires human resolution",
+      "pass": "warm-1",
+      "cold_unload_confirmed": false,
+      "elapsed_seconds": 4.208581,
+      "baseline_elapsed_seconds": 0.000792,
+      "inference": {
+        "status": "ADMITTED",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "endpoint": "http://127.0.0.1:11434",
+        "elapsed_seconds": 3.922975,
+        "ollama_metrics": {
+          "total_duration": 3654228000,
+          "load_duration": 93159400,
+          "prompt_eval_count": 200,
+          "prompt_eval_duration": 717159000,
+          "eval_count": 46,
+          "eval_duration": 2828804000
+        }
+      },
+      "output_admitted": true,
+      "fallback_used": false,
+      "all_warnings_surfaced": true,
+      "model_warnings_surfaced": true,
+      "selection_equals_baseline": true,
+      "deterministic_summary_unchanged": true,
+      "flags": [
+        "POSSIBLE_DUPLICATE_PAYMENT"
+      ],
+      "status": "HOLD_INSUFFICIENT_DATA",
+      "resource_sample_count": 1,
+      "completed_chat_response_observed": true,
+      "chat_http_status": 200,
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "ollama_metrics": {
+        "total_duration": 3654228000,
+        "load_duration": 93159400,
+        "prompt_eval_count": 200,
+        "prompt_eval_duration": 717159000,
+        "eval_count": 46,
+        "eval_duration": 2828804000
+      },
+      "failure_class": "NONE"
+    },
+    {
+      "fixture_id": "06",
+      "scenario": "Suspected duplicate supplier payment requires human resolution",
+      "pass": "warm-2",
+      "cold_unload_confirmed": false,
+      "elapsed_seconds": 3.604558,
+      "baseline_elapsed_seconds": 0.000792,
+      "inference": {
+        "status": "ADMITTED",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "endpoint": "http://127.0.0.1:11434",
+        "elapsed_seconds": 3.319008,
+        "ollama_metrics": {
+          "total_duration": 3185693500,
+          "load_duration": 144712900,
+          "prompt_eval_count": 200,
+          "prompt_eval_duration": 387651000,
+          "eval_count": 46,
+          "eval_duration": 2639961000
+        }
+      },
+      "output_admitted": true,
+      "fallback_used": false,
+      "all_warnings_surfaced": true,
+      "model_warnings_surfaced": true,
+      "selection_equals_baseline": true,
+      "deterministic_summary_unchanged": true,
+      "flags": [
+        "POSSIBLE_DUPLICATE_PAYMENT"
+      ],
+      "status": "HOLD_INSUFFICIENT_DATA",
+      "resource_sample_count": 1,
+      "completed_chat_response_observed": true,
+      "chat_http_status": 200,
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "ollama_metrics": {
+        "total_duration": 3185693500,
+        "load_duration": 144712900,
+        "prompt_eval_count": 200,
+        "prompt_eval_duration": 387651000,
+        "eval_count": 46,
+        "eval_duration": 2639961000
+      },
+      "failure_class": "NONE"
+    },
+    {
+      "fixture_id": "itemized-01",
+      "scenario": "Itemized liabilities with a reconciled partial payment",
+      "pass": "cold",
+      "cold_unload_confirmed": true,
+      "elapsed_seconds": 147.450657,
+      "baseline_elapsed_seconds": 0.040346,
+      "inference": {
+        "status": "ADMITTED",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "endpoint": "http://127.0.0.1:11434",
+        "elapsed_seconds": 147.229332,
+        "ollama_metrics": {
+          "total_duration": 145881081100,
+          "load_duration": 137657712900,
+          "prompt_eval_count": 272,
+          "prompt_eval_duration": 1989274000,
+          "eval_count": 58,
+          "eval_duration": 5610389000
+        }
+      },
+      "output_admitted": true,
+      "fallback_used": false,
+      "all_warnings_surfaced": true,
+      "model_warnings_surfaced": true,
+      "selection_equals_baseline": true,
+      "deterministic_summary_unchanged": true,
+      "flags": [],
+      "status": "CALCULATED",
+      "resource_sample_count": 22,
+      "completed_chat_response_observed": true,
+      "chat_http_status": 200,
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "ollama_metrics": {
+        "total_duration": 145881081100,
+        "load_duration": 137657712900,
+        "prompt_eval_count": 272,
+        "prompt_eval_duration": 1989274000,
+        "eval_count": 58,
+        "eval_duration": 5610389000
+      },
+      "failure_class": "NONE"
+    },
+    {
+      "fixture_id": "itemized-01",
+      "scenario": "Itemized liabilities with a reconciled partial payment",
+      "pass": "warm-1",
+      "cold_unload_confirmed": false,
+      "elapsed_seconds": 10.01739,
+      "baseline_elapsed_seconds": 0.040346,
+      "inference": {
+        "status": "ADMITTED",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "endpoint": "http://127.0.0.1:11434",
+        "elapsed_seconds": 9.730571,
+        "ollama_metrics": {
+          "total_duration": 6900668200,
+          "load_duration": 288038000,
+          "prompt_eval_count": 272,
+          "prompt_eval_duration": 672029000,
+          "eval_count": 58,
+          "eval_duration": 5919653000
+        }
+      },
+      "output_admitted": true,
+      "fallback_used": false,
+      "all_warnings_surfaced": true,
+      "model_warnings_surfaced": true,
+      "selection_equals_baseline": true,
+      "deterministic_summary_unchanged": true,
+      "flags": [],
+      "status": "CALCULATED",
+      "resource_sample_count": 1,
+      "completed_chat_response_observed": true,
+      "chat_http_status": 200,
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "ollama_metrics": {
+        "total_duration": 6900668200,
+        "load_duration": 288038000,
+        "prompt_eval_count": 272,
+        "prompt_eval_duration": 672029000,
+        "eval_count": 58,
+        "eval_duration": 5919653000
+      },
+      "failure_class": "NONE"
+    },
+    {
+      "fixture_id": "itemized-01",
+      "scenario": "Itemized liabilities with a reconciled partial payment",
+      "pass": "warm-2",
+      "cold_unload_confirmed": false,
+      "elapsed_seconds": 8.927052,
+      "baseline_elapsed_seconds": 0.040346,
+      "inference": {
+        "status": "ADMITTED",
+        "model": "gemma4:e2b-it-q4_K_M",
+        "digest": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+        "endpoint": "http://127.0.0.1:11434",
+        "elapsed_seconds": 7.90973,
+        "ollama_metrics": {
+          "total_duration": 7492067700,
+          "load_duration": 173698300,
+          "prompt_eval_count": 272,
+          "prompt_eval_duration": 568548000,
+          "eval_count": 58,
+          "eval_duration": 6731401000
+        }
+      },
+      "output_admitted": true,
+      "fallback_used": false,
+      "all_warnings_surfaced": true,
+      "model_warnings_surfaced": true,
+      "selection_equals_baseline": true,
+      "deterministic_summary_unchanged": true,
+      "flags": [],
+      "status": "CALCULATED",
+      "resource_sample_count": 2,
+      "completed_chat_response_observed": true,
+      "chat_http_status": 200,
+      "model_output_received": true,
+      "model_output_rejected": false,
+      "ollama_metrics": {
+        "total_duration": 7492067700,
+        "load_duration": 173698300,
+        "prompt_eval_count": 272,
+        "prompt_eval_duration": 568548000,
+        "eval_count": 58,
+        "eval_duration": 6731401000
+      },
+      "failure_class": "NONE"
+    }
+  ],
+  "resource_measurement": {
+    "method": "psutil and nvidia-smi samples during calls; query overhead included",
+    "samples": 214,
+    "raw_samples": "PRIVATE_NOT_PUBLISHED",
+    "machine_identity": "PRIVATE_NOT_PUBLISHED",
+    "cadence_limit": "One-second pause between samples plus CPU/process/GPU query time; actual cadence is not fixed at 1 Hz"
+  },
+  "raw_model_outputs": "PRIVATE_NOT_PUBLISHED",
+  "scope": "technical output admission, runtime latency and deterministic-baseline comparison on synthetic fixtures",
+  "comprehension_benefit": "NOT_MEASURED",
+  "operator_trial": "NOT_RUN",
+  "economic_value": "UNPROVEN",
+  "e4b": "DEFERRED_PENDING_RESOURCE_HEADROOM",
+  "call_count_scope": "End-to-end adapter decision attempts, including fallback and failures",
+  "latency_scope": "End-to-end adapter attempts; failed calls are included, not successful-inference-only timing",
+  "completed_chat_responses_observed": 21,
+  "model_outputs_received": 21,
+  "model_outputs_rejected": 0,
+  "unavailable_or_malformed_responses": 0,
+  "resumed_run": {
+    "completed_comparisons": 21,
+    "interruption_cause": "UNKNOWN",
+    "additional_interrupted_attempts": "UNKNOWN; no completed response captured",
+    "scope": "Counts and latency describe recorded completed comparisons across run segments",
+    "failed_resume_preflights": 1,
+    "preflight_failure": "Local endpoint refused connection; no model output received",
+    "blocked_background_resume": "Automatic review rejected combined background resume; bounded foreground continuation completed"
+  }
+}

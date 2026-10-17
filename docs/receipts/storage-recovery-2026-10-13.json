@@ -1,0 +1,51 @@
+{
+  "schema_version": "kasimargin-storage-recovery-v1",
+  "client_date": "2026-10-13",
+  "actor": "Codex Forge",
+  "constraint": "I_AM_STATELESS_RENTER_NOT_LANDLORD",
+  "authority": "Owner authorized storage recovery, then directed completion of existing work and return to KasiMargin",
+  "status": "CLOSED_WITH_PARTIAL_RECOVERY",
+  "requested_working_reserve_gib": 24,
+  "requested_reserve_achieved_at_final_observation": false,
+  "original_e2b_setup_threshold_met_before_retry": true,
+  "machine_details": "PRIVATE_NOT_PUBLISHED",
+  "exact_capacity_measurements": "PRIVATE_NOT_PUBLISHED",
+  "raw_command_logs": "PRIVATE_NOT_PUBLISHED",
+  "observations": {
+    "pip_cache_purge": "Completed successfully",
+    "npm_cache_cleanup": "Clean encountered ENOTEMPTY; subsequent verify completed with one retained entry",
+    "uv_cache_prune": "Started with normal in-use protection; worker no longer observed, completion exit unavailable",
+    "windows_disk_cleanup": "Started; completion exit unavailable",
+    "windows_component_analysis_exit": 0,
+    "windows_component_cleanup_recommended": true,
+    "windows_component_cleanup_exit": 0,
+    "windows_component_reset_base_used": false,
+    "static_program_compression": "Partial progress only; completion receipt absent and worker no longer observed",
+    "static_files_processed_at_last_checkpoint": 1431,
+    "hash_mismatch_at_last_checkpoint": false,
+    "additional_compression_pass": "Queued earlier; no execution or completion receipt recovered",
+    "hibernation_command_exit": 0,
+    "hibernation_setting": "Disabled",
+    "hiberfile_remains_present": true,
+    "hiberfile_reclaim_credit": "NONE",
+    "hiberfile_retention_cause": "UNKNOWN"
+  },
+  "programs_uninstalled": 0,
+  "user_applications_closed": 0,
+  "maintenance_helpers_closed": "One task-owned collector stopped before replacement; no active compact child observed",
+  "source_or_user_records_deleted": false,
+  "git_history_pruned": false,
+  "security_tools_removed": false,
+  "restart_requested": false,
+  "automatic_review": {
+    "direct_recursive_cache_removals": "Rejected with blocked by policy; did not execute",
+    "response": "Used supported vendor maintenance and lossless compression; no deletion workaround"
+  },
+  "bounded_integrity_checks": {
+    "python_regression_methods_passed": 46,
+    "strict_typescript_check_and_build": "PASS",
+    "flask_loopback_response_after_restart": 200
+  },
+  "limitations": "Observed free space varies with concurrent machine activity; no isolated byte attribution or complete KPGS/GSMB functionality certification",
+  "next_action": "No further estate cleanup; continue explicit local E2B download and synthetic KasiMargin evaluation"
+}

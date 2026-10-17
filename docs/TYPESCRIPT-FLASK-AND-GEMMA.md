@@ -14,7 +14,7 @@ The strict JSON parser is applied to wire bytes, preserving duplicate-key reject
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e .
+.\.venv\Scripts\python.exe -m pip install -e '.[test]'
 npm ci
 npm run check
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
@@ -25,9 +25,15 @@ Python 3.10+ and Node 24+ are the tested targets. Flask is pinned in `pyproject.
 
 ## Local model evaluation
 
-Current observed state on October 13: official signed Windows Ollama 0.40.3 is installed, its loopback endpoint responds, and cloud use is disabled. The E2B download failed with insufficient disk space. No installed model or model digest exists; no real inference has run. Task-created failed-pull weights were removed to restore working space. Hardware details and raw diagnostics remain private. The [redacted blocker receipt](receipts/gemma-runtime-blocker-2026-10-13.json) records seven actual endpoint checks that retained the labelled deterministic fallback, including its warnings and unknown/HOLD states.
+The current browser transport requires a per-process request token. Same-origin clients obtain it from `GET /api/session` and send `X-KasiMargin-Session` on every JSON POST, including `/api/decision`, `/api/validate`, `/api/receipt` and `/api/context`. Tokens expire when the service restarts; reload to bootstrap again. A bounded process-wide budget allows 120 authenticated POSTs per minute and returns 429 with `Retry-After` beyond that. Host/Origin checks, body cap, strict JSON and no-store responses still apply. This is a trusted-device development boundary, not multi-user authentication or protection against malicious software already controlling the machine.
 
-Free enough owner-selected space to leave **at least 8 GiB available on C:** before retrying. Alternatively, the owner can designate another local volume with that capacity and configure Ollama's model directory there. A remote/cloud endpoint is not an alternative in this experiment. The [official tag catalogue](https://ollama.com/library/gemma4/tags) lists approximately 4.6 GB for E2B Q4_K_M and 6.6 GB for E4B; neither listing establishes measured inference fit.
+Set `KASIMARGIN_KPGS_ROOT` to an existing authorized local checkout to enable read-only context entry. The bridge never receives browser-supplied executable paths or financial records. The context result's scope is `READ_ONLY_CONTEXT_ENTRY`; `financial_admission` stays `NOT_ESTABLISHED`, and `bank_verification` stays `NOT_PERFORMED`. Browser decisions carry this observation into explicit saves/exports. Replay validates historical metadata without invoking the runtime again; legacy receipts without it remain reproducible. A checksum and replay are not author authentication or independent runtime attestation.
+
+The test extra pins JSON Schema validation tooling; it is not a runtime browser dependency. `npm run check` now includes four native Node tests for exact-cent entry, South African timestamps, transaction identity and blank-day unknowns. Python tests validate all four contracts and perimeter/context/receipt failures. See [the experience and architecture note](SOUTH-AFRICA-EXPERIENCE.md).
+
+Current observed state: official Windows Ollama 0.40.3 runs on loopback with cloud disabled; explicit `gemma4:e2b-it-q4_K_M` is installed with digest `b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2`. All seven scenarios completed one cold and two warm calls. Result: 21/21 admitted, 0 rejected model outputs, 0 fallback results, 0 unavailable or malformed responses. [Technical comparison](GEMMA-TECHNICAL-EVALUATION.md). Raw outputs and machine/resource details remain private.
+
+The original disk failure and model-absence fallback checks remain in the [historical blocker receipt](receipts/gemma-runtime-blocker-2026-10-13.json). Partial supported maintenance enabled the retry; the requested 24 GiB reserve was not achieved and no further estate cleanup is running. For a fresh setup, leave at least 8 GiB free before the approximately 4.6 GB E2B download. This is a setup threshold, not a guaranteed post-download reserve or inference fit. E4B is deferred.
 
 With the existing loopback service running, retry from PowerShell:
 
