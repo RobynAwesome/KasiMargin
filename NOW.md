@@ -1,11 +1,12 @@
 # Local event-store core locally completed — 2026-10-17
 
-Status: LOCAL_TESTED_PENDING_DELIVERY. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records a private local storage contract and test evidence only: no endpoint/browser release, provider check, field session, merchant data, financial admission or deployment is claimed.
+Status: PUSHED_IMPLEMENTATION_PROVIDER_VALIDATED_FOR_OWNER_REVIEW. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records the storage implementation head and its provider evidence only: no endpoint/browser release, field session, merchant data, financial admission or deployment is claimed.
 
 - Added `kasimargin.event_store.EventStore`: explicit-path SQLite storage for operator-reported cash/card sales and cash expenses. It uses integer cents, event IDs, idempotency keys, timestamps, revisions and append-only correction lineage. Card sales remain separate from cash. Unsupported movements, divergent retries, stale corrections, invalid bounds and conflicting IDs reject without a new row.
 - The day projection exposes recorded sales, cash/card split and cash expenses, while retaining `OPERATOR_REPORTED_RECORDS_MAY_BE_INCOMPLETE` and `NOT_PREPARED` for cash position. It does not calculate profit, headroom, bank/card settlement or a financial decision. Flask and the web UI have no new event-store endpoint yet.
 - A Windows temporary-database cleanup failure exposed committed connections remaining open; the store now closes every connection. Local verification: five new storage tests and the entire 68-Python-test suite pass; strict TypeScript/build and six Node tests pass; `compileall` and `git diff --check` pass. Contract and limits: [local event-store review](docs/audits/2026-10-17-local-event-store.md).
-- Next: commit/push this bounded core to draft PR #5 and read exact-head checks. Then add loopback endpoint failure tests before the first browser capture surface. The consented barber walkthrough remains separately UNRUN until consent and observations are recorded.
+- Delivery: [draft PR #5](https://github.com/RobynAwesome/KasiMargin/pull/5) carries storage implementation head `984d78da8ee1e06e2c38b999fed274f03cf1f895`. Its four Windows/Ubuntu Python 3.10/3.14 checks ran for both push and pull-request triggers, and GitGuardian succeeded: nine completed checks, all successful. This delivery-note commit follows that exact implementation head; re-query its provider checks before landing.
+- Next: owner reviews draft PR #5. Then add loopback endpoint failure tests before the first browser capture surface. The consented barber walkthrough remains separately UNRUN until consent and observations are recorded.
 
 ---
 
