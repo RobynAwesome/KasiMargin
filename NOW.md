@@ -1,11 +1,12 @@
 # Day 4 negative-test coverage locally completed — 2026-10-17
 
-Status: LOCAL_TESTED_PENDING_DELIVERY. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records local test evidence only: no provider check, merge, field session, merchant data, financial admission or deployment is claimed.
+Status: PUSHED_IMPLEMENTATION_PROVIDER_VALIDATED_FOR_OWNER_REVIEW. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records the implementation head and its provider evidence: no merge, field session, merchant data, financial admission or deployment is claimed.
 
 - Reviewed the scheduled negative paths against executable behavior and added a regression that an operator-unconfirmed cash basis stays `HOLD_INSUFFICIENT_DATA` even if transaction and obligation entries are populated. The existing missing-cash-evidence regression now also requires no cash-headroom amount and the HOLD status. Exact cents, independent margin/cash calculations, UNKNOWN/HOLD and the model-output validation gate were unchanged.
 - Local verification on `codex/terra-context-plan`: 63 Python tests passed; `npm run check` passed (strict TypeScript check/build and six Node tests); `compileall` and `git diff --check` passed. Full requirement-to-test mapping and residual limits: [Day 4 negative-test review](docs/audits/2026-10-17-negative-test-review.md).
+- Delivery: [draft PR #5](https://github.com/RobynAwesome/KasiMargin/pull/5) carries implementation head `ad4d7a51c85a54dc9920b08440296801c76861b3`. Its four Windows/Ubuntu Python 3.10/3.14 checks ran for both push and pull-request triggers, and GitGuardian succeeded: nine completed checks, all successful. This NOW delivery-note commit follows that exact implementation head; re-query its provider checks before landing.
 - The product does not read receipt images, verify banks/card settlement, infer omitted activity or provide a durable merchant ledger. The review makes only represented evidence signals fail closed. Persistent record/correction/restart/idempotency tests remain the next distinct storage increment.
-- Next: commit and push this scoped Day 4 review to draft PR #5, then read exact-head provider checks. The consented barber walkthrough remains separately UNRUN until consent and observations are recorded.
+- Next: owner reviews draft PR #5; the consented barber walkthrough remains separately UNRUN until consent and observations are recorded. The next build remains one bounded durable capture/correction/restart increment with its own contract and failure tests.
 
 ---
 
