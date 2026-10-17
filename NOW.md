@@ -1,6 +1,6 @@
 # Terra execution handoff and local skill recovery — 2026-10-17
 
-Status: PLAN_AND_SESSION_PREPARED; no new product feature or field result. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. Robyn controls the model selection; his RTC-seat question opens a separate discussion and does not assign a seat.
+Status: HANDOFF_PUSHED_FOR_REVIEW; no new product feature or field result. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. Robyn controls the model selection; his RTC-seat question opens a separate discussion and does not assign a seat.
 
 - Delivery correction: [PR #4](https://github.com/RobynAwesome/KasiMargin/pull/4) is MERGED at `3d16c97b95f6929ed9472415ce106d3505364a9a` (2026-10-17T06:54:49Z). [Main CI](https://github.com/RobynAwesome/KasiMargin/actions/runs/39011663248) succeeded. Earlier OPEN notes below are preserved history. No deployment inferred.
 - Local: `C:/Users/rkhol/KasiMargin`, `codex/terra-context-plan`, based on merged main. Prior dirty NOW was backed up privately and retained byte-for-byte through the branch switch. Committed trees matched; no rebase/reset/force push. OneDrive preservation source unchanged.
@@ -9,6 +9,7 @@ Status: PLAN_AND_SESSION_PREPARED; no new product feature or field result. Codex
 - Owner testimony: a barber is available for an in-person English visit. Consent, device fit, session execution, unaided comprehension and willingness to pay remain unobserved. Precise visit details and future responses stay private.
 - Source correction: named adjacent adapters and #107 packet were located/read in Cloud GSMB; earlier Local absence was path-scoped. Reuse is not admitted financial authority. Corrected DEV.to reply remains unreadable in the browser; no new substantive peer endorsement claimed. Local/Cloud research-corpus propagation remains pending.
 - Verification today: 62 Python tests, strict TypeScript check/build and six Node tests pass. No new app-browser walkthrough, Gemma benchmark, runtime activation, merchant contact or submission. [Redacted preparation receipt](docs/receipts/terra-handoff-2026-10-17.json).
+- Review delivery: [draft PR #5](https://github.com/RobynAwesome/KasiMargin/pull/5), implementation/document head `1446b05faf117e5ded48cd5192027d26ad097105`; all nine provider checks succeeded. [Exact-head receipt](docs/receipts/terra-handoff-cloud-2026-10-17.json). This delivery-note commit follows; its final checks must be read separately. Initial push dry-run failed because Git's shell was missing from the process PATH; the skill-prescribed process-only PATH correction resolved it. No persistent credential/settings change.
 - Next: complete the negative-test coverage receipt; use the prepared visit to observe the barber's current routine; then implement a bounded durable sale/correction/day-review flow. Preserve exact cents, UNKNOWN/HOLD and output validation. Broader capture/integration and economic claims require their own evidence.
 
 ---

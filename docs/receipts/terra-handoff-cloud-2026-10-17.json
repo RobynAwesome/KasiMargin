@@ -1,0 +1,64 @@
+{
+  "observed_at": "2026-10-17T12:29:32.8113668+00:00",
+  "pull_request": "https://github.com/RobynAwesome/KasiMargin/pull/5",
+  "state": "OPEN",
+  "is_draft": true,
+  "head": "1446b05faf117e5ded48cd5192027d26ad097105",
+  "checks": [
+    {
+      "name": "ubuntu-latest / Python 3.10",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39032551057/job/117395787878"
+    },
+    {
+      "name": "windows-latest / Python 3.10",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39032551057/job/117395787834"
+    },
+    {
+      "name": "windows-latest / Python 3.14",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39032551057/job/117395787804"
+    },
+    {
+      "name": "ubuntu-latest / Python 3.14",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39032551057/job/117395787765"
+    },
+    {
+      "name": "GitGuardian Security Checks",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RobynAwesome/KasiMargin/runs/117395785193"
+    },
+    {
+      "name": "windows-latest / Python 3.10",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39032545674/job/117395771074"
+    },
+    {
+      "name": "windows-latest / Python 3.14",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39032545674/job/117395771034"
+    },
+    {
+      "name": "ubuntu-latest / Python 3.14",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39032545674/job/117395771012"
+    },
+    {
+      "name": "ubuntu-latest / Python 3.10",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39032545674/job/117395770801"
+    }
+  ],
+  "scope": "Documentation-only execution handoff. No merge, deployment or operator result."
+}
