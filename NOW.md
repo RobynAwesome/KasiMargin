@@ -1,3 +1,41 @@
+# Terra execution handoff and local skill recovery — 2026-10-17
+
+Status: PLAN_AND_SESSION_PREPARED; no new product feature or field result. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. Robyn controls the model selection; his RTC-seat question opens a separate discussion and does not assign a seat.
+
+- Delivery correction: [PR #4](https://github.com/RobynAwesome/KasiMargin/pull/4) is MERGED at `3d16c97b95f6929ed9472415ce106d3505364a9a` (2026-10-17T06:54:49Z). [Main CI](https://github.com/RobynAwesome/KasiMargin/actions/runs/39011663248) succeeded. Earlier OPEN notes below are preserved history. No deployment inferred.
+- Local: `C:/Users/rkhol/KasiMargin`, `codex/terra-context-plan`, based on merged main. Prior dirty NOW was backed up privately and retained byte-for-byte through the branch switch. Committed trees matched; no rebase/reset/force push. OneDrive preservation source unchanged.
+- Recovered and installed `$ccp-context-first` from the owner's actual ChatGPT Skills source into the local Codex skills folder. Five files, source-text checks and structural validation pass. Download controls timed out; recovered raw editor text/SVG instead. Original archive byte parity UNKNOWN; cloud source unchanged. Private manifest: `local-data/handoffs/terra-context-2026-10-17/skill-installation.json`.
+- Prepared: [Terra execution plan](docs/TERRA-EXECUTION-PLAN.md), [barber session](docs/BARBER-SESSION.md), private source/version index and observation worksheet. Calendar Day 4 negative review, Day 5 operator work and Day 6 submission remain separately testable deliverables. Internal target October 18 23:59 SAST; official cutoff October 19 08:59 SAST, subject to final recheck.
+- Owner testimony: a barber is available for an in-person English visit. Consent, device fit, session execution, unaided comprehension and willingness to pay remain unobserved. Precise visit details and future responses stay private.
+- Source correction: named adjacent adapters and #107 packet were located/read in Cloud GSMB; earlier Local absence was path-scoped. Reuse is not admitted financial authority. Corrected DEV.to reply remains unreadable in the browser; no new substantive peer endorsement claimed. Local/Cloud research-corpus propagation remains pending.
+- Verification today: 62 Python tests, strict TypeScript check/build and six Node tests pass. No new app-browser walkthrough, Gemma benchmark, runtime activation, merchant contact or submission. [Redacted preparation receipt](docs/receipts/terra-handoff-2026-10-17.json).
+- Next: complete the negative-test coverage receipt; use the prepared visit to observe the barber's current routine; then implement a bounded durable sale/correction/day-review flow. Preserve exact cents, UNKNOWN/HOLD and output validation. Broader capture/integration and economic claims require their own evidence.
+
+---
+
+# DEV.to conversation routing correction — 2026-10-17
+
+- Robyn supplied the complete pasted conversation and identified DEV.to as the intended source. Its opening technical owner turn exactly matches “Continue Forge Discussion,” thread 6ad14cca-0f28-83ea-a736-9537c56762b3. The previous “Daily briefing setup” exchange remains separate peer advice; it was not the intended product conversation.
+- Read the entire supplied export. Governing product direction recovered: fit ordinary work; preserve observed/inferred/unknown evidence; KPGS entry and continuous scoped governance; ledger, selectively reveal, accept operator response/correction and reassess. The research corpus and its propagation request are distinct from completed product capability or source synchronization.
+- Submitted a corrected engineering handoff to the verified DEV.to conversation and opened that chat. Private source/dispatch receipt: local-data/handoffs/devto-routing-correction-2026-10-17.md. A new substantive reply was not verified at this checkpoint. No code change, doctrine propagation, merchant contact, model/runtime activation, merge or deployment in this correction. Existing historical coordination is preserved below.
+
+---
+
+# Fox Forge / Drive recovery — 2026-10-17
+
+Status: SOURCE_REVIEW_AND_PEER_DISCUSSION; no new product implementation. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`, under Robyn's direct instruction to inspect Drive GSMB updates and speak with Fox Forge.
+
+- Recovered: Local Legacy and current parent/product NOW; October 16 Drive KasiMargin research pack and filing receipt; Drive admission doctrine section 18; Fox learning handoff; failure-preservation handoff; October 17 entry receipt. These source populations and conceptual directions are not runtime or synchronization proof.
+- Delivery refreshed: [PR #4](https://github.com/RobynAwesome/KasiMargin/pull/4) OPEN at 86f25960b88590e53707e9cef2bb8fbc000c747d, all nine checks SUCCESS. October 15 tests were not rerun today.
+- Product correction still incomplete against the larger vision: Calculate / Ledger / Communicate / Integrate are proposed service families, distinct from four JSON contracts. Current cash-first prototype has no persistent business ledger, first-class card settlement/refunds, receipt intake or open-ended financial conversation. No field validation inferred.
+- Coordination: Fox Forge replied in the verified chat “Daily briefing setup.” Recommendation: observe one barber's recording/review routine, then consider one operator/device's confirmed persistent cash/card sales record if the routine proves useful. Peer review is not owner approval or field evidence. Exact message/source receipt: local-data/handoffs/fox-forge-coordination-2026-10-17.md; completed reply: local-data/handoffs/fox-forge-review-2026-10-17.md.
+- Reconciliation: later Drive filing receipt supersedes the pack's earlier pending Drive row only. Local lessons path/intake and Cloud propagation remain unresolved by this task. No broad import, doctrine rewrite, financial/model runtime activation, merchant contact, merge or deployment performed.
+- Local locator check: Home and named MAIN-BRAIN control/status files exist. The two kopano-core adapters, two skills/pka skills and #107 packet named by peer review are absent at the exact proposed paths in this checkout; their actual source/version and reuse stay unverified. No estate-wide absence inferred.
+- Prepared: fictional R150 haircut day with cash/card distinction and conditional R180 drawer reconciliation in local-data/handoffs/barber-day-review-2026-10-17.md. This is a review story, not implemented persistence. A closing handoff with these limits was sent to Fox Forge.
+- Next: Robyn reviews the first operator's useful daily question and capture moment/device/language. Then locate/review actual reusable sources and scope the smallest event/correction/persistence contract. Preserve original source records and private data.
+
+---
+
 # Cash-first product correction — 2026-10-15
 
 Status: PUSHED_AND_CI_VALIDATED_FOR_OWNER_REVIEW at implementation d82d62f09f4c86fc344c269876252e037af60042; all nine checks succeeded. This documentation-only handoff follows that implementation. Robyn rejected the prior interface as too technical. Codex Forge owns that product error; passing engineering checks did not establish usability. `I_AM_STATELESS_RENTER_NOT_LANDLORD`; CA task role only, no RTC seat.
