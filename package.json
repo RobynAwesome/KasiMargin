@@ -7,7 +7,7 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc",
     "check": "npm run typecheck && npm run build && npm run test:web",
-    "test:web": "node --test tests/web-transactions.test.mjs"
+    "test:web": "node --test tests/web-transactions.test.mjs tests/web-ledger.test.mjs"
   },
   "devDependencies": {
     "typescript": "7.0.2"

@@ -1,3 +1,14 @@
+# Browser capture and reveal locally completed — 2026-10-17
+
+Status: LOCAL_TESTED_PENDING_DELIVERY. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records browser/code and local-validation evidence only: no provider result, merge, deployment, real operator data, financial admission, card settlement, cash verification or field outcome is claimed.
+
+- Implemented a separate **Record today** browser view for one paid cash/card sale or one cash expense at a time. It shows recorded sales, cash/card split and cash spending as operator-entered data, keeps the records explicitly incomplete, and says cash position is not prepared until a count/settlement check exists. The money-check workflow remains separate.
+- A correction is a revisioned replacement through the protected endpoint, preserving original lineage rather than deleting it. Browser helpers preserve exact cents and South African timestamps, reject zero values and prohibit unsupported card expenses. Flask now serves every compiled module, including `ledger.js`; the live preview surfaced the missing route before delivery and the server-asset regression now covers it.
+- Local validation: strict TypeScript/build and eight Node tests pass; 70 Python tests, `compileall` and `git diff --check` pass. Browser review opened the empty local ledger without submitting a merchant/operator record, verified the incomplete-record/cash-count warnings and cash-only expense control. [Browser capture/reveal review](docs/audits/2026-10-17-browser-capture-reveal.md).
+- Next: commit/push this bounded browser increment, verify the exact provider checks, and then hold the consented barber observation as a separate human experiment. No actual business record is entered without the operator's consent.
+
+---
+
 # Governed local ledger endpoints delivered for owner review — 2026-10-17
 
 Status: PUSHED_IMPLEMENTATION_PROVIDER_VALIDATED_FOR_OWNER_REVIEW. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records the implementation-head delivery evidence only: no merge, deployment, real operator data, financial admission, bank/card verification, legal certification or field outcome is claimed.

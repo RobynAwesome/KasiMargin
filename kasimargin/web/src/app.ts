@@ -2,6 +2,7 @@ import type {CashBasis, DataClass, DecisionPayload, DecisionResult, FinancialReq
 import {readMoney} from "./money.js";
 import {transactionDraft, transactionLabels, ownDay, southAfricaInput, fromSouthAfricaInput} from "./transactions.js";
 import {recordChecks, resultMessage} from "./presentation.js";
+import {ledgerCorrection, ledgerEntry, type LedgerDay, type LedgerEvent} from "./ledger.js";
 
 type Elements = {
   scenario: HTMLSelectElement; model: HTMLSelectElement; "data-class": HTMLSelectElement;
@@ -30,6 +31,14 @@ type Elements = {
   "other-checks": HTMLUListElement; "more-checks": HTMLDetailsElement; "more-checks-label": HTMLElement;
   "resume-check": HTMLButtonElement; "welcome-feedback": HTMLParagraphElement; "replace-draft": HTMLDivElement;
   "replace-confirm": HTMLButtonElement; "replace-cancel": HTMLButtonElement;
+  ledger: HTMLElement; "ledger-heading": HTMLHeadingElement; "start-ledger": HTMLButtonElement; "ledger-back-home": HTMLButtonElement;
+  "ledger-form": HTMLFormElement; "ledger-event-type": HTMLSelectElement; "ledger-payment-method": HTMLSelectElement;
+  "ledger-amount": HTMLInputElement; "ledger-when": HTMLInputElement; "ledger-confirmed": HTMLInputElement;
+  "ledger-feedback": HTMLParagraphElement; "ledger-date": HTMLParagraphElement; "ledger-totals": HTMLDListElement;
+  "ledger-empty": HTMLParagraphElement; "ledger-events": HTMLUListElement;
+  "ledger-correction-form": HTMLFormElement; "ledger-correction-context": HTMLParagraphElement;
+  "ledger-correction-amount": HTMLInputElement; "ledger-correction-when": HTMLInputElement;
+  "ledger-correction-reason": HTMLInputElement; "ledger-correction-cancel": HTMLButtonElement;
 };
 function $<K extends keyof Elements>(id: K): Elements[K] {
   const element = document.getElementById(id);
@@ -52,6 +61,7 @@ let lastResult: DecisionResult | null = null, lastPayload: DecisionPayload | nul
 let editorDirty = false, transactionDirty = false, revision = 0;
 let step = 0;
 let started = false, pendingStart: string | null = null;
+let ledgerReview: LedgerDay | null = null, correctionTarget: LedgerEvent | null = null;
 const fields = [
   ["performance","recorded_sales_cents","Sales for the period", "Include unpaid sales on credit. Payments for older sales aren’t new sales.","performance-fields"],
   ["performance","attributable_costs_cents","Cost of those sales", "Include the cost of what was sold and the business costs for that same period.","performance-fields"],
@@ -110,6 +120,12 @@ async function post(path: string, value: unknown): Promise<Response> {
   if (response.status === 403) sessionToken = null;
   return response;
 }
+async function localGet(path: string): Promise<Response> {
+  if (!sessionToken) sessionToken = (await json<{token:string}>(await fetch("/api/session"))).token;
+  const response = await fetch(path, {headers:{"X-KasiMargin-Session":sessionToken}});
+  if (response.status === 403) sessionToken = null;
+  return response;
+}
 function amount(cents: Money): string {
   if (cents === null) return "Unknown";
   if (!Number.isSafeInteger(cents)) return "See exact cents in JSON";
@@ -120,6 +136,66 @@ function decimal(cents: Money): string {
   if (cents === null) return "";
   if (!Number.isSafeInteger(cents)) throw new Error("This value exceeds the browser’s exact input range. Use the Python CLI.");
   return `${Math.floor(cents / 100)}.${String(cents % 100).padStart(2,"0")}`;
+}
+function todayInput(): string { return southAfricaInput(new Date().toISOString()); }
+function ledgerDayFromInput(): string | null {
+  const value = $("ledger-when").value;
+  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value) ? value.slice(0,10) : null;
+}
+function setLedgerPaymentOptions(): void {
+  const expense = $("ledger-event-type").value === "expense";
+  if (expense) $("ledger-payment-method").value = "cash";
+  $("ledger-payment-method").disabled = expense;
+}
+function renderLedger(): void {
+  const review = ledgerReview;
+  $("ledger-totals").replaceChildren(); $("ledger-events").replaceChildren(); correctionTarget = null;
+  $("ledger-correction-form").hidden = true;
+  if (!review) return;
+  const date = new Intl.DateTimeFormat("en-ZA", {timeZone:"Africa/Johannesburg",dateStyle:"full"}).format(new Date(`${review.business_day}T12:00:00+02:00`));
+  $("ledger-date").textContent = date;
+  for (const [label,value] of [["Sales recorded",review.recorded_sales_cents],["Cash sales recorded",review.cash_sales_cents],["Card sales recorded",review.card_sales_cents],["Cash spending recorded",review.cash_expenses_cents]] as const) {
+    const term = document.createElement("dt"), definition = document.createElement("dd");
+    term.textContent = label; definition.textContent = amount(value); $("ledger-totals").append(term,definition);
+  }
+  $("ledger-empty").hidden = review.events.length !== 0;
+  for (const event of review.events) {
+    const item = document.createElement("li"), body = document.createElement("div"), title = document.createElement("strong"), detail = document.createElement("span"), actions = document.createElement("div"), correct = document.createElement("button");
+    const happened = event.event_type === "sale" ? `${event.payment_method === "cash" ? "Cash" : "Card"} sale` : "Cash spending";
+    title.textContent = `${happened} · ${amount(event.amount_cents)}`;
+    detail.textContent = `${southAfricaInput(event.occurred_at).replace("T"," ")} · ${event.revision > 1 ? "Corrected record" : "Recorded"}${event.correction_reason ? ` · ${event.correction_reason}` : ""}`;
+    correct.type = "button"; correct.className = "text-button"; correct.textContent = "Correct amount";
+    correct.addEventListener("click", () => openCorrection(event));
+    actions.className = "event-actions"; actions.append(correct); body.append(title,detail); item.append(body,actions); $("ledger-events").append(item);
+  }
+}
+async function loadLedger(businessDay: string): Promise<void> {
+  $("ledger-feedback").textContent = "Loading today’s recorded picture…";
+  try {
+    ledgerReview = await json<LedgerDay>(await localGet(`/api/ledger/days/${encodeURIComponent(businessDay)}`));
+    renderLedger(); $("ledger-feedback").textContent = "";
+  } catch (error) {
+    ledgerReview = null; renderLedger(); $("ledger-feedback").textContent = message(error);
+  }
+}
+function openLedger(): void {
+  $("welcome").hidden = true; $("journey").hidden = true; $("ledger").hidden = false;
+  $("ledger-feedback").textContent = ""; $("ledger-amount").value = ""; $("ledger-confirmed").checked = false;
+  $("ledger-when").value = todayInput(); setLedgerPaymentOptions();
+  $("ledger-heading").focus();
+  const day = ledgerDayFromInput(); if (day) void loadLedger(day);
+}
+function closeLedger(): void {
+  $("ledger").hidden = true; $("welcome").hidden = false; document.getElementById("welcome-heading")?.focus();
+}
+function openCorrection(event: LedgerEvent): void {
+  correctionTarget = event;
+  $("ledger-correction-form").hidden = false;
+  $("ledger-correction-context").textContent = `Correcting ${event.event_type === "sale" ? "a sale" : "cash spending"} recorded as ${amount(event.amount_cents)}. The earlier record stays in the history.`;
+  $("ledger-correction-amount").value = decimal(event.amount_cents);
+  $("ledger-correction-when").value = southAfricaInput(event.occurred_at);
+  $("ledger-correction-reason").value = "";
+  $("ledger-correction-amount").focus(); $("ledger-correction-form").scrollIntoView({block:"center"});
 }
 function invalidate(): void {
   revision += 1; lastResult = lastPayload = null;
@@ -316,10 +392,12 @@ for (const [id,value] of [["start-example","0"],["start-own","own"]] as const) $
   if (started) { pendingStart = value; $("replace-draft").hidden = false; $("replace-confirm").focus(); return; }
   start(value);
 });
+$("start-ledger").addEventListener("click", openLedger);
 $("resume-check").addEventListener("click", () => { $("welcome").hidden = true; $("journey").hidden = false; $("replace-draft").hidden = true; showStep(step); });
 $("replace-confirm").addEventListener("click", () => { if (pendingStart !== null) start(pendingStart); });
 $("replace-cancel").addEventListener("click", () => { pendingStart = null; $("replace-draft").hidden = true; $("resume-check").focus(); });
 $("back-home").addEventListener("click", () => { $("welcome").hidden = false; $("journey").hidden = true; document.getElementById("welcome-heading")?.focus(); });
+$("ledger-back-home").addEventListener("click", closeLedger);
 $("previous-step").addEventListener("click", () => showStep(step-1));
 $("next-step").addEventListener("click", () => { if (checkInputs([...document.querySelectorAll<HTMLInputElement>(`[data-step="${step}"] input`)])) showStep(step+1); });
 document.querySelectorAll<HTMLButtonElement>("[data-go-step]").forEach(button => button.addEventListener("click", () => showStep(Number(button.dataset.goStep))));
@@ -348,6 +426,39 @@ $("transaction-form").addEventListener("submit", event => {
   } catch (error) { $("error").textContent = message(error); }
 });
 $("clear-transaction").addEventListener("click", () => { clearTransaction(); invalidate(); $("transaction-feedback").textContent = "Entry cleared. Your recorded transactions are unchanged."; $("error").textContent = ""; });
+$("ledger-event-type").addEventListener("change", setLedgerPaymentOptions);
+$("ledger-when").addEventListener("change", () => {
+  const day = ledgerDayFromInput(); if (day) void loadLedger(day);
+});
+$("ledger-form").addEventListener("submit", event => {
+  event.preventDefault();
+  if (!$("ledger-confirmed").checked) { $("ledger-feedback").textContent = "Confirm what you are recording before saving it."; $("ledger-confirmed").focus(); return; }
+  try {
+    const record = ledgerEntry({id:`ledger-${crypto.randomUUID()}`, idempotencyKey:`ledger-save-${crypto.randomUUID()}`,
+      eventType:$("ledger-event-type").value as "sale" | "expense", paymentMethod:$("ledger-payment-method").value as "cash" | "card",
+      amount:$("ledger-amount").value, when:$("ledger-when").value});
+    $("ledger-feedback").textContent = "Saving on this computer…";
+    void post("/api/ledger/events", record).then(response => json<{save_status:string}>(response)).then(async saved => {
+      $("ledger-amount").value = ""; $("ledger-confirmed").checked = false;
+      const day = ledgerDayFromInput(); if (day) await loadLedger(day);
+      $("ledger-feedback").textContent = saved.save_status === "SAVED_ON_THIS_DEVICE" ? "Recorded on this computer. Count cash and check card settlement separately." : "Record response received.";
+    }).catch(error => { $("ledger-feedback").textContent = message(error); });
+  } catch (error) { $("ledger-feedback").textContent = message(error); }
+});
+$("ledger-correction-form").addEventListener("submit", event => {
+  event.preventDefault();
+  if (!correctionTarget) return;
+  try {
+    const correction = ledgerCorrection({id:`ledger-correction-${crypto.randomUUID()}`, idempotencyKey:`ledger-correct-${crypto.randomUUID()}`,
+      replaces:correctionTarget, amount:$("ledger-correction-amount").value, when:$("ledger-correction-when").value, reason:$("ledger-correction-reason").value});
+    $("ledger-feedback").textContent = "Saving correction on this computer…";
+    void post("/api/ledger/corrections", correction).then(response => json<{save_status:string}>(response)).then(async saved => {
+      const day = ledgerDayFromInput(); if (day) await loadLedger(day);
+      $("ledger-feedback").textContent = saved.save_status === "SAVED_ON_THIS_DEVICE" ? "Correction saved. The earlier amount remains in the record history." : "Correction response received.";
+    }).catch(error => { $("ledger-feedback").textContent = message(error); });
+  } catch (error) { $("ledger-feedback").textContent = message(error); }
+});
+$("ledger-correction-cancel").addEventListener("click", () => { correctionTarget = null; $("ledger-correction-form").hidden = true; });
 for (const id of ["record-snapshot","record-horizon"] as const) $(id).addEventListener("input", () => {
   if (!current) return;
   invalidate();
@@ -374,5 +485,5 @@ $("download").addEventListener("click", () => {
 void fetch("/api/fixtures").then(response => json<Fixture[]>(response)).then(items => {
   cases = items; cases.forEach((item,index) => {const option = document.createElement("option"); option.value = String(index); option.textContent = item.scenario; $("scenario").append(option);});
   const own = document.createElement("option"); own.value = "own"; own.textContent = "My own day · blank figures"; $("scenario").prepend(own); $("scenario").value = "own"; choose();
-  $("start-own").disabled = false; $("start-example").disabled = false; $("welcome-feedback").textContent = "";
+  $("start-own").disabled = false; $("start-ledger").disabled = false; $("start-example").disabled = false; $("welcome-feedback").textContent = "";
 }).catch(() => { $("welcome-feedback").textContent = "We couldn’t load this check. Make sure the local app is running, then reload this page. Your figures have not been sent."; });
