@@ -1,3 +1,15 @@
+# Governed local ledger endpoints locally completed — 2026-10-17
+
+Status: LOCAL_TESTED_PENDING_DELIVERY. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records source-backed local code and test evidence only: no deployment, real operator data, financial admission, bank/card verification, legal certification or provider result is claimed.
+
+- Re-read the relevant Drive GSMB corpus, supplied DEV.to discussion and Local KPGS entry/doctrine before this increment. Their shared admitted direction is: observe only operator-authorised evidence, preserve correction lineage, selectively reveal supported information and keep missing facts visible. Drive/Local/Cloud populations remain separate; no synchronization or runtime KPGS activation occurred.
+- Implemented local, session-bound Flask endpoints for append, correction and daily review around the existing SQLite event store. A review exposes recorded sales, cash/card split and cash expenses, preserves lineage, and returns `OPERATOR_REPORTED_RECORDS_MAY_BE_INCOMPLETE` plus `NOT_PREPARED` rather than calling recorded activity settled cash, profit, headroom or a bank balance.
+- Only cash/card sales and cash expenses are admitted. Unsupported movements reject without a write. Retries return the retained event only for identical content; divergent retry and stale correction paths hold as conflicts. Local model selection has no write route. Existing Host, Origin, JSON, body-size, request-budget and exact-cent controls remain in front of the endpoints.
+- A first endpoint ordering regression was caught by the existing body-size test and fixed: oversized requests still return HTTP 413 before session validation. Local verification: 70 Python tests, strict TypeScript/build, six Node tests, `compileall` and `git diff --check` pass. [Source reconciliation, endpoint contract and limits](docs/audits/2026-10-17-governed-ledger-endpoints.md).
+- Next: commit/push this implementation to draft PR #5 and verify its exact head. Then build the small browser capture/reveal flow and separately carry out the consented barber observation; no real record is entered without the operator's consent.
+
+---
+
 # Local event-store core locally completed — 2026-10-17
 
 Status: PUSHED_IMPLEMENTATION_PROVIDER_VALIDATED_FOR_OWNER_REVIEW. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records the storage implementation head and its provider evidence only: no endpoint/browser release, field session, merchant data, financial admission or deployment is claimed.

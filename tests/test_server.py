@@ -14,7 +14,7 @@ class LocalDemo(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.directory = tempfile.TemporaryDirectory()
-        cls.server = make_server(0, cls.directory.name)
+        cls.server = make_server(0, cls.directory.name, Path(cls.directory.name) / "ledger.sqlite3")
         cls.thread = Thread(target=cls.server.serve_forever, daemon=True); cls.thread.start()
         connection = HTTPConnection("127.0.0.1", cls.server.server_port, timeout=5)
         connection.request("GET", "/api/session")
@@ -55,6 +55,39 @@ class LocalDemo(unittest.TestCase):
         status, data, _ = self.call("POST", "/api/decision", payload)
         self.assertEqual(status, 200)
         self.assertEqual(verify(Path(self.directory.name) / json.loads(data)["receipt_filename"])["status"], "REPRODUCED")
+
+    def test_local_ledger_requires_session_and_preserves_reviewable_lineage(self):
+        day = "2026-10-21"
+        event = {"id": "ledger-sale-1", "idempotency_key": "ledger-sale-key", "business_day": day,
+                 "event_type": "sale", "payment_method": "card", "amount_cents": 5000,
+                 "occurred_at": "2026-10-21T09:00:00+02:00", "source_kind": "OPERATOR_REPORTED"}
+        self.assertEqual(self.call("GET", f"/api/ledger/days/{day}", headers={"X-KasiMargin-Session":"other"})[0], 403)
+        status, data, _ = self.call("POST", "/api/ledger/events", event)
+        self.assertEqual(status, 200)
+        saved = json.loads(data)["event"]
+        self.assertFalse(saved["idempotent_replay"])
+        self.assertEqual(json.loads(self.call("POST", "/api/ledger/events", event)[1])["event"]["idempotent_replay"], True)
+        conflicting = {**event, "amount_cents": 6000}
+        self.assertEqual(self.call("POST", "/api/ledger/events", conflicting)[0], 409)
+        correction = {"id": "ledger-sale-1-r2", "idempotency_key": "ledger-correct-key", "replaces_id": saved["id"],
+                      "expected_revision": 1, "amount_cents": 6000, "occurred_at": event["occurred_at"], "reason": "amount corrected"}
+        self.assertEqual(self.call("POST", "/api/ledger/corrections", correction)[0], 200)
+        status, data, _ = self.call("GET", f"/api/ledger/days/{day}")
+        self.assertEqual(status, 200)
+        reveal = json.loads(data)
+        self.assertEqual(reveal["recorded_sales_cents"], 6000)
+        self.assertEqual(reveal["card_sales_cents"], 6000)
+        self.assertEqual(reveal["cash_position_status"], "NOT_PREPARED")
+
+    def test_ledger_rejects_unsupported_movement_without_creating_a_record(self):
+        day = "2026-10-22"
+        invalid = {"id": "ledger-refund-1", "idempotency_key": "ledger-refund-key", "business_day": day,
+                   "event_type": "refund", "payment_method": "cash", "amount_cents": 5000,
+                   "occurred_at": "2026-10-22T09:00:00+02:00", "source_kind": "OPERATOR_REPORTED"}
+        self.assertEqual(self.call("POST", "/api/ledger/events", invalid)[0], 400)
+        status, data, _ = self.call("GET", f"/api/ledger/days/{day}")
+        self.assertEqual(status, 200)
+        self.assertEqual(json.loads(data)["record_count"], 0)
 
     def test_unknown_cash_and_bad_money_do_not_return_reassuring_amounts(self):
         payload = self.payload(); payload["input"]["cash_position"]["verified_cash_cents"] = None

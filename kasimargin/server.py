@@ -16,6 +16,7 @@ from .ollama import MODELS
 from .receipts import save
 from .workflow import decision
 from .kpgs import LocalKpgs
+from .event_store import EventStore, IdempotencyConflict
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = Path(__file__).resolve().parent / "web"
@@ -26,7 +27,7 @@ class BrowserPrecisionError(ContractError):
     pass
 
 
-def create_app(receipt_directory=None, port=8765, request_limit=120, context_runtime=None):
+def create_app(receipt_directory=None, port=8765, request_limit=120, context_runtime=None, ledger_database=None):
     if type(request_limit) is not int or not 1 <= request_limit <= 10000:
         raise ValueError("request_limit must be from 1 to 10000")
     app = Flask(__name__, static_folder=None)
@@ -34,7 +35,8 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
     runtime = context_runtime if context_runtime is not None else LocalKpgs(os.environ.get("KASIMARGIN_KPGS_ROOT"))
     app.config.update(MAX_CONTENT_LENGTH=MAX_INPUT_BYTES,
                       ALLOWED_LOCAL_HOSTS=(f"127.0.0.1:{port}", f"localhost:{port}"),
-                      RECEIPT_DIRECTORY=Path(receipt_directory) if receipt_directory is not None else ROOT / "local-data/decisions")
+                      RECEIPT_DIRECTORY=Path(receipt_directory) if receipt_directory is not None else ROOT / "local-data/decisions",
+                      LEDGER_DATABASE=Path(ledger_database) if ledger_database is not None else ROOT / "local-data/ledger.sqlite3")
 
     def reply(value, status=200):
         return Response(dumps(value), status=status, content_type="application/json; charset=utf-8")
@@ -46,13 +48,16 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
         origin = request.headers.get("Origin")
         if origin is not None and origin not in tuple(f"http://{host}" for host in app.config["ALLOWED_LOCAL_HOSTS"]):
             return reply({"error": "Cross-origin requests are disabled."}, 403)
+        ledger_read = request.method == "GET" and request.path.startswith("/api/ledger/")
+        session_required = request.method == "POST" or ledger_read
         if request.method == "POST" and request.mimetype != "application/json":
             return reply({"error": "Use application/json"}, 415)
-        if request.method == "POST":
-            if request.content_length is not None and request.content_length > MAX_INPUT_BYTES:
-                return reply({"error": "Request size is outside the demo limit"}, 413)
+        if request.method == "POST" and request.content_length is not None and request.content_length > MAX_INPUT_BYTES:
+            return reply({"error": "Request size is outside the demo limit"}, 413)
+        if session_required:
             if not compare_digest(request.headers.get("X-KasiMargin-Session", "").encode("utf-8"), session_token.encode("ascii")):
                 return reply({"error": "Your local session changed. Please try again."}, 403)
+        if request.method == "POST":
             with request_lock:
                 now = monotonic()
                 while recent_requests and now - recent_requests[0] >= 60:
@@ -93,6 +98,15 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
         paths.append(ROOT / "fixtures/itemized/01.json")
         return reply([loads(path.read_text(encoding="utf-8")) for path in paths])
 
+    @app.get("/api/ledger/days/<business_day>")
+    def ledger_day(business_day):
+        try:
+            return reply(EventStore(app.config["LEDGER_DATABASE"]).current_day(business_day))
+        except ContractError:
+            return reply({"error": "Ledger day rejected. Use an ISO date."}, 400)
+        except OSError:
+            return reply({"error": "Local ledger is unavailable. No record is confirmed."}, 500)
+
     assets = {"/": ("index.html", "text/html; charset=utf-8"),
               "/app.js": ("build/app.js", "text/javascript; charset=utf-8"),
               "/theme.js": ("build/theme.js", "text/javascript; charset=utf-8"),
@@ -124,6 +138,8 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
     @app.post("/api/validate")
     @app.post("/api/receipt")
     @app.post("/api/context")
+    @app.post("/api/ledger/events")
+    @app.post("/api/ledger/corrections")
     def submit():
         try:
             # Use the shared strict parser: Flask's normal JSON loader would
@@ -135,6 +151,12 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
             if request.path == "/api/context":
                 exact_keys(value, set(), "context check")
                 return reply(runtime.probe())
+            if request.path == "/api/ledger/events":
+                event = EventStore(app.config["LEDGER_DATABASE"]).append(value)
+                return reply({"event": event, "save_status": "SAVED_ON_THIS_DEVICE"})
+            if request.path == "/api/ledger/corrections":
+                event = EventStore(app.config["LEDGER_DATABASE"]).correct(value)
+                return reply({"event": event, "save_status": "SAVED_ON_THIS_DEVICE"})
             if request.path == "/api/receipt":
                 exact_keys(value, {"input", "result", "data_class"}, "save reviewed decision")
                 browser_range(value["input"])
@@ -165,6 +187,8 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
             return reply(result)
         except BrowserPrecisionError:
             return reply({"error": "These figures exceed this browser's exact-cent range. Use the Python CLI for this record."}, 400)
+        except IdempotencyConflict:
+            return reply({"error": "Save conflict. Review the current record before trying again."}, 409)
         except (ContractError, ValueError, KeyError, TypeError, UnicodeError):
             return reply({"error": "Input rejected. Check exact integer cents, required fields, timestamps and evidence."}, 400)
         except OSError:
@@ -173,10 +197,10 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
     return app
 
 
-def make_server(port=8765, receipt_directory=None):
+def make_server(port=8765, receipt_directory=None, ledger_database=None):
     if type(port) is not int or not 0 <= port <= 65535:
         raise ValueError("port must be from 0 to 65535")
-    app = create_app(receipt_directory, port)
+    app = create_app(receipt_directory, port, ledger_database=ledger_database)
     # Tests and CLI share the real Flask WSGI transport. No debug/reloader.
     server = make_wsgi_server("127.0.0.1", port, app, threaded=True)
     app.config["ALLOWED_LOCAL_HOSTS"] = (f"127.0.0.1:{server.server_port}", f"localhost:{server.server_port}")
