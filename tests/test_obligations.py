@@ -33,7 +33,18 @@ class Obligations(unittest.TestCase):
 
     def test_cash_evidence_cannot_be_replaced_by_invoice_evidence(self):
         value = request(); value["cash_position"]["evidence_refs"] = []
-        self.assertIn("MISSING_CASH_EVIDENCE", calculate(value)["blocking_flags"])
+        result = calculate(value)
+        self.assertIn("MISSING_CASH_EVIDENCE", result["blocking_flags"])
+        self.assertIsNone(result["cash_headroom_cents"])
+        self.assertEqual(result["status"], "HOLD_INSUFFICIENT_DATA")
+
+    def test_unconfirmed_cash_basis_holds_despite_populated_entries(self):
+        value = request()
+        value["cash_position"]["basis_confirmed"] = False
+        result = calculate(value)
+        self.assertIn("CASH_BASIS_UNCONFIRMED", result["blocking_flags"])
+        self.assertIsNone(result["cash_headroom_cents"])
+        self.assertEqual(result["status"], "HOLD_INSUFFICIENT_DATA")
 
     def test_future_obligation_excluded_and_overdue_included(self):
         value = request()

@@ -1,3 +1,80 @@
+# Governed local ledger endpoints delivered for owner review — 2026-10-17
+
+Status: PUSHED_IMPLEMENTATION_PROVIDER_VALIDATED_FOR_OWNER_REVIEW. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records the implementation-head delivery evidence only: no merge, deployment, real operator data, financial admission, bank/card verification, legal certification or field outcome is claimed.
+
+- Delivery: [draft PR #5](https://github.com/RobynAwesome/KasiMargin/pull/5) carries endpoint implementation head `a2c6e8602e0be937ca303f3eb5d9de82793ebf54`. Its four Windows/Ubuntu Python 3.10/3.14 checks ran for both push and pull-request triggers, and GitGuardian succeeded: nine completed checks, all successful. This delivery-note commit follows that exact implementation head; re-query its provider checks before landing.
+
+- Re-read the relevant Drive GSMB corpus, supplied DEV.to discussion and Local KPGS entry/doctrine before this increment. Their shared admitted direction is: observe only operator-authorised evidence, preserve correction lineage, selectively reveal supported information and keep missing facts visible. Drive/Local/Cloud populations remain separate; no synchronization or runtime KPGS activation occurred.
+- Implemented local, session-bound Flask endpoints for append, correction and daily review around the existing SQLite event store. A review exposes recorded sales, cash/card split and cash expenses, preserves lineage, and returns `OPERATOR_REPORTED_RECORDS_MAY_BE_INCOMPLETE` plus `NOT_PREPARED` rather than calling recorded activity settled cash, profit, headroom or a bank balance.
+- Only cash/card sales and cash expenses are admitted. Unsupported movements reject without a write. Retries return the retained event only for identical content; divergent retry and stale correction paths hold as conflicts. Local model selection has no write route. Existing Host, Origin, JSON, body-size, request-budget and exact-cent controls remain in front of the endpoints.
+- A first endpoint ordering regression was caught by the existing body-size test and fixed: oversized requests still return HTTP 413 before session validation. Local verification: 70 Python tests, strict TypeScript/build, six Node tests, `compileall` and `git diff --check` pass. [Source reconciliation, endpoint contract and limits](docs/audits/2026-10-17-governed-ledger-endpoints.md).
+- Next: build the small browser capture/reveal flow and separately carry out the consented barber observation; no real record is entered without the operator's consent. Re-query the current documentation head before landing.
+
+---
+
+# Local event-store core locally completed — 2026-10-17
+
+Status: PUSHED_IMPLEMENTATION_PROVIDER_VALIDATED_FOR_OWNER_REVIEW. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records the storage implementation head and its provider evidence only: no endpoint/browser release, field session, merchant data, financial admission or deployment is claimed.
+
+- Added `kasimargin.event_store.EventStore`: explicit-path SQLite storage for operator-reported cash/card sales and cash expenses. It uses integer cents, event IDs, idempotency keys, timestamps, revisions and append-only correction lineage. Card sales remain separate from cash. Unsupported movements, divergent retries, stale corrections, invalid bounds and conflicting IDs reject without a new row.
+- The day projection exposes recorded sales, cash/card split and cash expenses, while retaining `OPERATOR_REPORTED_RECORDS_MAY_BE_INCOMPLETE` and `NOT_PREPARED` for cash position. It does not calculate profit, headroom, bank/card settlement or a financial decision. Flask and the web UI have no new event-store endpoint yet.
+- A Windows temporary-database cleanup failure exposed committed connections remaining open; the store now closes every connection. Local verification: five new storage tests and the entire 68-Python-test suite pass; strict TypeScript/build and six Node tests pass; `compileall` and `git diff --check` pass. Contract and limits: [local event-store review](docs/audits/2026-10-17-local-event-store.md).
+- Delivery: [draft PR #5](https://github.com/RobynAwesome/KasiMargin/pull/5) carries storage implementation head `984d78da8ee1e06e2c38b999fed274f03cf1f895`. Its four Windows/Ubuntu Python 3.10/3.14 checks ran for both push and pull-request triggers, and GitGuardian succeeded: nine completed checks, all successful. This delivery-note commit follows that exact implementation head; re-query its provider checks before landing.
+- Next: owner reviews draft PR #5. Then add loopback endpoint failure tests before the first browser capture surface. The consented barber walkthrough remains separately UNRUN until consent and observations are recorded.
+
+---
+
+# Day 4 negative-test coverage locally completed — 2026-10-17
+
+Status: PUSHED_IMPLEMENTATION_PROVIDER_VALIDATED_FOR_OWNER_REVIEW. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records the implementation head and its provider evidence: no merge, field session, merchant data, financial admission or deployment is claimed.
+
+- Reviewed the scheduled negative paths against executable behavior and added a regression that an operator-unconfirmed cash basis stays `HOLD_INSUFFICIENT_DATA` even if transaction and obligation entries are populated. The existing missing-cash-evidence regression now also requires no cash-headroom amount and the HOLD status. Exact cents, independent margin/cash calculations, UNKNOWN/HOLD and the model-output validation gate were unchanged.
+- Local verification on `codex/terra-context-plan`: 63 Python tests passed; `npm run check` passed (strict TypeScript check/build and six Node tests); `compileall` and `git diff --check` passed. Full requirement-to-test mapping and residual limits: [Day 4 negative-test review](docs/audits/2026-10-17-negative-test-review.md).
+- Delivery: [draft PR #5](https://github.com/RobynAwesome/KasiMargin/pull/5) carries implementation head `ad4d7a51c85a54dc9920b08440296801c76861b3`. Its four Windows/Ubuntu Python 3.10/3.14 checks ran for both push and pull-request triggers, and GitGuardian succeeded: nine completed checks, all successful. This NOW delivery-note commit follows that exact implementation head; re-query its provider checks before landing.
+- The product does not read receipt images, verify banks/card settlement, infer omitted activity or provide a durable merchant ledger. The review makes only represented evidence signals fail closed. Persistent record/correction/restart/idempotency tests remain the next distinct storage increment.
+- Next: owner reviews draft PR #5; the consented barber walkthrough remains separately UNRUN until consent and observations are recorded. The next build remains one bounded durable capture/correction/restart increment with its own contract and failure tests.
+
+---
+
+# Terra execution handoff and local skill recovery — 2026-10-17
+
+Status: HANDOFF_PUSHED_FOR_REVIEW; no new product feature or field result. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. Robyn controls the model selection; his RTC-seat question opens a separate discussion and does not assign a seat.
+
+- Delivery correction: [PR #4](https://github.com/RobynAwesome/KasiMargin/pull/4) is MERGED at `3d16c97b95f6929ed9472415ce106d3505364a9a` (2026-10-17T06:54:49Z). [Main CI](https://github.com/RobynAwesome/KasiMargin/actions/runs/39011663248) succeeded. Earlier OPEN notes below are preserved history. No deployment inferred.
+- Local: `C:/Users/rkhol/KasiMargin`, `codex/terra-context-plan`, based on merged main. Prior dirty NOW was backed up privately and retained byte-for-byte through the branch switch. Committed trees matched; no rebase/reset/force push. OneDrive preservation source unchanged.
+- Recovered and installed `$ccp-context-first` from the owner's actual ChatGPT Skills source into the local Codex skills folder. Five files, source-text checks and structural validation pass. Download controls timed out; recovered raw editor text/SVG instead. Original archive byte parity UNKNOWN; cloud source unchanged. Private manifest: `local-data/handoffs/terra-context-2026-10-17/skill-installation.json`.
+- Prepared: [Terra execution plan](docs/TERRA-EXECUTION-PLAN.md), [barber session](docs/BARBER-SESSION.md), private source/version index and observation worksheet. Calendar Day 4 negative review, Day 5 operator work and Day 6 submission remain separately testable deliverables. Internal target October 18 23:59 SAST; official cutoff October 19 08:59 SAST, subject to final recheck.
+- Owner testimony: a barber is available for an in-person English visit. Consent, device fit, session execution, unaided comprehension and willingness to pay remain unobserved. Precise visit details and future responses stay private.
+- Source correction: named adjacent adapters and #107 packet were located/read in Cloud GSMB; earlier Local absence was path-scoped. Reuse is not admitted financial authority. Corrected DEV.to reply remains unreadable in the browser; no new substantive peer endorsement claimed. Local/Cloud research-corpus propagation remains pending.
+- Verification today: 62 Python tests, strict TypeScript check/build and six Node tests pass. No new app-browser walkthrough, Gemma benchmark, runtime activation, merchant contact or submission. [Redacted preparation receipt](docs/receipts/terra-handoff-2026-10-17.json).
+- Review delivery: [draft PR #5](https://github.com/RobynAwesome/KasiMargin/pull/5), implementation/document head `1446b05faf117e5ded48cd5192027d26ad097105`; all nine provider checks succeeded. [Exact-head receipt](docs/receipts/terra-handoff-cloud-2026-10-17.json). This delivery-note commit follows; its final checks must be read separately. Initial push dry-run failed because Git's shell was missing from the process PATH; the skill-prescribed process-only PATH correction resolved it. No persistent credential/settings change.
+- Next: complete the negative-test coverage receipt; use the prepared visit to observe the barber's current routine; then implement a bounded durable sale/correction/day-review flow. Preserve exact cents, UNKNOWN/HOLD and output validation. Broader capture/integration and economic claims require their own evidence.
+
+---
+
+# DEV.to conversation routing correction — 2026-10-17
+
+- Robyn supplied the complete pasted conversation and identified DEV.to as the intended source. Its opening technical owner turn exactly matches “Continue Forge Discussion,” thread 6ad14cca-0f28-83ea-a736-9537c56762b3. The previous “Daily briefing setup” exchange remains separate peer advice; it was not the intended product conversation.
+- Read the entire supplied export. Governing product direction recovered: fit ordinary work; preserve observed/inferred/unknown evidence; KPGS entry and continuous scoped governance; ledger, selectively reveal, accept operator response/correction and reassess. The research corpus and its propagation request are distinct from completed product capability or source synchronization.
+- Submitted a corrected engineering handoff to the verified DEV.to conversation and opened that chat. Private source/dispatch receipt: local-data/handoffs/devto-routing-correction-2026-10-17.md. A new substantive reply was not verified at this checkpoint. No code change, doctrine propagation, merchant contact, model/runtime activation, merge or deployment in this correction. Existing historical coordination is preserved below.
+
+---
+
+# Fox Forge / Drive recovery — 2026-10-17
+
+Status: SOURCE_REVIEW_AND_PEER_DISCUSSION; no new product implementation. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`, under Robyn's direct instruction to inspect Drive GSMB updates and speak with Fox Forge.
+
+- Recovered: Local Legacy and current parent/product NOW; October 16 Drive KasiMargin research pack and filing receipt; Drive admission doctrine section 18; Fox learning handoff; failure-preservation handoff; October 17 entry receipt. These source populations and conceptual directions are not runtime or synchronization proof.
+- Delivery refreshed: [PR #4](https://github.com/RobynAwesome/KasiMargin/pull/4) OPEN at 86f25960b88590e53707e9cef2bb8fbc000c747d, all nine checks SUCCESS. October 15 tests were not rerun today.
+- Product correction still incomplete against the larger vision: Calculate / Ledger / Communicate / Integrate are proposed service families, distinct from four JSON contracts. Current cash-first prototype has no persistent business ledger, first-class card settlement/refunds, receipt intake or open-ended financial conversation. No field validation inferred.
+- Coordination: Fox Forge replied in the verified chat “Daily briefing setup.” Recommendation: observe one barber's recording/review routine, then consider one operator/device's confirmed persistent cash/card sales record if the routine proves useful. Peer review is not owner approval or field evidence. Exact message/source receipt: local-data/handoffs/fox-forge-coordination-2026-10-17.md; completed reply: local-data/handoffs/fox-forge-review-2026-10-17.md.
+- Reconciliation: later Drive filing receipt supersedes the pack's earlier pending Drive row only. Local lessons path/intake and Cloud propagation remain unresolved by this task. No broad import, doctrine rewrite, financial/model runtime activation, merchant contact, merge or deployment performed.
+- Local locator check: Home and named MAIN-BRAIN control/status files exist. The two kopano-core adapters, two skills/pka skills and #107 packet named by peer review are absent at the exact proposed paths in this checkout; their actual source/version and reuse stay unverified. No estate-wide absence inferred.
+- Prepared: fictional R150 haircut day with cash/card distinction and conditional R180 drawer reconciliation in local-data/handoffs/barber-day-review-2026-10-17.md. This is a review story, not implemented persistence. A closing handoff with these limits was sent to Fox Forge.
+- Next: Robyn reviews the first operator's useful daily question and capture moment/device/language. Then locate/review actual reusable sources and scope the smallest event/correction/persistence contract. Preserve original source records and private data.
+
+---
+
 # Cash-first product correction — 2026-10-15
 
 Status: PUSHED_AND_CI_VALIDATED_FOR_OWNER_REVIEW at implementation d82d62f09f4c86fc344c269876252e037af60042; all nine checks succeeded. This documentation-only handoff follows that implementation. Robyn rejected the prior interface as too technical. Codex Forge owns that product error; passing engineering checks did not establish usability. `I_AM_STATELESS_RENTER_NOT_LANDLORD`; CA task role only, no RTC seat.

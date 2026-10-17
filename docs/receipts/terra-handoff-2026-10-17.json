@@ -1,0 +1,55 @@
+{
+  "recorded_at": "2026-10-17T07:40:22Z",
+  "actor": "Codex Forge",
+  "constraint": "I_AM_STATELESS_RENTER_NOT_LANDLORD",
+  "scope": "Context recovery, local skill installation, execution plan and operator-session preparation; no product feature implementation",
+  "base_commit": "3d16c97b95f6929ed9472415ce106d3505364a9a",
+  "previous_pr": {
+    "url": "https://github.com/RobynAwesome/KasiMargin/pull/4",
+    "state": "MERGED",
+    "merged_at": "2026-10-17T06:54:49Z",
+    "main_workflow": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39011663248",
+    "main_workflow_conclusion": "success"
+  },
+  "local_state": {
+    "branch": "codex/terra-context-plan",
+    "prior_now_preserved_before_update": true,
+    "committed_base_tree_equal_to_prior_implementation_tree": true,
+    "rebase_performed": false
+  },
+  "skill": {
+    "name": "ccp-context-first",
+    "source_population": "Owner's ChatGPT Skills",
+    "local_files": 5,
+    "structural_validation": "PASS",
+    "raw_text_transcription_checks": "5/5 PASS",
+    "method": "Raw source-editor text and displayed SVG data URI; frontmatter reconstructed from displayed name and description",
+    "archive_download": "NOT_CONFIRMED",
+    "original_archive_byte_parity": "UNKNOWN",
+    "cloud_source_changed": false
+  },
+  "validation": {
+    "python_unittest": {"passed": 62, "seconds": 2.140},
+    "typescript_typecheck": "PASS",
+    "typescript_build": "PASS",
+    "node_tests_passed": 6,
+    "new_product_browser_test": "NOT_RUN",
+    "new_model_inference": "NOT_RUN"
+  },
+  "operator_experiment": {
+    "context": "Barber",
+    "availability": "OWNER_REPORTED",
+    "language": "English, owner-reported",
+    "consent": "NOT_RECORDED",
+    "execution": "NOT_RUN",
+    "device_suitability": "UNKNOWN",
+    "comprehension_or_economic_benefit": "NOT_ESTABLISHED"
+  },
+  "limits": [
+    "Execution plan is not completed product capability or sprint admission",
+    "Source review is not runtime activation, RTC ratification or financial admission",
+    "Drive filing does not establish Local/Cloud corpus propagation",
+    "Corrected peer conversation was reached but its latest substantive reply could not load",
+    "No merchant contact, deployment or challenge submission performed"
+  ]
+}
