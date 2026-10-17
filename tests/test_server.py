@@ -36,7 +36,7 @@ class LocalDemo(unittest.TestCase):
         return {"input":json.loads((ROOT / "fixtures/itemized/01.json").read_text())["input"],"model":None,"save_receipt":False,"data_class":"SYNTHETIC"}
 
     def test_assets_and_fixtures_are_served_without_external_dependencies(self):
-        for path in ("/", "/app.js", "/presentation.js", "/style.css", "/health"):
+        for path in ("/", "/app.js", "/presentation.js", "/ledger.js", "/style.css", "/health"):
             with self.subTest(path=path):
                 status, data, headers = self.call("GET", path)
                 self.assertEqual(status, 200); self.assertTrue(data)
