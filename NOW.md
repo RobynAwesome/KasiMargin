@@ -1,3 +1,19 @@
+# PR #8 merged to main — Decision meaning and read-only ledger reference landed — 2026-10-18
+
+Status: MERGED_ON_MAIN_PROVIDER_VALIDATED_FOR_SUBMISSION; Robyn explicitly reviewed and merged PR #8 into `main` at commit `17f397fe687de18fde54d532b74070b36c882423` (2026-10-18T20:49:32Z). Antigravity, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped pair-programming task role, no RTC seat.
+
+- Delivery & Landing: [PR #8](https://github.com/RobynAwesome/KasiMargin/pull/8) merged to `main` at `17f397fe687de18fde54d532b74070b36c882423`. Push-triggered Windows/Ubuntu Python 3.10/3.14 CI run completed successfully: [run 39165071207](https://github.com/RobynAwesome/KasiMargin/actions/runs/39165071207). GitGuardian and all nine matrix jobs passed.
+- Implemented:
+  - **Visible decision explanation:** `#explanation` and `#model-state` promoted into open `<section class="decision-meaning">` headed "What this means for your next decision". Technical diagnostics (`#check-source`, `#context-state`, `#model-detail`) and raw JSON remain safely collapsed inside `<details class="explanation">`.
+  - **Read-only workflow reference:** Added `#ledger-to-check` and `#check-to-ledger` buttons, and a read-only `OPERATOR_REPORTED` reference card (`#ledger-reference`) above Step 1.
+  - **Financial invariants:** The reference is strictly read-only and never modifies `verified_cash_cents`, `attributable_costs_cents`, `due_liabilities_cents`, `committed_spend_cents`, `minimum_buffer_cents`, or `basis_confirmed`. Date change immediately clears stale totals so a previous day's figures are never displayed as today's.
+- Local verification on merged `main`: **72 Python tests, 15 Node tests**, strict TypeScript check/build, clean `compileall` and `git diff --check` pass. Real headless Microsoft Edge CDP verification confirmed Scenarios A–E, empty/stale date switching, and 390px mobile viewport without horizontal overflow.
+- Aligned [DEV article draft](docs/DEV-SUBMISSION-DRAFT.md) with merged `main` commit `17f397f` and repository demo link. Caption video hash re-verified (`E6A64DF12B39B6B552833B1FA6AE1638A31C362A939348B257AC66B51F1F6110`).
+- FOC confirmed as Field of Concepts for subsequent post-submission product planning.
+- Next admissible action: Robyn completes the final visual demo/article review and authorizes submission to DEV.to. No public article, deployment, or contest acceptance claimed without owner execution.
+
+---
+
 # Submission preparation and save recovery locally completed — 2026-10-18
 
 Status: PUSHED_IMPLEMENTATION_PROVIDER_VALIDATED_FOR_OWNER_REVIEW; the documentation handoff follows that implementation head and must be checked separately before landing. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; existing task role only, no RTC seat.

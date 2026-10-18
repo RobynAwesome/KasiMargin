@@ -23,7 +23,7 @@ The proposed paying customer is a business owner who finds a short daily record 
 
 ## Demo
 
-[Download/watch the captioned synthetic demo](https://raw.githubusercontent.com/RobynAwesome/KasiMargin/refs/heads/codex/terra-context-plan/docs/demo/KasiMargin-synthetic-demo.mp4). This MP4 belongs to the review branch and may download in your browser. It has captions and no audio. The recording shows the standard explanation; it does not represent a new live Gemma call.
+[Download/watch the captioned synthetic demo](https://raw.githubusercontent.com/RobynAwesome/KasiMargin/refs/heads/main/docs/demo/KasiMargin-synthetic-demo.mp4). This MP4 belongs to the repository and may download in your browser. It has captions and no audio. The recording shows the standard explanation; it does not represent a new live Gemma call.
 
 The demonstration uses made-up barber records: two R50 cash haircuts, one R50 card haircut and R20 cash spending. Sales recorded are R150, split between R100 cash and R50 card. Correct one haircut to R60: sales become R160 while the earlier record remains in the history.
 
@@ -35,7 +35,7 @@ The technical walkthrough also checks a double submit, a saved request whose res
 
 [KasiMargin on GitHub](https://github.com/RobynAwesome/KasiMargin)
 
-[Browser delivery under review](https://github.com/RobynAwesome/KasiMargin/pull/6). The article must link the reviewed demonstration version explicitly if this change is still unmerged when published. A normal clone of main may then differ from the recording.
+[Decision meaning and read-only ledger reference (merged PR #8)](https://github.com/RobynAwesome/KasiMargin/pull/8). Landed on `main` at commit [`17f397f`](https://github.com/RobynAwesome/KasiMargin/commit/17f397fe687de18fde54d532b74070b36c882423).
 
 The code is MIT licensed. Gemma's weights have their own terms; the code licence does not relicense the model or imported artwork. The emblem was supplied by the project owner. KasiLink is the owner-declared conceptual parent, and Kopano Labs research informed the governance boundaries. KasiMargin is a separate implementation; those connections do not establish customer validation or a deployed KPGS financial authority.
 
