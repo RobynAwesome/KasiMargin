@@ -1,0 +1,42 @@
+{
+  "recorded_date": "2026-10-18",
+  "actor": "Codex Forge",
+  "constraint": "I_AM_STATELESS_RENTER_NOT_LANDLORD",
+  "base_commit": "3ad087ecac9eb4f0b52b55eea6892747fbf589ad",
+  "data_class": "SYNTHETIC",
+  "local_verification": {
+    "python_tests": 70,
+    "node_tests": 12,
+    "typescript_check_and_build": "PASS",
+    "compileall": "PASS",
+    "diff_check": "PASS",
+    "browser_page_errors": 0,
+    "browser_cases": ["cash/card sale", "cash-only expense", "correction", "reload persistence", "rapid submit", "commit with lost response", "changed uncertain retry blocked", "unchanged retry without duplicate", "390px dark layout"]
+  },
+  "video": {
+    "path": "docs/demo/KasiMargin-synthetic-demo.mp4",
+    "sha256": "e6a64df12b39b6b552833b1fa6ae1638a31c362a939348b257ac66b51f1f6110",
+    "bytes": 2763961,
+    "duration_seconds": 97.24,
+    "width": 1280,
+    "height": 1000,
+    "codec": "H.264",
+    "audio": false,
+    "captions": "Presentation overlay on real synthetic browser interaction; not an application feature",
+    "new_model_inference": false,
+    "decode": "2431 frames; full null-output decode completed",
+    "sampled_visual_review_seconds": [25, 50, 80, 95],
+    "human_playback_review": "PENDING"
+  },
+  "owner_dispositions": {
+    "entry": "SOLO",
+    "barber_walkthrough": "UNRUN_DEFERRED_UNTIL_AFTER_HAND_IN"
+  },
+  "limits": [
+    "Retry memory lasts only within the live page; closing an uncertain save requires checking stored records",
+    "No new Gemma inference; the October 14 evaluation remains separate evidence",
+    "No operator comprehension or willingness-to-pay observation",
+    "No article publication, submission acceptance, deployment or merge",
+    "Provider verification must be read at the exact pushed head"
+  ]
+}

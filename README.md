@@ -26,7 +26,7 @@
 
 Can an open-weight assistant help a business operator understand the daily financial position and evaluate a potential restock decision without manufacturing financial certainty?
 
-The proposed first persona is an owner-operated spaza shop planning tomorrow’s restock. This is a test persona, not an observed customer. Better records and clearer decisions may support a livelihood pathway; synthetic examples do not establish revenue growth, economic value or employment outcomes.
+The initial test persona was an owner-operated spaza shop planning tomorrow’s restock. The next planned operator walkthrough is with a barber, beginning with their daily recording routine. Neither is an observed customer result. Better records and clearer decisions may support a livelihood pathway; synthetic examples do not establish revenue growth, economic value or employment outcomes.
 
 KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Kholofelo Robyn Rababalela’s research. It is an independent greenfield implementation. The README’s visual opening, capability sections, state tables, quick start, repository map, roadmap and design-system section follow the organization of [Introduction-to-MCP](https://github.com/RobynAwesome/Introduction-to-MCP). The statements below are scoped to KasiMargin’s own evidence.
 
@@ -40,6 +40,7 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 - **Private decision receipts** — Explicit saves retain the displayed result for deterministic reproduction.
 - **A cash-first check** — Start with money now, payments ahead and money to keep aside. Sales/cost checking is optional; missing answers lead to specific review steps.
 - **Daily transaction entry** — Checked records, credit sales and payments stay distinct from reviewed totals and the cash snapshot.
+- **Record today** — Save paid cash/card sales and cash expenses locally; correct an amount while retaining its earlier history. Recorded totals remain separate from a confirmed cash position. Unchanged retries within the live page retain their save identity.
 - **Visible hybrid checks** — Optional existing local KPGS context entry, deterministic finance, optional local Gemma and explicit human review retain separate scopes.
 - **Light and dark modes** — The owner’s sculpted ribbon emblem sets the orange, lime, teal and blue brand palette.
 
@@ -51,6 +52,7 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 | Browser demo | Review records, calculate, explain and save | Strict TypeScript and Python Flask; light and dark themes |
 | Gemma adapter | Select approved facts, warnings and options | Local E2B installed; 21/21 synthetic outputs admitted |
 | Decision receipts | Preserve input/output and replay calculations | Local save and reproduction tested |
+| Daily record | Retain operator-reported paid sales, cash expenses and correction history | SQLite and protected local endpoints; browser change under review in [PR #6](https://github.com/RobynAwesome/KasiMargin/pull/6) |
 | KPGS context bridge | Observe existing local context entry without passing financial records | Read-only connection observed; formal financial admission not established |
 | Operator experiment | Measure understanding and usefulness against a baseline | Pending consented trial |
 | Public release | Hosted product, demo/video and challenge submission | Pending |
