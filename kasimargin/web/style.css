@@ -235,6 +235,15 @@ details { margin: 24px 0; }
 .record-checks li { padding: 18px; margin: 12px 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
 .record-checks p { margin: 0; font-size: 15px; }
 .record-checks button { margin-top: 6px; }
+.decision-meaning { padding: 20px; margin: 18px 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.decision-meaning #explanation { font-size: 15px; line-height: 1.8; margin: 0 0 10px; overflow-wrap: anywhere; }
+.decision-meaning #model-state { margin: 0; }
+.ledger-reference { margin: 0 0 22px; }
+.ledger-reference-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.ledger-reference-header h3 { margin: 0; font-size: 16px; }
+.ledger-reference #ledger-reference-note { margin: 6px 0 0; }
+.ledger-reference #ledger-reference-totals:not(:empty) { margin-top: 14px; }
+.ledger-reveal #ledger-to-check { margin-top: 16px; width: 100%; border-color: var(--cash-border); color: var(--cash-ink); }
 .boundary { font-size: 14px; max-width: none; }
 .error { font-size: 15px; border-left: 3px solid var(--error); padding-left: 14px; overflow-wrap: anywhere; }
 .transaction-list strong, .transaction-list span { font-size: 14px; }

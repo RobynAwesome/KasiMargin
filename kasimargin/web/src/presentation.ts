@@ -1,6 +1,7 @@
-import type {Summary} from "./types.js";
+import type {Inference, Summary} from "./types.js";
 
 export interface RecordCheck {text: string; step: number; target?: string;}
+export interface ProvenanceText {operatorState: string; technicalDetail: string;}
 // Interface wording only. The Python engine and model gate decide the result.
 const checks: Record<string, RecordCheck> = {
   MARGIN_UNKNOWN: {text:"Sales or their costs are still missing. You can leave this optional check for later; it doesn’t change the cash calculation.", step:2, target:"profit-review"},
@@ -41,4 +42,22 @@ export function resultMessage(summary: Pick<Summary,"status"|"cash_headroom_cent
   if (summary.protected_cash_deficit_cents !== null && summary.protected_cash_deficit_cents > 0) return {title:"These payments need more than you have",next:"There’s a shortfall in the figures you checked. Review what’s due and what you need to keep aside before making another commitment."};
   if (summary.cash_headroom_cents === 0) return {title:"All of this money has a job already",next:"These payments and the amount kept aside use the money recorded. Check what’s due before making another commitment."};
   return {title:"Here’s what your figures leave",next:"Check that no bills or promises are missing before deciding how to use what’s left."};
+}
+export function inferenceProvenance(inference: Inference): ProvenanceText {
+  if (inference.status === "ADMITTED") {
+    return {
+      operatorState: "The local assistant selected these explanation points. The calculation supplied every amount.",
+      technicalDetail: `Model: ${inference.model}. Digest: ${inference.digest}`,
+    };
+  }
+  if (inference.status === "NOT_REQUESTED") {
+    return {
+      operatorState: "Calculated explanation. No AI assistant was requested.",
+      technicalDetail: "Explanation source: deterministic template.",
+    };
+  }
+  return {
+    operatorState: "The assistant's answer was unavailable or did not pass the checks. You are seeing the calculated explanation instead.",
+    technicalDetail: `Fallback reason: ${inference.reason}`,
+  };
 }

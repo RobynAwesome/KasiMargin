@@ -1,8 +1,8 @@
 import type {CashBasis, DataClass, DecisionPayload, DecisionResult, FinancialRequest, Fixture, Money, Theme} from "./types.js";
 import {readMoney} from "./money.js";
 import {transactionDraft, transactionLabels, ownDay, southAfricaInput, fromSouthAfricaInput} from "./transactions.js";
-import {recordChecks, resultMessage} from "./presentation.js";
-import {ledgerCorrection, ledgerEntry, LedgerSaver, LedgerSaveRejected, type LedgerSaveResult, type LedgerDay, type LedgerEvent} from "./ledger.js";
+import {inferenceProvenance, recordChecks, resultMessage} from "./presentation.js";
+import {ledgerCorrection, ledgerEntry, ledgerReferenceView, LedgerSaver, LedgerSaveRejected, type LedgerReferenceView, type LedgerSaveResult, type LedgerDay, type LedgerEvent} from "./ledger.js";
 
 type Elements = {
   scenario: HTMLSelectElement; model: HTMLSelectElement; "data-class": HTMLSelectElement;
@@ -32,6 +32,8 @@ type Elements = {
   "resume-check": HTMLButtonElement; "welcome-feedback": HTMLParagraphElement; "replace-draft": HTMLDivElement;
   "replace-confirm": HTMLButtonElement; "replace-cancel": HTMLButtonElement;
   ledger: HTMLElement; "ledger-heading": HTMLHeadingElement; "start-ledger": HTMLButtonElement; "ledger-back-home": HTMLButtonElement;
+  "ledger-to-check": HTMLButtonElement; "check-to-ledger": HTMLButtonElement;
+  "ledger-reference": HTMLElement; "ledger-reference-note": HTMLParagraphElement; "ledger-reference-totals": HTMLDListElement;
   "ledger-form": HTMLFormElement; "ledger-event-type": HTMLSelectElement; "ledger-payment-method": HTMLSelectElement;
   "ledger-amount": HTMLInputElement; "ledger-when": HTMLInputElement; "ledger-confirmed": HTMLInputElement;
   "ledger-feedback": HTMLParagraphElement; "ledger-date": HTMLParagraphElement; "ledger-totals": HTMLDListElement;
@@ -61,7 +63,7 @@ let lastResult: DecisionResult | null = null, lastPayload: DecisionPayload | nul
 let editorDirty = false, transactionDirty = false, revision = 0;
 let step = 0;
 let started = false, pendingStart: string | null = null;
-let ledgerReview: LedgerDay | null = null, correctionTarget: LedgerEvent | null = null;
+let ledgerReview: LedgerDay | null = null, correctionTarget: LedgerEvent | null = null, ledgerRefRevision = 0;
 let ledgerSaving = false;
 async function sendLedger(path: string, value: unknown): Promise<LedgerSaveResult> {
   const response = await post(path, value);
@@ -158,6 +160,50 @@ function ledgerDayFromInput(): string | null {
   const value = $("ledger-when").value;
   return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value) ? value.slice(0,10) : null;
 }
+function snapshotBusinessDay(): string | null {
+  const value = $("record-snapshot").value;
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value)) return null;
+  try { fromSouthAfricaInput(value); return value.slice(0,10); } catch { return null; }
+}
+function renderLedgerReference(view: LedgerReferenceView): void {
+  $("ledger-reference-totals").replaceChildren();
+  $("ledger-reference-note").textContent = view.note;
+  for (const [label,value] of view.rows) {
+    const term = document.createElement("dt"), definition = document.createElement("dd");
+    term.textContent = label; definition.textContent = amount(value); $("ledger-reference-totals").append(term,definition);
+  }
+}
+async function refreshLedgerReference(): Promise<void> {
+  const own = $("data-class").value === "OPERATOR_ATTESTED";
+  $("ledger-reference").hidden = !own;
+  if (!own) {
+    ledgerRefRevision += 1;
+    $("ledger-reference-totals").replaceChildren(); $("ledger-reference-note").textContent = "";
+    return;
+  }
+  const targetDay = snapshotBusinessDay();
+  if (!targetDay) {
+    ledgerRefRevision += 1;
+    renderLedgerReference(ledgerReferenceView({status:"loaded",targetDay:"",review:null}));
+    return;
+  }
+  if (ledgerReview && ledgerReview.business_day === targetDay) {
+    renderLedgerReference(ledgerReferenceView({status:"loaded",targetDay,review:ledgerReview}));
+  } else {
+    renderLedgerReference(ledgerReferenceView({status:"loading",targetDay}));
+  }
+  ledgerRefRevision += 1;
+  const requestRevision = ledgerRefRevision;
+  try {
+    const day = await json<LedgerDay>(await localGet(`/api/ledger/days/${encodeURIComponent(targetDay)}`));
+    if (requestRevision !== ledgerRefRevision || snapshotBusinessDay() !== targetDay || $("data-class").value !== "OPERATOR_ATTESTED") return;
+    if (ledgerDayFromInput() === targetDay) ledgerReview = day;
+    renderLedgerReference(ledgerReferenceView({status:"loaded",targetDay,review:day}));
+  } catch {
+    if (requestRevision !== ledgerRefRevision || snapshotBusinessDay() !== targetDay || $("data-class").value !== "OPERATOR_ATTESTED") return;
+    renderLedgerReference(ledgerReferenceView({status:"error",targetDay}));
+  }
+}
 function setLedgerPaymentOptions(): void {
   const expense = $("ledger-event-type").value === "expense";
   if (expense) $("ledger-payment-method").value = "cash";
@@ -194,10 +240,12 @@ async function loadLedger(businessDay: string): Promise<void> {
     ledgerReview = null; renderLedger(); $("ledger-feedback").textContent = message(error);
   }
 }
-function openLedger(): void {
+function openLedger(initialDay?: string | null): void {
   $("welcome").hidden = true; $("journey").hidden = true; $("ledger").hidden = false;
   $("ledger-feedback").textContent = ""; $("ledger-amount").value = ""; $("ledger-confirmed").checked = false;
-  $("ledger-when").value = todayInput(); setLedgerPaymentOptions();
+  const nowInput = todayInput();
+  $("ledger-when").value = initialDay && /^\d{4}-\d{2}-\d{2}$/.test(initialDay) ? `${initialDay}${nowInput.slice(10)}` : nowInput;
+  setLedgerPaymentOptions();
   $("ledger-heading").focus();
   const day = ledgerDayFromInput(); if (day) void loadLedger(day);
 }
@@ -324,6 +372,7 @@ function showSource(): void {
   $("example-banner").hidden = !example; $("example-picker").hidden = !example;
   $("source-badge").textContent = example ? "Practice figures" : "Your figures";
   $("count-now").hidden = example;
+  void refreshLedgerReference();
 }
 async function run(saveReceipt = false): Promise<void> {
   $("error").textContent = "";
@@ -387,9 +436,9 @@ async function run(saveReceipt = false): Promise<void> {
       const term = document.createElement("dt"), definition = document.createElement("dd"); term.textContent = label; definition.textContent = amount(result.summary.cash_basis[key]); $("cash-basis").append(term,definition);
     }
     $("explanation").textContent = result.explanation;
-    const inference = result.inference;
-    $("model-state").textContent = inference.status === "ADMITTED" ? "The local assistant selected these explanation points. The calculation supplied every amount." : inference.status === "NOT_REQUESTED" ? "Calculated explanation. No AI assistant was requested." : "The assistant's answer was unavailable or did not pass the checks. You are seeing the calculated explanation instead.";
-    $("model-detail").textContent = inference.status === "ADMITTED" ? `Model: ${inference.model}. Digest: ${inference.digest}` : inference.status === "REJECTED_OR_UNAVAILABLE" ? `Fallback reason: ${inference.reason}` : "Explanation source: deterministic template.";
+    const provenance = inferenceProvenance(result.inference);
+    $("model-state").textContent = provenance.operatorState;
+    $("model-detail").textContent = provenance.technicalDetail;
     $("check-source").textContent = payload.data_class === "SYNTHETIC" ? "Source: a synthetic example. These are not real business records." : "Source: records you supplied. Cash and obligation confirmation are checked separately; no bank balance was independently verified.";
     const contextResult = result.context_check;
     $("context-state").textContent = contextResult?.status === "CONNECTED_READ_ONLY" ? "Context service: connected for a read-only entry check. This is separate from the financial calculation and your approval." : "Context service: not available for this check. The financial calculation remains based on your supplied records; no context-runtime approval is claimed.";
@@ -408,8 +457,23 @@ for (const [id,value] of [["start-example","0"],["start-own","own"]] as const) $
   if (started) { pendingStart = value; $("replace-draft").hidden = false; $("replace-confirm").focus(); return; }
   start(value);
 });
-$("start-ledger").addEventListener("click", openLedger);
-$("resume-check").addEventListener("click", () => { $("welcome").hidden = true; $("journey").hidden = false; $("replace-draft").hidden = true; showStep(step); });
+$("start-ledger").addEventListener("click", () => openLedger());
+$("ledger-to-check").addEventListener("click", () => {
+  if (ledgerSaving) return;
+  $("ledger").hidden = true;
+  if (started && $("data-class").value === "OPERATOR_ATTESTED") {
+    $("welcome").hidden = true; $("journey").hidden = false; $("replace-draft").hidden = true;
+    showStep(step); void refreshLedgerReference();
+    return;
+  }
+  if (started && (editorDirty || transactionDirty)) {
+    pendingStart = "own"; $("welcome").hidden = false; $("replace-draft").hidden = false; $("replace-confirm").focus();
+    return;
+  }
+  start("own");
+});
+$("check-to-ledger").addEventListener("click", () => openLedger(snapshotBusinessDay()));
+$("resume-check").addEventListener("click", () => { $("welcome").hidden = true; $("journey").hidden = false; $("replace-draft").hidden = true; showStep(step); void refreshLedgerReference(); });
 $("replace-confirm").addEventListener("click", () => { if (pendingStart !== null) start(pendingStart); });
 $("replace-cancel").addEventListener("click", () => { pendingStart = null; $("replace-draft").hidden = true; $("resume-check").focus(); });
 $("back-home").addEventListener("click", () => { $("welcome").hidden = false; $("journey").hidden = true; document.getElementById("welcome-heading")?.focus(); });
@@ -427,7 +491,7 @@ $("request-json").addEventListener("input", () => { editorDirty = true; invalida
 $("apply-json").addEventListener("click", async () => {
   try {
     const response = await post("/api/validate", {raw_json:$("request-json").value});
-    current = await json<FinancialRequest>(response); invalidate(); showFields(); showReview(); showTransactions(); syncEditor(); clearTransaction(); showTotals(); $("error").textContent = "";
+    current = await json<FinancialRequest>(response); invalidate(); showFields(); showReview(); showTransactions(); syncEditor(); clearTransaction(); showTotals(); void refreshLedgerReference(); $("error").textContent = "";
   } catch (error) { $("error").textContent = message(error); }
 });
 $("transaction-form").addEventListener("input", () => { transactionDirty = true; invalidate(); });
@@ -492,7 +556,9 @@ for (const id of ["record-snapshot","record-horizon"] as const) $(id).addEventLi
     current.cash_position[id === "record-snapshot" ? "snapshot_at" : "horizon_end"] = fromSouthAfricaInput($(id).value);
     current.cash_position.basis_confirmed = false; $("cash-confirmed").checked = false; $(id).setCustomValidity(""); syncEditor(); $("error").textContent = "";
   } catch (error) { $(id).setCustomValidity(message(error)); $("error").textContent = message(error); }
+  if (id === "record-snapshot") void refreshLedgerReference();
 });
+
 $("cash-confirmed").addEventListener("change", () => {
   if (!current) return;
   current.cash_position.basis_confirmed = $("cash-confirmed").checked;
