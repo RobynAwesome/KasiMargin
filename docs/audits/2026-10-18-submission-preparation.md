@@ -20,6 +20,8 @@ No financial calculation, server admission, model gate or canonical protocol was
 
 Interactive browser and native UI tools failed to initialize with `failed to write kernel assets` / OS error 3. The bundled Playwright version first requested absent browser revision 1234; using the already installed revision 1228 explicitly allowed the isolated software test to run. These are tool startup failures, not successful UI-tool executions. Raw logs, database, test script and fast technical recording stay private under ignored `local-data/submission-2026-10-18/`.
 
+The first paced recording stopped because the recorder selected fixture ID `04` instead of the UI's zero-based option value `3`. The recorder was corrected and rerun with a fresh synthetic database; this was a recording-script failure, not a model or application failure. Only that recorder and its child processes were stopped. The resulting MP4 is 97.24 seconds; all frames decoded and four sampled frames were inspected. It is captioned without audio, and human playback review remains pending.
+
 ## Calendar, deadline and human evidence
 
 Live Google Calendar Day 5 and Day 6 descriptions were re-read. Day 6 requires demo, documentation, repository, findings and a published DEV article. The official contest rules were re-read: October 18, 23:59 PDT = October 19, 08:59 SAST. Internal target remains October 18, 23:59 SAST.

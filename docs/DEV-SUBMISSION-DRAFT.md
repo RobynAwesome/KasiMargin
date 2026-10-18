@@ -23,7 +23,7 @@ The proposed paying customer is a business owner who finds a short daily record 
 
 ## Demo
 
-[Watch the captioned synthetic demo](https://raw.githubusercontent.com/RobynAwesome/KasiMargin/refs/heads/codex/terra-context-plan/docs/demo/KasiMargin-synthetic-demo.mp4). This direct video link belongs to the review branch; verify its public response after push and review playback before publishing the article. It has captions and no audio. The recording shows the standard explanation; it does not represent a new live Gemma call.
+[Download/watch the captioned synthetic demo](https://raw.githubusercontent.com/RobynAwesome/KasiMargin/refs/heads/codex/terra-context-plan/docs/demo/KasiMargin-synthetic-demo.mp4). This MP4 belongs to the review branch and may download in your browser. It has captions and no audio. The recording shows the standard explanation; it does not represent a new live Gemma call.
 
 The demonstration uses made-up barber records: two R50 cash haircuts, one R50 card haircut and R20 cash spending. Sales recorded are R150, split between R100 cash and R50 card. Correct one haircut to R60: sales become R160 while the earlier record remains in the history.
 

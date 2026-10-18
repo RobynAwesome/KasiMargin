@@ -1,0 +1,107 @@
+{
+  "observed_at_utc": "2026-10-18T17:55:29.3085159+00:00",
+  "pr": "https://github.com/RobynAwesome/KasiMargin/pull/6",
+  "implementation_head": "97aed02789267383f0770900b30f2a5bbcb7f6de",
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-18T17:54:41Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39151703903/job/117746512911",
+      "name": "ubuntu-latest / Python 3.10",
+      "startedAt": "2026-10-18T17:54:20Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-18T17:54:40Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39151699956/job/117746502036",
+      "name": "ubuntu-latest / Python 3.10",
+      "startedAt": "2026-10-18T17:54:17Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-18T17:54:37Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39151703903/job/117746512957",
+      "name": "ubuntu-latest / Python 3.14",
+      "startedAt": "2026-10-18T17:54:20Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-18T17:54:36Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39151699956/job/117746502084",
+      "name": "ubuntu-latest / Python 3.14",
+      "startedAt": "2026-10-18T17:54:17Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-18T17:55:11Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39151703903/job/117746512720",
+      "name": "windows-latest / Python 3.10",
+      "startedAt": "2026-10-18T17:54:21Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-18T17:55:07Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39151699956/job/117746502114",
+      "name": "windows-latest / Python 3.10",
+      "startedAt": "2026-10-18T17:54:17Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-18T17:55:13Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39151703903/job/117746512991",
+      "name": "windows-latest / Python 3.14",
+      "startedAt": "2026-10-18T17:54:20Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-18T17:55:07Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RobynAwesome/KasiMargin/actions/runs/39151699956/job/117746501942",
+      "name": "windows-latest / Python 3.14",
+      "startedAt": "2026-10-18T17:54:17Z",
+      "status": "COMPLETED",
+      "workflowName": "Prototype tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-18T17:54:17Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://dashboard.gitguardian.com",
+      "name": "GitGuardian Security Checks",
+      "startedAt": "2026-10-18T17:54:15Z",
+      "status": "COMPLETED",
+      "workflowName": ""
+    }
+  ],
+  "public_video": {
+    "url": "https://raw.githubusercontent.com/RobynAwesome/KasiMargin/refs/heads/codex/terra-context-plan/docs/demo/KasiMargin-synthetic-demo.mp4",
+    "unauthenticated_head_status": 200,
+    "content_type": "application/octet-stream",
+    "bytes": 2763961,
+    "playback_review": "PENDING"
+  },
+  "merge": "NOT_PERFORMED",
+  "publication": "NOT_PERFORMED",
+  "submission": "NOT_SUBMITTED"
+}

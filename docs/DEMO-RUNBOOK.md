@@ -30,4 +30,10 @@ Do not present a previously recorded model output as live inference. If inferenc
 - Review project lineage, model terms and owner-supplied assets; no claim of organiser acceptance or individual eligibility follows from this checklist.
 - Robyn reviews landing and final article publication. Preserve the exact code head, video hash, public URLs, publication time and observed submission response.
 
-No calendar task is marked complete until its corresponding delivery evidence exists. The barber session is deferred until after hand-in by Robyn on October 18 and remains unrun.
+No calendar task is marked complete until its corresponding delivery evidence exists. The barber session is deferred until after hand-in by Robyn on October 18 and remains unrun. Robyn also confirmed a solo KasiMargin entry on October 18.
+
+## Prepared recording
+
+The [captioned MP4](demo/KasiMargin-synthetic-demo.mp4) is 97.24 seconds, H.264, 1280×1000, 2,763,961 bytes, with no audio. It records actual browser interaction with an isolated synthetic database. Captions are presentation overlays, not product features. The normal explanation is shown; no live model call is represented. All 2431 frames decoded successfully; four sampled frames were visually inspected. Human playback review is still pending.
+
+An unauthenticated HEAD request to the [public review-branch video](https://raw.githubusercontent.com/RobynAwesome/KasiMargin/refs/heads/codex/terra-context-plan/docs/demo/KasiMargin-synthetic-demo.mp4) returned HTTP 200 with the expected byte length. GitHub serves it as `application/octet-stream`, so some browsers download it. That response is download-availability evidence, not a signed-out streaming-player test or a challenge submission receipt. [Recording/test receipt](receipts/submission-preparation-2026-10-18.json).
