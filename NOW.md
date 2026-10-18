@@ -1,3 +1,15 @@
+# Submission preparation and save recovery locally completed — 2026-10-18
+
+Status: LOCAL_VERIFIED_FOR_REVIEW; Cloud verification follows the scoped push. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; existing task role only, no RTC seat.
+
+- Recovered current state, live Day 5/6 Calendar descriptions and official Week 2 rules. Official cutoff: **19 October 08:59 SAST**; internal target: **18 October 23:59 SAST**. At the initial 19:42 SAST check, 13h17m remained to the official deadline.
+- Fixed a browser duplicate-save risk: overlapping submits are blocked; an uncertain response retains the same request identity and content for an unchanged retry. A definite rejection permits editing; changed content cannot silently replace an uncertain save. Entry and correction share the helper. Retry memory lasts within the live page; closing/reloading during an uncertain save still requires checking stored records. Exact cents, UNKNOWN/HOLD and model validation are preserved.
+- Local verification: **70 Python tests, 12 Node tests**, strict TypeScript/build, compileall and diff checks pass. Isolated synthetic browser verification covered cash/card sales, cash expense, correction, reload, double submit, commit-with-lost-response, blocked changed retry and unchanged retry without a duplicate; 390px dark layout had no horizontal overflow and no page errors were captured.
+- Prepared [DEV article draft](docs/DEV-SUBMISSION-DRAFT.md), [demo runbook](docs/DEMO-RUNBOOK.md), **97.24-second captioned MP4** at `docs/demo/KasiMargin-synthetic-demo.mp4`, screenshots and [redacted technical receipt](docs/receipts/submission-preparation-2026-10-18.json). Video: real synthetic UI interaction, no audio, standard explanation, no new live Gemma inference. All 2431 frames decoded; four sampled frames inspected. Human playback review pending. [Scope and failures](docs/audits/2026-10-18-submission-preparation.md).
+- Owner confirmed a **solo KasiMargin entry**. The barber walkthrough did not occur and is deferred until after hand-in. Consent, comprehension, repeat use and willingness to pay remain unobserved. The separate GOA team is not inferred to be KasiMargin collaborators.
+- Next: push to existing PR #6 and verify its exact head, check the public video response, then Robyn reviews playback/article and landing/publication. No merge, deployment, public article, submission acceptance or Calendar completion claimed. The optional constrained AI contribution remains subject to the organisers' core-AI eligibility judgment.
+
+---
 # Browser capture and reveal locally completed — 2026-10-17
 
 Status: PUSHED_IMPLEMENTATION_PROVIDER_VALIDATED_FOR_OWNER_REVIEW. Codex Forge, `I_AM_STATELESS_RENTER_NOT_LANDLORD`; scoped CA task role, no RTC seat. This entry records the implementation-head provider evidence only: no merge of this increment, deployment, real operator data, financial admission, card settlement, cash verification or field outcome is claimed.

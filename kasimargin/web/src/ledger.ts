@@ -1,6 +1,40 @@
 import {readMoney} from "./money.js";
 import {fromSouthAfricaInput} from "./transactions.js";
 
+export interface LedgerSaveResult { save_status: "SAVED_ON_THIS_DEVICE" }
+
+// A definite rejection means the server did not write this request. A lost
+// response is different: retry that exact request with the same identity.
+export class LedgerSaveRejected extends Error {}
+
+export class LedgerSaver<T extends {id: string; idempotency_key: string}> {
+  private pending: {signature: string; request: T} | null = null;
+  private active: Promise<LedgerSaveResult> | null = null;
+
+  constructor(private send: (request: T) => Promise<LedgerSaveResult>) {}
+
+  save(candidate: T): Promise<LedgerSaveResult> {
+    const {id: _id, idempotency_key: _key, ...content} = candidate;
+    const signature = JSON.stringify(content);
+    if (this.pending && signature !== this.pending.signature) {
+      return Promise.reject(new Error("The previous save is not confirmed. Retry the unchanged entry before recording something different. Keep this page open."));
+    }
+    if (this.active) return this.active;
+    this.pending ??= {signature, request: structuredClone(candidate)};
+    // Copy before sending so a caller cannot change a retained retry payload.
+    const request = structuredClone(this.pending.request);
+    this.active = Promise.resolve().then(() => this.send(request)).then(result => {
+      if (result.save_status !== "SAVED_ON_THIS_DEVICE") throw new Error("Save not confirmed. Keep this page open and retry the unchanged entry.");
+      this.pending = null;
+      return result;
+    }).catch((error: unknown) => {
+      if (error instanceof LedgerSaveRejected) this.pending = null;
+      throw error;
+    }).finally(() => { this.active = null; });
+    return this.active;
+  }
+}
+
 export type LedgerEventType = "sale" | "expense";
 export type LedgerPaymentMethod = "cash" | "card";
 

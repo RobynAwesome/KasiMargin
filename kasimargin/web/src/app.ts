@@ -2,7 +2,7 @@ import type {CashBasis, DataClass, DecisionPayload, DecisionResult, FinancialReq
 import {readMoney} from "./money.js";
 import {transactionDraft, transactionLabels, ownDay, southAfricaInput, fromSouthAfricaInput} from "./transactions.js";
 import {recordChecks, resultMessage} from "./presentation.js";
-import {ledgerCorrection, ledgerEntry, type LedgerDay, type LedgerEvent} from "./ledger.js";
+import {ledgerCorrection, ledgerEntry, LedgerSaver, LedgerSaveRejected, type LedgerSaveResult, type LedgerDay, type LedgerEvent} from "./ledger.js";
 
 type Elements = {
   scenario: HTMLSelectElement; model: HTMLSelectElement; "data-class": HTMLSelectElement;
@@ -62,6 +62,22 @@ let editorDirty = false, transactionDirty = false, revision = 0;
 let step = 0;
 let started = false, pendingStart: string | null = null;
 let ledgerReview: LedgerDay | null = null, correctionTarget: LedgerEvent | null = null;
+let ledgerSaving = false;
+async function sendLedger(path: string, value: unknown): Promise<LedgerSaveResult> {
+  const response = await post(path, value);
+  if (response.status >= 400 && response.status < 500) {
+    try { await json(response); } catch (error) { throw new LedgerSaveRejected(message(error)); }
+  }
+  return json<LedgerSaveResult>(response);
+}
+const entrySaver = new LedgerSaver<ReturnType<typeof ledgerEntry>>(value => sendLedger("/api/ledger/events", value));
+const correctionSaver = new LedgerSaver<ReturnType<typeof ledgerCorrection>>(value => sendLedger("/api/ledger/corrections", value));
+function lockLedger(locked: boolean): void {
+  ledgerSaving = locked;
+  $("ledger").setAttribute("aria-busy", String(locked));
+  $("ledger").querySelectorAll<HTMLInputElement | HTMLButtonElement | HTMLSelectElement>("input, button, select").forEach(control => control.disabled = locked);
+  if (!locked) setLedgerPaymentOptions();
+}
 const fields = [
   ["performance","recorded_sales_cents","Sales for the period", "Include unpaid sales on credit. Payments for older sales aren’t new sales.","performance-fields"],
   ["performance","attributable_costs_cents","Cost of those sales", "Include the cost of what was sold and the business costs for that same period.","performance-fields"],
@@ -430,32 +446,42 @@ $("ledger-event-type").addEventListener("change", setLedgerPaymentOptions);
 $("ledger-when").addEventListener("change", () => {
   const day = ledgerDayFromInput(); if (day) void loadLedger(day);
 });
-$("ledger-form").addEventListener("submit", event => {
+$("ledger-form").addEventListener("submit", async event => {
   event.preventDefault();
+  if (ledgerSaving) return;
   if (!$("ledger-confirmed").checked) { $("ledger-feedback").textContent = "Confirm what you are recording before saving it."; $("ledger-confirmed").focus(); return; }
   try {
     const record = ledgerEntry({id:`ledger-${crypto.randomUUID()}`, idempotencyKey:`ledger-save-${crypto.randomUUID()}`,
       eventType:$("ledger-event-type").value as "sale" | "expense", paymentMethod:$("ledger-payment-method").value as "cash" | "card",
       amount:$("ledger-amount").value, when:$("ledger-when").value});
     $("ledger-feedback").textContent = "Saving on this computer…";
-    void post("/api/ledger/events", record).then(response => json<{save_status:string}>(response)).then(async saved => {
+    lockLedger(true);
+    try {
+      await entrySaver.save(record);
       $("ledger-amount").value = ""; $("ledger-confirmed").checked = false;
-      const day = ledgerDayFromInput(); if (day) await loadLedger(day);
-      $("ledger-feedback").textContent = saved.save_status === "SAVED_ON_THIS_DEVICE" ? "Recorded on this computer. Count cash and check card settlement separately." : "Record response received.";
-    }).catch(error => { $("ledger-feedback").textContent = message(error); });
+      await loadLedger(record.business_day);
+      if (ledgerReview) $("ledger-feedback").textContent = "Recorded on this computer. Count cash and check card settlement separately.";
+      else $("ledger-feedback").textContent = "Saved, but the day could not reload. Reopen today’s records to check it; do not enter it again.";
+    } catch (error) { $("ledger-feedback").textContent = `${message(error)} Keep this page open. If the save is uncertain, retry the same entry.`; }
+    finally { lockLedger(false); }
   } catch (error) { $("ledger-feedback").textContent = message(error); }
 });
-$("ledger-correction-form").addEventListener("submit", event => {
+$("ledger-correction-form").addEventListener("submit", async event => {
   event.preventDefault();
+  if (ledgerSaving) return;
   if (!correctionTarget) return;
   try {
     const correction = ledgerCorrection({id:`ledger-correction-${crypto.randomUUID()}`, idempotencyKey:`ledger-correct-${crypto.randomUUID()}`,
       replaces:correctionTarget, amount:$("ledger-correction-amount").value, when:$("ledger-correction-when").value, reason:$("ledger-correction-reason").value});
     $("ledger-feedback").textContent = "Saving correction on this computer…";
-    void post("/api/ledger/corrections", correction).then(response => json<{save_status:string}>(response)).then(async saved => {
+    lockLedger(true);
+    try {
+      await correctionSaver.save(correction);
       const day = ledgerDayFromInput(); if (day) await loadLedger(day);
-      $("ledger-feedback").textContent = saved.save_status === "SAVED_ON_THIS_DEVICE" ? "Correction saved. The earlier amount remains in the record history." : "Correction response received.";
-    }).catch(error => { $("ledger-feedback").textContent = message(error); });
+      if (ledgerReview) $("ledger-feedback").textContent = "Correction saved. The earlier amount remains in the record history.";
+      else $("ledger-feedback").textContent = "Correction saved, but the day could not reload. Reopen today’s records before making another correction.";
+    } catch (error) { $("ledger-feedback").textContent = `${message(error)} Keep this page open. If the save is uncertain, retry the same correction.`; }
+    finally { lockLedger(false); }
   } catch (error) { $("ledger-feedback").textContent = message(error); }
 });
 $("ledger-correction-cancel").addEventListener("click", () => { correctionTarget = null; $("ledger-correction-form").hidden = true; });
