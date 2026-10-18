@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readMoney} from "../kasimargin/web/build/money.js";
 import {transactionDraft, ownDay, southAfricaInput, fromSouthAfricaInput} from "../kasimargin/web/build/transactions.js";
-import {recordChecks, resultMessage} from "../kasimargin/web/build/presentation.js";
+import {inferenceProvenance, recordChecks, resultMessage} from "../kasimargin/web/build/presentation.js";
 
 test("rand entry preserves exact cents and unknowns", () => {
   assert.equal(readMoney(""), null); assert.equal(readMoney("0"), 0);
@@ -46,4 +46,20 @@ test("every warning retains a review path without displaying imported flag text"
   assert.ok(checks.every(check=>[0,1,2].includes(check.step)));
   assert.ok(checks.every(check=>!check.text.includes("Approved to spend")));
   assert.equal(checks.at(-1).target,"technical-settings");
+});
+
+test("inference provenance labels operator source clearly while keeping digests and fallback reasons in technical detail", () => {
+  const baseline = inferenceProvenance({status:"NOT_REQUESTED"});
+  assert.equal(baseline.operatorState,"Calculated explanation. No AI assistant was requested.");
+  assert.equal(baseline.technicalDetail,"Explanation source: deterministic template.");
+
+  const admitted = inferenceProvenance({status:"ADMITTED",model:"gemma4:e2b-it-q4_K_M",digest:"sha256:999888777"});
+  assert.equal(admitted.operatorState,"The local assistant selected these explanation points. The calculation supplied every amount.");
+  assert.ok(!admitted.operatorState.includes("sha256:"));
+  assert.match(admitted.technicalDetail,/sha256:999888777/);
+
+  const fallback = inferenceProvenance({status:"REJECTED_OR_UNAVAILABLE",model:"gemma4:e2b-it-q4_K_M",reason:"missing required flag_ids"});
+  assert.equal(fallback.operatorState,"The assistant's answer was unavailable or did not pass the checks. You are seeing the calculated explanation instead.");
+  assert.ok(!fallback.operatorState.includes("missing required flag_ids"));
+  assert.match(fallback.technicalDetail,/missing required flag_ids/);
 });

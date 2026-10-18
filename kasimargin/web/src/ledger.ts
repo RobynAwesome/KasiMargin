@@ -124,3 +124,68 @@ function requireAmount(value: string): number {
   if (amount === null || amount === 0) throw new Error("Enter an amount greater than R0.00.");
   return amount;
 }
+
+export type LedgerReferenceInput =
+  | {status: "loading"; targetDay: string}
+  | {status: "error"; targetDay: string}
+  | {status: "loaded"; targetDay: string; review: LedgerDay | null};
+
+export interface LedgerReferenceView {
+  status: "loading" | "error" | "stale" | "empty" | "ready";
+  note: string;
+  rows: ReadonlyArray<readonly [string, number]>;
+}
+
+export function ledgerReferenceView(input: LedgerReferenceInput): LedgerReferenceView {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(input.targetDay)) {
+    return {
+      status: "stale",
+      note: "Choose when you checked this money to see that date’s recorded sales and cash spending.",
+      rows: [],
+    };
+  }
+  if (input.status === "loading") {
+    return {
+      status: "loading",
+      note: `Loading recorded sales and cash spending for ${input.targetDay}…`,
+      rows: [],
+    };
+  }
+  if (input.status === "error") {
+    return {
+      status: "error",
+      note: `Could not load recorded sales or cash spending for ${input.targetDay}. Your money check stays separate—enter your counted cash and bills below.`,
+      rows: [],
+    };
+  }
+  const review = input.review;
+  if (
+    !review ||
+    review.business_day !== input.targetDay ||
+    review.record_status !== "OPERATOR_REPORTED_RECORDS_MAY_BE_INCOMPLETE" ||
+    review.cash_position_status !== "NOT_PREPARED"
+  ) {
+    return {
+      status: "stale",
+      note: `Records from another date are hidden so a previous day’s figures are never shown as ${input.targetDay}.`,
+      rows: [],
+    };
+  }
+  if (review.record_count === 0) {
+    return {
+      status: "empty",
+      note: `No sales or cash spending recorded in Record today for ${input.targetDay} yet. Count your cash and enter your figures below, or open Record today first.`,
+      rows: [],
+    };
+  }
+  return {
+    status: "ready",
+    note: `Operator-reported for ${input.targetDay} (${review.record_count} record${review.record_count === 1 ? "" : "s"}). Not verified cash: these figures are for reference only and never fill in your money check automatically. Count your cash and check card settlement separately.`,
+    rows: [
+      ["Sales recorded", review.recorded_sales_cents],
+      ["Cash sales recorded", review.cash_sales_cents],
+      ["Card sales recorded", review.card_sales_cents],
+      ["Cash spending recorded", review.cash_expenses_cents],
+    ],
+  };
+}

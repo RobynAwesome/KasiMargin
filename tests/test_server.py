@@ -209,3 +209,118 @@ class LocalDemo(unittest.TestCase):
         status,data,_ = self.call("POST","/api/decision",payload)
         self.assertEqual(status,400); self.assertIn("Python CLI",json.loads(data)["error"])
         self.assertEqual(set(Path(self.directory.name).iterdir()),before)
+
+    def test_operator_decision_meaning_and_ledger_reference_markup_and_id_uniqueness(self):
+        from html.parser import HTMLParser
+
+        class StructureParser(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.ids = []
+                self.stack = []
+                self.parent_chains = {}
+
+            def handle_starttag(self, tag, attrs):
+                attr_map = dict(attrs)
+                self.stack.append((tag, attr_map.get("id"), attr_map.get("class", "")))
+                element_id = attr_map.get("id")
+                if element_id:
+                    self.ids.append(element_id)
+                    self.parent_chains[element_id] = list(self.stack[:-1])
+
+            def handle_endtag(self, tag):
+                for idx in range(len(self.stack) - 1, -1, -1):
+                    if self.stack[idx][0] == tag:
+                        del self.stack[idx:]
+                        break
+
+        status, data, _ = self.call("GET", "/")
+        self.assertEqual(status, 200)
+        html_text = data.decode("utf-8")
+        parser = StructureParser()
+        parser.feed(html_text)
+        self.assertEqual(len(parser.ids), len(set(parser.ids)), "Duplicate element IDs found in index.html")
+        self.assertIn("What this means for your next decision", html_text)
+        for visible_id in ("explanation", "model-state"):
+            chain = parser.parent_chains[visible_id]
+            self.assertTrue(any("decision-meaning" in cls for _, _, cls in chain))
+            self.assertFalse(any(tag == "details" for tag, _, _ in chain))
+        for technical_id in ("check-source", "context-state", "model-detail"):
+            chain = parser.parent_chains[technical_id]
+            self.assertTrue(any(tag == "details" and "explanation" in cls for tag, _, cls in chain))
+        for bridge_id in ("ledger-to-check", "ledger-reference", "check-to-ledger", "ledger-reference-note", "ledger-reference-totals"):
+            self.assertIn(bridge_id, parser.parent_chains)
+
+    def test_decision_explanation_scenarios_and_admitted_or_fallback_gemma_bounds(self):
+        from kasimargin.ollama import ModelUnavailable
+        from kasimargin.workflow import decision
+
+        # Scenario A: Unpaid credit sale (fixture 05) keeps receivables separate from cash headroom
+        fixture_05 = json.loads((ROOT / "fixtures/05.json").read_text())["input"]
+        status, data, _ = self.call("POST", "/api/decision", {"input": fixture_05, "model": None, "save_receipt": False, "data_class": "SYNTHETIC"})
+        self.assertEqual(status, 200)
+        res_05 = json.loads(data)
+        self.assertEqual(res_05["summary"]["operating_margin_cents"], 30000)
+        self.assertEqual(res_05["summary"]["cash_headroom_cents"], 5000)
+        self.assertEqual(res_05["summary"]["protected_cash_deficit_cents"], 0)
+        self.assertEqual(res_05["summary"]["recorded_receivables_delta_cents"], 60000)
+        self.assertIn("CREDIT_SALES_NOT_CASH", res_05["selection"]["flag_ids"])
+        self.assertIn("Check: Uncollected credit sales are excluded from available cash.", res_05["explanation"])
+
+        # Scenario B: Missing obligations / unconfirmed balance (fixture 04) holds and never approves spending
+        fixture_04 = json.loads((ROOT / "fixtures/04.json").read_text())["input"]
+        status, data, _ = self.call("POST", "/api/decision", {"input": fixture_04, "model": None, "save_receipt": False, "data_class": "SYNTHETIC"})
+        self.assertEqual(status, 200)
+        res_04 = json.loads(data)
+        self.assertEqual(res_04["summary"]["status"], "HOLD_INSUFFICIENT_DATA")
+        self.assertTrue(res_04["explanation"].startswith("Spending assessment: HOLD — cash headroom is unknown."))
+        self.assertIn("confirm_records", res_04["selection"]["action_ids"])
+        self.assertNotIn("compare_restock_quote", res_04["selection"]["action_ids"])
+
+        # Scenario C: Positive calculated headroom (fixture 01) allows quote comparison without claiming bank verification
+        fixture_01 = json.loads((ROOT / "fixtures/01.json").read_text())["input"]
+        status, data, _ = self.call("POST", "/api/decision", {"input": fixture_01, "model": None, "save_receipt": False, "data_class": "SYNTHETIC"})
+        self.assertEqual(status, 200)
+        res_01 = json.loads(data)
+        self.assertEqual(res_01["summary"]["cash_headroom_cents"], 40000)
+        self.assertIn("Compare an owner-supplied restock quote against the recorded headroom; no purchase has been assessed yet.", res_01["explanation"])
+
+        # Scenario D: Admitted Gemma selection on Scenario 05 retains all facts & warnings while omitting optional quote comparison
+        class AdmittedScenario05Client:
+            def select(self, summary, model):
+                return (
+                    {
+                        "fact_ids": ["operating_margin", "cash_headroom", "protected_cash_deficit", "receivables_delta"],
+                        "flag_ids": ["CREDIT_SALES_NOT_CASH"],
+                        "action_ids": ["preserve_headroom"],
+                    },
+                    {"model_digest": "sha256:b37049369adf"},
+                )
+
+        admitted = decision(fixture_05, model="gemma4:e2b-it-q4_K_M", client=AdmittedScenario05Client())
+        self.assertEqual(admitted["inference"]["status"], "ADMITTED")
+        self.assertEqual(admitted["selection"]["action_ids"], ["preserve_headroom"])
+        for required_phrase in ("R300.00", "R50.00", "R0.00", "R600.00", "Check: Uncollected credit sales are excluded from available cash."):
+            self.assertIn(required_phrase, admitted["explanation"])
+        self.assertNotIn("Compare an owner-supplied restock quote", admitted["explanation"])
+        self.assertIn("Compare an owner-supplied restock quote", admitted["baseline_explanation"])
+
+        # Rejecting or unavailable model falls back cleanly to deterministic baseline
+        from kasimargin.engine import ContractError
+        from kasimargin.explanations import validate_selection
+
+        class InvalidSelectionClient:
+            def select(self, summary, model):
+                try:
+                    validate_selection(summary, {"fact_ids": ["operating_margin"], "flag_ids": [], "action_ids": ["preserve_headroom"]})
+                except ContractError as exc:
+                    raise ModelUnavailable(str(exc)) from exc
+
+        class OfflineClient:
+            def select(self, summary, model):
+                raise ModelUnavailable("Ollama connection refused")
+
+        for bad_client in (InvalidSelectionClient(), OfflineClient()):
+            fallback = decision(fixture_05, model="gemma4:e2b-it-q4_K_M", client=bad_client)
+            self.assertEqual(fallback["inference"]["status"], "REJECTED_OR_UNAVAILABLE")
+            self.assertEqual(fallback["explanation"], fallback["baseline_explanation"])

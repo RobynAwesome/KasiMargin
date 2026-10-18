@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {ledgerCorrection, ledgerEntry, LedgerSaver, LedgerSaveRejected} from "../kasimargin/web/build/ledger.js";
+import {ledgerCorrection, ledgerEntry, ledgerReferenceView, LedgerSaver, LedgerSaveRejected} from "../kasimargin/web/build/ledger.js";
+import {ownDay} from "../kasimargin/web/build/transactions.js";
 
 const original = {
   id: "sale-1", idempotency_key: "create-1", business_day: "2026-10-17", event_type: "sale", payment_method: "card",
@@ -86,4 +87,77 @@ test("definite rejection permits edits; an unconfirmed success response retains 
   mode = "success";
   await saver.save({...changed,id:"discarded",idempotency_key:"discarded"});
   assert.deepEqual(calls[1],calls[2]);
+});
+
+test("read-only ledger reference summarises matching day totals without promoting them to verified cash or calculation inputs", () => {
+  const dayRequest = ownDay(new Date("2026-10-18T08:00:00Z"));
+  const beforeSnapshot = structuredClone(dayRequest);
+  const review = {
+    business_day: "2026-10-18",
+    record_count: 3,
+    recorded_sales_cents: 25000,
+    cash_sales_cents: 10000,
+    card_sales_cents: 15000,
+    cash_expenses_cents: 4000,
+    record_status: "OPERATOR_REPORTED_RECORDS_MAY_BE_INCOMPLETE",
+    cash_position_status: "NOT_PREPARED",
+    events: [],
+  };
+  const view = ledgerReferenceView({status: "loaded", targetDay: "2026-10-18", review});
+  assert.equal(view.status, "ready");
+  assert.match(view.note, /Operator-reported for 2026-10-18/);
+  assert.match(view.note, /Not verified cash/);
+  assert.deepEqual(view.rows, [
+    ["Sales recorded", 25000],
+    ["Cash sales recorded", 10000],
+    ["Card sales recorded", 15000],
+    ["Cash spending recorded", 4000],
+  ]);
+  assert.deepEqual(dayRequest, beforeSnapshot);
+  assert.equal(dayRequest.cash_position.verified_cash_cents, null);
+  assert.equal(dayRequest.performance.attributable_costs_cents, null);
+  assert.equal(dayRequest.cash_position.due_liabilities_cents, null);
+  assert.equal(dayRequest.cash_position.committed_spend_cents, null);
+  assert.equal(dayRequest.cash_position.minimum_buffer_cents, null);
+  assert.equal(dayRequest.cash_position.basis_confirmed, false);
+});
+
+test("ledger reference handles empty, loading, error, invalid date and changed-day states without showing stale totals", () => {
+  const populatedReview = {
+    business_day: "2026-10-17",
+    record_count: 2,
+    recorded_sales_cents: 18000,
+    cash_sales_cents: 18000,
+    card_sales_cents: 0,
+    cash_expenses_cents: 0,
+    record_status: "OPERATOR_REPORTED_RECORDS_MAY_BE_INCOMPLETE",
+    cash_position_status: "NOT_PREPARED",
+    events: [],
+  };
+  const changedDay = ledgerReferenceView({status: "loaded", targetDay: "2026-10-18", review: populatedReview});
+  assert.equal(changedDay.status, "stale");
+  assert.deepEqual(changedDay.rows, []);
+  assert.match(changedDay.note, /never shown as 2026-10-18/);
+
+  const emptyDay = ledgerReferenceView({
+    status: "loaded",
+    targetDay: "2026-10-18",
+    review: {...populatedReview, business_day: "2026-10-18", record_count: 0, recorded_sales_cents: 0, cash_sales_cents: 0},
+  });
+  assert.equal(emptyDay.status, "empty");
+  assert.deepEqual(emptyDay.rows, []);
+  assert.match(emptyDay.note, /No sales or cash spending recorded in Record today for 2026-10-18 yet/);
+
+  const loading = ledgerReferenceView({status: "loading", targetDay: "2026-10-18"});
+  assert.equal(loading.status, "loading");
+  assert.deepEqual(loading.rows, []);
+
+  const errored = ledgerReferenceView({status: "error", targetDay: "2026-10-18"});
+  assert.equal(errored.status, "error");
+  assert.deepEqual(errored.rows, []);
+  assert.match(errored.note, /Your money check stays separate/);
+
+  const invalidDate = ledgerReferenceView({status: "loaded", targetDay: "invalid-day", review: populatedReview});
+  assert.equal(invalidDate.status, "stale");
+  assert.deepEqual(invalidDate.rows, []);
 });
