@@ -1,0 +1,67 @@
+{
+  "recorded_date": "2026-11-15",
+  "actor": "Antigravity (stateless contributor)",
+  "constraint": "I_AM_STATELESS_RENTER_NOT_LANDLORD",
+  "baseline_main_commit": "85d3cc9398701c451734eafe62aa1d15770fc6d1",
+  "review_branch": "codex/issue-7-reconciliation-and-fixes",
+  "data_class": "SYNTHETIC_AND_PUBLIC_VERIFICATION",
+  "historical_receipts_preserved": [
+    "docs/DAY1-CONTRACT.md",
+    "docs/cloud-provenance.json",
+    "docs/validation-receipt.json",
+    "docs/receipts/submission-preparation-2026-10-18.json",
+    "docs/receipts/submission-cloud-2026-10-18.json"
+  ],
+  "p0_submission_verification": {
+    "devto_article_id": 4874175,
+    "devto_url": "https://dev.to/robynawesome/kasimargin-2h3j",
+    "devto_title": "KasiMargin—From Sales to Growth",
+    "created_at_utc": "2026-10-18T21:38:51Z",
+    "published_at_utc": "2026-10-18T21:40:54Z",
+    "published_at_sast": "2026-10-18T23:40:54+02:00",
+    "edited_at_utc": "2026-10-18T21:50:00Z",
+    "tags": ["devchallenge", "hf26challenge"],
+    "body_markdown_sha256": "da214f63f09dcc77b95b03316a4081236794bab6fdc4b2789a8daec64a523ecc",
+    "challenge_badge_observed_on_profile": "Hacktoberfest 2026 Challenge Completion",
+    "winners_post_slug": "congrats-to-the-hacktoberfest-open-source-ai-challenge-week-2-side-hustle-winners-2i33",
+    "listed_as_winner": false,
+    "signed_out_mp4_url": "https://raw.githubusercontent.com/RobynAwesome/KasiMargin/refs/heads/main/docs/demo/KasiMargin-synthetic-demo.mp4",
+    "mp4_http_status": 200,
+    "mp4_bytes": 2763961,
+    "mp4_sha256": "e6a64df12b39b6b552833b1fa6ae1638a31c362a939348b257ac66b51f1f6110",
+    "human_playback_review_receipt_in_repo": "PENDING"
+  },
+  "merged_prs_verified_on_github": {
+    "pr_1": "67f10739cd978f3db96f82884e37604d4efff5ac",
+    "pr_2": "737f3b9fc8df3793992168922b61ddf524d225df",
+    "pr_3": "5a0326a45f91f0bde7485e16bc1e1e4a3233f3f9",
+    "pr_4": "3d16c97b95f6929ed9472415ce106d3505364a9a",
+    "pr_5": "579bfec3d5f965bd97e8cea13f40d99b7f1aa1ee",
+    "pr_6": "e900fcd66bf35bb4c77b3a13e65f24f8e63aede4",
+    "pr_8": "17f397fe687de18fde54d532b74070b36c882423",
+    "pr_9": "85d3cc9398701c451734eafe62aa1d15770fc6d1",
+    "open_issue_7": "https://github.com/RobynAwesome/KasiMargin/issues/7",
+    "note": "No PR #7 exists; #7 is an open issue. Automated Codex Cloud reviews failed across PRs #1-#9 due to Codex usage limits."
+  },
+  "ccp_ecv_01_gate": {
+    "measured_cases": 0,
+    "economic_gate_state": "MAYBE_HOLD",
+    "gemma_value_proven": false,
+    "owner_approval_required": true
+  },
+  "local_verification": {
+    "venv_python_unittest_count": 82,
+    "node_test_count": 16,
+    "typescript_typecheck_and_build": "PASS",
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "http_barber_flow_and_reconcile": "PASS",
+    "microsoft_edge_headless_dom_smoke": "PASS"
+  },
+  "unresolved_human_or_external_gates": [
+    "Owner playback sign-off receipt for docs/demo/KasiMargin-synthetic-demo.mp4 (not written into repo)",
+    "Live consented operator trial (barber walkthrough and paired n>=30 study under docs/OPERATOR-COMPARISON.md)",
+    "Future Phase-2/Phase-3 integrations (OCR, POS, SMS, offline queue, multilingual UI, RAG) remain unimplemented",
+    "External Drive / OneDrive / Cloud GSMB corpus synchronization remains outside this repository scope"
+  ]
+}

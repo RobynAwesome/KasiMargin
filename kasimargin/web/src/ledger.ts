@@ -4,8 +4,21 @@ import {fromSouthAfricaInput} from "./transactions.js";
 export interface LedgerSaveResult { save_status: "SAVED_ON_THIS_DEVICE" }
 
 // A definite rejection means the server did not write this request. A lost
-// response is different: retry that exact request with the same identity.
+// response or expired local session (403) is different: retry that exact
+// request with the same identity.
 export class LedgerSaveRejected extends Error {}
+
+export function isDefiniteLedgerRejectionStatus(status: number): boolean {
+  return status >= 400 && status < 500 && status !== 403;
+}
+
+export function ledgerSaveErrorMessage(error: unknown, action: "entry" | "correction"): string {
+  const detail = error instanceof Error ? error.message : "The local request failed.";
+  if (error instanceof LedgerSaveRejected) {
+    return `${detail} No ${action} was saved.`;
+  }
+  return `${detail} Keep this page open. If the save is uncertain, retry the same ${action}.`;
+}
 
 export class LedgerSaver<T extends {id: string; idempotency_key: string}> {
   private pending: {signature: string; request: T} | null = null;
@@ -63,6 +76,12 @@ export interface LedgerDay {
   record_count: number;
   record_status: "OPERATOR_REPORTED_RECORDS_MAY_BE_INCOMPLETE";
   cash_position_status: "NOT_PREPARED";
+}
+
+export interface LedgerEventHistory {
+  event_id: string;
+  history: LedgerEvent[];
+  count: number;
 }
 
 export interface LedgerEntryValues {

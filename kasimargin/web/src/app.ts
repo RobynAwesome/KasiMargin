@@ -2,7 +2,7 @@ import type {CashBasis, DataClass, DecisionPayload, DecisionResult, FinancialReq
 import {readMoney} from "./money.js";
 import {transactionDraft, transactionLabels, ownDay, southAfricaInput, fromSouthAfricaInput} from "./transactions.js";
 import {inferenceProvenance, recordChecks, resultMessage} from "./presentation.js";
-import {ledgerCorrection, ledgerEntry, ledgerReferenceView, LedgerSaver, LedgerSaveRejected, type LedgerReferenceView, type LedgerSaveResult, type LedgerDay, type LedgerEvent} from "./ledger.js";
+import {isDefiniteLedgerRejectionStatus, ledgerCorrection, ledgerEntry, ledgerReferenceView, ledgerSaveErrorMessage, LedgerSaver, LedgerSaveRejected, type LedgerEventHistory, type LedgerReferenceView, type LedgerSaveResult, type LedgerDay, type LedgerEvent} from "./ledger.js";
 
 type Elements = {
   scenario: HTMLSelectElement; model: HTMLSelectElement; "data-class": HTMLSelectElement;
@@ -63,11 +63,11 @@ let lastResult: DecisionResult | null = null, lastPayload: DecisionPayload | nul
 let editorDirty = false, transactionDirty = false, revision = 0;
 let step = 0;
 let started = false, pendingStart: string | null = null;
-let ledgerReview: LedgerDay | null = null, correctionTarget: LedgerEvent | null = null, ledgerRefRevision = 0;
+let ledgerReview: LedgerDay | null = null, correctionTarget: LedgerEvent | null = null, ledgerRefRevision = 0, ledgerLoadRevision = 0;
 let ledgerSaving = false;
 async function sendLedger(path: string, value: unknown): Promise<LedgerSaveResult> {
   const response = await post(path, value);
-  if (response.status >= 400 && response.status < 500) {
+  if (isDefiniteLedgerRejectionStatus(response.status)) {
     try { await json(response); } catch (error) { throw new LedgerSaveRejected(message(error)); }
   }
   return json<LedgerSaveResult>(response);
@@ -158,7 +158,8 @@ function decimal(cents: Money): string {
 function todayInput(): string { return southAfricaInput(new Date().toISOString()); }
 function ledgerDayFromInput(): string | null {
   const value = $("ledger-when").value;
-  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value) ? value.slice(0,10) : null;
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value)) return null;
+  try { fromSouthAfricaInput(value); return value.slice(0,10); } catch { return null; }
 }
 function snapshotBusinessDay(): string | null {
   const value = $("record-snapshot").value;
@@ -213,7 +214,11 @@ function renderLedger(): void {
   const review = ledgerReview;
   $("ledger-totals").replaceChildren(); $("ledger-events").replaceChildren(); correctionTarget = null;
   $("ledger-correction-form").hidden = true;
-  if (!review) return;
+  if (!review) {
+    $("ledger-date").textContent = "";
+    $("ledger-empty").hidden = true;
+    return;
+  }
   const date = new Intl.DateTimeFormat("en-ZA", {timeZone:"Africa/Johannesburg",dateStyle:"full"}).format(new Date(`${review.business_day}T12:00:00+02:00`));
   $("ledger-date").textContent = date;
   for (const [label,value] of [["Sales recorded",review.recorded_sales_cents],["Cash sales recorded",review.cash_sales_cents],["Card sales recorded",review.card_sales_cents],["Cash spending recorded",review.cash_expenses_cents]] as const) {
@@ -228,15 +233,58 @@ function renderLedger(): void {
     detail.textContent = `${southAfricaInput(event.occurred_at).replace("T"," ")} · ${event.revision > 1 ? "Corrected record" : "Recorded"}${event.correction_reason ? ` · ${event.correction_reason}` : ""}`;
     correct.type = "button"; correct.className = "text-button"; correct.textContent = "Correct amount";
     correct.addEventListener("click", () => openCorrection(event));
-    actions.className = "event-actions"; actions.append(correct); body.append(title,detail); item.append(body,actions); $("ledger-events").append(item);
+    actions.className = "event-actions"; actions.append(correct);
+    body.append(title,detail);
+    if (event.revision > 1) {
+      const historyButton = document.createElement("button");
+      const historyList = document.createElement("ul");
+      historyList.className = "event-history";
+      historyList.hidden = true;
+      historyButton.type = "button"; historyButton.className = "text-button"; historyButton.textContent = "History";
+      historyButton.setAttribute("aria-expanded", "false");
+      historyButton.addEventListener("click", () => {
+        if (!historyList.hidden) {
+          historyList.hidden = true;
+          historyButton.setAttribute("aria-expanded", "false");
+          return;
+        }
+        historyList.hidden = false;
+        historyButton.setAttribute("aria-expanded", "true");
+        if (historyList.dataset.loaded === "1") return;
+        historyList.replaceChildren();
+        const loading = document.createElement("li"); loading.textContent = "Loading revision history…"; historyList.append(loading);
+        void localGet(`/api/ledger/events/${encodeURIComponent(event.id)}/history`)
+          .then(response => json<LedgerEventHistory>(response))
+          .then(result => {
+            historyList.replaceChildren();
+            historyList.dataset.loaded = "1";
+            for (const entry of result.history) {
+              const row = document.createElement("li");
+              const status = entry.revision === 1 ? "Initial record" : "Corrected record";
+              row.textContent = `Rev ${entry.revision} · ${amount(entry.amount_cents)} · ${southAfricaInput(entry.occurred_at).replace("T"," ")} · ${status}${entry.correction_reason ? ` · ${entry.correction_reason}` : ""}`;
+              historyList.append(row);
+            }
+          })
+          .catch((error: unknown) => {
+            historyList.replaceChildren();
+            const failed = document.createElement("li"); failed.textContent = message(error); historyList.append(failed);
+          });
+      });
+      actions.append(historyButton);
+      body.append(historyList);
+    }
+    item.append(body,actions); $("ledger-events").append(item);
   }
 }
 async function loadLedger(businessDay: string): Promise<void> {
+  const requestRevision = ++ledgerLoadRevision;
   $("ledger-feedback").textContent = "Loading today’s recorded picture…";
   try {
-    ledgerReview = await json<LedgerDay>(await localGet(`/api/ledger/days/${encodeURIComponent(businessDay)}`));
-    renderLedger(); $("ledger-feedback").textContent = "";
+    const day = await json<LedgerDay>(await localGet(`/api/ledger/days/${encodeURIComponent(businessDay)}`));
+    if (requestRevision !== ledgerLoadRevision) return;
+    ledgerReview = day; renderLedger(); $("ledger-feedback").textContent = "";
   } catch (error) {
+    if (requestRevision !== ledgerLoadRevision) return;
     ledgerReview = null; renderLedger(); $("ledger-feedback").textContent = message(error);
   }
 }
@@ -247,7 +295,9 @@ function openLedger(initialDay?: string | null): void {
   $("ledger-when").value = initialDay && /^\d{4}-\d{2}-\d{2}$/.test(initialDay) ? `${initialDay}${nowInput.slice(10)}` : nowInput;
   setLedgerPaymentOptions();
   $("ledger-heading").focus();
-  const day = ledgerDayFromInput(); if (day) void loadLedger(day);
+  const day = ledgerDayFromInput();
+  if (day) void loadLedger(day);
+  else { ledgerLoadRevision += 1; ledgerReview = null; renderLedger(); $("ledger-feedback").textContent = "Choose a valid South African date and time."; }
 }
 function closeLedger(): void {
   $("ledger").hidden = true; $("welcome").hidden = false; document.getElementById("welcome-heading")?.focus();
@@ -448,8 +498,14 @@ async function run(saveReceipt = false): Promise<void> {
   finally { controls.forEach(control => control.disabled = false); $("working-state").textContent = ""; }
 }
 $("scenario").addEventListener("change",choose);
-function start(value: string): void {
-  if (editorDirty || transactionDirty) { $("error").textContent = "Add or clear your transaction, and apply any full-record edits, before switching days."; $("error").scrollIntoView({block:"center"}); return; }
+function start(value: string, force = false): void {
+  if (!force && (editorDirty || transactionDirty)) {
+    const note = "Add or clear your transaction, and apply any full-record edits, before switching days.";
+    if ($("journey").hidden) { $("welcome-feedback").textContent = note; }
+    else { $("error").textContent = note; $("error").scrollIntoView({block:"center"}); }
+    return;
+  }
+  $("welcome-feedback").textContent = "";
   $("scenario").value = value; choose(); $("welcome").hidden = true; $("journey").hidden = false; showStep(0);
   started = true; $("resume-check").hidden = false; $("replace-draft").hidden = true; pendingStart = null;
 }
@@ -466,7 +522,7 @@ $("ledger-to-check").addEventListener("click", () => {
     showStep(step); void refreshLedgerReference();
     return;
   }
-  if (started && (editorDirty || transactionDirty)) {
+  if (started) {
     pendingStart = "own"; $("welcome").hidden = false; $("replace-draft").hidden = false; $("replace-confirm").focus();
     return;
   }
@@ -474,7 +530,7 @@ $("ledger-to-check").addEventListener("click", () => {
 });
 $("check-to-ledger").addEventListener("click", () => openLedger(snapshotBusinessDay()));
 $("resume-check").addEventListener("click", () => { $("welcome").hidden = true; $("journey").hidden = false; $("replace-draft").hidden = true; showStep(step); void refreshLedgerReference(); });
-$("replace-confirm").addEventListener("click", () => { if (pendingStart !== null) start(pendingStart); });
+$("replace-confirm").addEventListener("click", () => { if (pendingStart !== null) start(pendingStart, true); });
 $("replace-cancel").addEventListener("click", () => { pendingStart = null; $("replace-draft").hidden = true; $("resume-check").focus(); });
 $("back-home").addEventListener("click", () => { $("welcome").hidden = false; $("journey").hidden = true; document.getElementById("welcome-heading")?.focus(); });
 $("ledger-back-home").addEventListener("click", closeLedger);
@@ -508,7 +564,9 @@ $("transaction-form").addEventListener("submit", event => {
 $("clear-transaction").addEventListener("click", () => { clearTransaction(); invalidate(); $("transaction-feedback").textContent = "Entry cleared. Your recorded transactions are unchanged."; $("error").textContent = ""; });
 $("ledger-event-type").addEventListener("change", setLedgerPaymentOptions);
 $("ledger-when").addEventListener("change", () => {
-  const day = ledgerDayFromInput(); if (day) void loadLedger(day);
+  const day = ledgerDayFromInput();
+  if (day) void loadLedger(day);
+  else { ledgerLoadRevision += 1; ledgerReview = null; renderLedger(); $("ledger-feedback").textContent = "Choose a valid South African date and time."; }
 });
 $("ledger-form").addEventListener("submit", async event => {
   event.preventDefault();
@@ -526,7 +584,7 @@ $("ledger-form").addEventListener("submit", async event => {
       await loadLedger(record.business_day);
       if (ledgerReview) $("ledger-feedback").textContent = "Recorded on this computer. Count cash and check card settlement separately.";
       else $("ledger-feedback").textContent = "Saved, but the day could not reload. Reopen today’s records to check it; do not enter it again.";
-    } catch (error) { $("ledger-feedback").textContent = `${message(error)} Keep this page open. If the save is uncertain, retry the same entry.`; }
+    } catch (error) { $("ledger-feedback").textContent = ledgerSaveErrorMessage(error, "entry"); }
     finally { lockLedger(false); }
   } catch (error) { $("ledger-feedback").textContent = message(error); }
 });
@@ -535,16 +593,17 @@ $("ledger-correction-form").addEventListener("submit", async event => {
   if (ledgerSaving) return;
   if (!correctionTarget) return;
   try {
+    const correctedDay = correctionTarget.business_day;
     const correction = ledgerCorrection({id:`ledger-correction-${crypto.randomUUID()}`, idempotencyKey:`ledger-correct-${crypto.randomUUID()}`,
       replaces:correctionTarget, amount:$("ledger-correction-amount").value, when:$("ledger-correction-when").value, reason:$("ledger-correction-reason").value});
     $("ledger-feedback").textContent = "Saving correction on this computer…";
     lockLedger(true);
     try {
       await correctionSaver.save(correction);
-      const day = ledgerDayFromInput(); if (day) await loadLedger(day);
+      await loadLedger(correctedDay);
       if (ledgerReview) $("ledger-feedback").textContent = "Correction saved. The earlier amount remains in the record history.";
       else $("ledger-feedback").textContent = "Correction saved, but the day could not reload. Reopen today’s records before making another correction.";
-    } catch (error) { $("ledger-feedback").textContent = `${message(error)} Keep this page open. If the save is uncertain, retry the same correction.`; }
+    } catch (error) { $("ledger-feedback").textContent = ledgerSaveErrorMessage(error, "correction"); }
     finally { lockLedger(false); }
   } catch (error) { $("ledger-feedback").textContent = message(error); }
 });

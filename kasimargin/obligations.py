@@ -37,9 +37,8 @@ def prepare_request(request):
         if not isinstance(item, dict):
             raise ContractError("transaction must be an object")
         identity = nonempty(item.get("id"), "transaction.id")
-        if identity in transactions:
-            flags.append("DUPLICATE_TRANSACTION_ID")
-        transactions[identity] = item
+        # Engine detects DUPLICATE_TRANSACTION_ID directly; keep first match if linked.
+        transactions.setdefault(identity, item)
 
     for item in request["obligations"]:
         exact_keys(item, {"id", "reference_id", "bucket", "amount_cents", "paid_cents", "due_at", "is_confirmed", "payment_transaction_ids", "evidence_ref"}, "obligation")

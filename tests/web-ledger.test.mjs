@@ -161,3 +161,31 @@ test("ledger reference handles empty, loading, error, invalid date and changed-d
   assert.equal(invalidDate.status, "stale");
   assert.deepEqual(invalidDate.rows, []);
 });
+
+test("session reset (403) retains retry identity while definite rejections clear pending state and message truthfully", async () => {
+  const { isDefiniteLedgerRejectionStatus, ledgerSaveErrorMessage, LedgerSaver: Saver, LedgerSaveRejected: Rejected } = await import("../kasimargin/web/build/ledger.js");
+  assert.equal(isDefiniteLedgerRejectionStatus(403), false);
+  assert.equal(isDefiniteLedgerRejectionStatus(400), true);
+  assert.equal(isDefiniteLedgerRejectionStatus(409), true);
+  assert.equal(isDefiniteLedgerRejectionStatus(500), false);
+
+  const seenKeys = [];
+  let attempt = 0;
+  const saver = new Saver(async request => {
+    seenKeys.push(request.idempotency_key);
+    attempt += 1;
+    if (attempt === 1) throw new Error("Your local session changed.");
+    return {save_status: "SAVED_ON_THIS_DEVICE"};
+  });
+  const payload = {id: "row-403", idempotency_key: "key-403", amount_cents: 5000};
+  await assert.rejects(() => saver.save(payload), /local session changed/);
+  await saver.save(payload);
+  assert.deepEqual(seenKeys, ["key-403", "key-403"]);
+
+  const definite = ledgerSaveErrorMessage(new Rejected("Save conflict."), "entry");
+  assert.match(definite, /No entry was saved\./);
+  assert.doesNotMatch(definite, /Keep this page open/);
+
+  const uncertain = ledgerSaveErrorMessage(new Error("Local request failed."), "correction");
+  assert.match(uncertain, /Keep this page open\. If the save is uncertain, retry the same correction\./);
+});

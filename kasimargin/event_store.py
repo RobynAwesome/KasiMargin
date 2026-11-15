@@ -16,6 +16,10 @@ MAX_BROWSER_CENTS = 9_007_199_254_740_991
 SOURCE_KIND = "OPERATOR_REPORTED"
 
 
+class EventNotFoundError(ContractError):
+    """Raised when a requested ledger event ID does not exist."""
+
+
 class IdempotencyConflict(ContractError):
     pass
 
@@ -47,9 +51,10 @@ class EventStore:
             """)
 
     def _connect(self):
-        connection = sqlite3.connect(self.database)
+        connection = sqlite3.connect(self.database, timeout=10.0)
         connection.row_factory = sqlite3.Row
         connection.execute("PRAGMA foreign_keys = ON")
+        connection.execute("PRAGMA busy_timeout = 5000")
         return connection
 
     @contextmanager
@@ -196,11 +201,14 @@ class EventStore:
         with self._open() as connection:
             row = connection.execute("SELECT * FROM ledger_events WHERE id = ?", (current,)).fetchone()
             if row is None:
-                raise ContractError("event was not found")
+                raise EventNotFoundError("event was not found")
             root = row["id"]
             while row["replaces_id"] is not None:
                 root = row["replaces_id"]
-                row = connection.execute("SELECT * FROM ledger_events WHERE id = ?", (root,)).fetchone()
+                parent = connection.execute("SELECT * FROM ledger_events WHERE id = ?", (root,)).fetchone()
+                if parent is None:
+                    raise EventNotFoundError("event history chain is incomplete")
+                row = parent
             rows = [self._row(row)]
             while True:
                 next_row = connection.execute("SELECT * FROM ledger_events WHERE replaces_id = ?", (rows[-1]["id"],)).fetchone()

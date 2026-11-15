@@ -52,10 +52,10 @@ KasiMargin draws conceptual governance inspiration from **Kopano Labs** and Khol
 | Browser demo | Review records, calculate, explain and save | Strict TypeScript and Python Flask; light and dark themes |
 | Gemma adapter | Select approved facts, warnings and options | Local E2B installed; 21/21 synthetic outputs admitted |
 | Decision receipts | Preserve input/output and replay calculations | Local save and reproduction tested |
-| Daily record | Retain operator-reported paid sales, cash expenses and correction history | SQLite and protected local endpoints; browser change under review in [PR #6](https://github.com/RobynAwesome/KasiMargin/pull/6) |
+| Daily record | Retain operator-reported paid sales, cash expenses and correction history | SQLite and protected local endpoints (`Record today`, read-only history & reconciliation routes) |
 | KPGS context bridge | Observe existing local context entry without passing financial records | Read-only connection observed; formal financial admission not established |
-| Operator experiment | Measure understanding and usefulness against a baseline | Pending consented trial |
-| Public release | Hosted product, demo/video and challenge submission | Pending |
+| Operator experiment | Measure understanding and usefulness against a baseline | Pending consented trial (`CCP-ECV-01` gate `MAYBE_HOLD`) |
+| Public release | Demo video and Hacktoberfest submission | Published Oct 18 DEV post ([KasiMargin—From Sales to Growth](https://dev.to/robynawesome/kasimargin-2h3j)) and public MP4; not selected in Oct 23 winners |
 
 ---
 
@@ -211,7 +211,7 @@ The mode selector uses native buttons with `aria-pressed`, keyboard focus indica
 
 ## ✅ Validation and evidence
 
-The cash-first correction has **62 passing Python unittest methods**, **six native Node helper tests**, strict TypeScript checks/build and seven synthetic scenarios exercised through the browser. The earlier migration also recorded 20 repeated oversized-request rejection probes. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`. The [product retrospective](docs/CASH-FIRST-RETROSPECTIVE.md) records the owner's rejection of the earlier technical experience, the correction and the remaining operator-validation work.
+As of `codex/issue-7-reconciliation-and-fixes` (branched from `main@85d3cc9`), the repository runs **82 passing Python unittest methods** (`python -m unittest discover -s tests -v`), **16 native Node helper tests**, strict TypeScript checks/build (`npm run check`), and seven synthetic scenarios exercised through the browser. GitHub Actions builds the frontend and tests Windows/Ubuntu with Python 3.10/3.14. Hosted checks are tied to their observed commit; the badge reports `main`. The [product retrospective](docs/CASH-FIRST-RETROSPECTIVE.md) records the owner's rejection of the earlier technical experience, the correction and the remaining operator-validation work, and the [Issue #7 reconciliation audit](docs/audits/2026-11-15-issue-7-and-pr-reconciliation.md) records subsequent code, reconciliation and governance hardening.
 
 - [Foundation validation](docs/receipts/local-foundation-2026-10-13.json)
 - [Foundation Cloud delivery](docs/receipts/cloud-delivery-2026-10-13.json)
@@ -233,10 +233,10 @@ Examples and screenshots are synthetic. Receipt replay confirms content integrit
 | Stage | Outcome | State |
 |---|---|---|
 | 1. Financial foundation | Exact calculations, uncertainty gates and seven scenarios | Implemented and tested |
-| 2. Brand and interface | Supplied logo, light/dark modes and readable decision workflow | Branding and TypeScript/Flask merged; daily entry and researched help prepared in PR #4 |
+| 2. Brand and interface | Supplied logo, light/dark modes, daily records, decision meaning and read-only ledger reference | Merged across PRs #2–#4, #6, #8; reconciliation & bug fixes in [Issue #7](https://github.com/RobynAwesome/KasiMargin/issues/7) branch |
 | 3. Model evaluation | E2B/E4B on target hardware versus deterministic baseline | E2B technical run complete on seven synthetic scenarios; E4B deferred |
-| 4. Operator experiment | Consented comprehension, task time, errors and supervision evidence | Pending |
-| 5. Public demo and submission | Truthful demo/video and DEV article | Pending |
+| 4. Operator experiment | Consented comprehension, task time, errors and supervision evidence | Pending (`CCP-ECV-01` `MAYBE_HOLD`, `n=0`) |
+| 5. Public demo and submission | Truthful demo/video and DEV article | Published Oct 18 on [DEV.to](https://dev.to/robynawesome/kasimargin-2h3j); owner playback receipt & field study remain open |
 
 ## 🔒 Privacy and human choice
 
@@ -248,7 +248,7 @@ The theme preference stores only `light` or `dark` under `kasimargin-theme`. Bus
 
 Repository created: **2026-10-12 22:07:26 UTC / 2026-10-13 00:07:26 SAST**. Initial Cloud commit: `5897456485b15474e8cbbf1c8b13f68a04533788`. The owner-supplied scaffold carries an October 12 receipt; dates and historical claims are preserved.
 
-Target: [Hacktoberfest 2026 Week 2 — Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12). Official cutoff: **October 19 at 08:59 SAST**, converted from October 18 at 11:59 PM PDT. Individual eligibility, meaningful model contribution, a consented first-user experiment and submission remain pending. No payment, economic value, job creation or production deployment is claimed.
+Target: [Hacktoberfest 2026 Week 2 — Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12) (deadline **October 19 at 08:59 SAST**). The DEV entry ([KasiMargin—From Sales to Growth](https://dev.to/robynawesome/kasimargin-2h3j)) was published on **2026-10-18 at 23:40:54 SAST** (`21:40:54 UTC`) with the challenge completion badge observed on the author's profile; KasiMargin was not among the winners announced October 23. Consented operator evaluation (`CCP-ECV-01`), owner playback receipt and field outcomes remain open under [Issue #7](https://github.com/RobynAwesome/KasiMargin/issues/7). No payment, economic value, job creation or production deployment is claimed.
 
 ## License and contribution
 
