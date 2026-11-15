@@ -105,15 +105,17 @@ def calculate(request):
         transaction_at = instant(transaction["timestamp"], "transaction.timestamp")
         if transaction_at > times["snapshot_at"]:
             flag("POST_SNAPSHOT_TRANSACTION", True)
-        if transaction["id"] in ids:
+        transaction_id = transaction["id"].strip() if isinstance(transaction["id"], str) else transaction["id"]
+        if transaction_id in ids:
             flag("DUPLICATE_TRANSACTION_ID", True)
-        ids.add(transaction["id"])
+        ids.add(transaction_id)
         if not transaction["is_confirmed"]:
             flag("UNCONFIRMED_TRANSACTION", True)
             receivables_known = False
         if kind in {"supplier_payment", "operating_payment"}:
             # Same expense/invoice reference is suspected, not automatically removed.
-            key = transaction["reference_id"]
+            raw_ref = transaction["reference_id"]
+            key = raw_ref.strip() if isinstance(raw_ref, str) else raw_ref
             if key in payments:
                 flag("POSSIBLE_DUPLICATE_PAYMENT", True)
             payments.add(key)

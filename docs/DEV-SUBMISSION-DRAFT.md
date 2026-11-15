@@ -4,7 +4,7 @@ published: false
 tags: devchallenge, hf26challenge
 ---
 
-*This is a submission draft for the [Hacktoberfest Open-Source AI Challenge Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12). It has not been published or submitted.*
+*Historical pre-publication draft preserved from October 18, 2026. Superseded by the published Hacktoberfest Week 2 submission [KasiMargin—From Sales to Growth](https://dev.to/robynawesome/kasimargin-2h3j) (published `2026-10-18T21:40:54Z` / `23:40:54 SAST`) and subsequent repository updates on `main@85d3cc9`.*
 
 Built by Kholofelo Robyn Rababalela as a solo entry, with AI-assisted development.
 

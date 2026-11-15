@@ -265,3 +265,6 @@ details { margin: 24px 0; }
   .ledger-form, .ledger-reveal { padding: 21px 18px; }
   .results dl { grid-template-columns: minmax(0,1fr) auto; font-size: 14px; }
 }
+
+.event-history { margin-top: .5rem; padding-left: .85rem; border-left: 2px solid currentColor; opacity: .88; font-size: .92rem; list-style: none; }
+.event-history li { margin: .25rem 0; }

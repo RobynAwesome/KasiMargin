@@ -10,13 +10,15 @@ from time import monotonic
 from flask import Flask, Response, request
 from werkzeug.exceptions import RequestEntityTooLarge
 from werkzeug.serving import make_server as make_wsgi_server
+import sqlite3
 from .engine import ContractError, exact_keys
 from .jsonio import dumps, loads
 from .ollama import MODELS
 from .receipts import save
 from .workflow import decision
 from .kpgs import LocalKpgs
-from .event_store import EventStore, IdempotencyConflict
+from .event_store import EventNotFoundError, EventStore, IdempotencyConflict
+from .reconciliation import reconcile_day
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = Path(__file__).resolve().parent / "web"
@@ -101,11 +103,60 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
     @app.get("/api/ledger/days/<business_day>")
     def ledger_day(business_day):
         try:
-            return reply(EventStore(app.config["LEDGER_DATABASE"]).current_day(business_day))
+            day = EventStore(app.config["LEDGER_DATABASE"]).current_day(business_day)
+            browser_range(day)
+            return reply(day)
+        except BrowserPrecisionError:
+            return reply({"error": "These figures exceed this browser's exact-cent range. Use the Python CLI for this record."}, 400)
         except ContractError:
             return reply({"error": "Ledger day rejected. Use an ISO date."}, 400)
-        except OSError:
+        except (OSError, sqlite3.Error):
             return reply({"error": "Local ledger is unavailable. No record is confirmed."}, 500)
+
+    @app.get("/api/ledger/events/<event_id>/history")
+    def ledger_event_history(event_id):
+        try:
+            chain = EventStore(app.config["LEDGER_DATABASE"]).history(event_id)
+            browser_range(chain)
+            return reply({"event_id": event_id, "history": chain, "count": len(chain)})
+        except BrowserPrecisionError:
+            return reply({"error": "These figures exceed this browser's exact-cent range. Use the Python CLI for this record."}, 400)
+        except EventNotFoundError:
+            return reply({"error": "Ledger record was not found."}, 404)
+        except ContractError:
+            return reply({"error": "Invalid ledger record ID."}, 400)
+        except (OSError, sqlite3.Error):
+            return reply({"error": "Local ledger is unavailable. No history is confirmed."}, 500)
+
+    @app.post("/api/ledger/reconcile")
+    def ledger_reconcile():
+        try:
+            value = loads(request.get_data(as_text=True))
+            browser_range(value)
+            exact_keys(
+                value,
+                {
+                    "business_day",
+                    "opening_cash_float_cents",
+                    "closing_cash_counted_cents",
+                    "cash_movements_complete",
+                    "settled_card_cents",
+                    "card_settlement_confirmed",
+                },
+                "reconciliation request",
+            )
+            day = EventStore(app.config["LEDGER_DATABASE"]).current_day(value["business_day"])
+            browser_range(day)
+            check = {k: value[k] for k in value if k != "business_day"}
+            report = reconcile_day(day, check)
+            browser_range(report)
+            return reply(report)
+        except BrowserPrecisionError:
+            return reply({"error": "These figures exceed this browser's exact-cent range. Use the Python CLI for this record."}, 400)
+        except (ContractError, ValueError, KeyError, TypeError, UnicodeError):
+            return reply({"error": "Reconciliation check rejected. Check ISO date and exact integer cents."}, 400)
+        except (OSError, sqlite3.Error):
+            return reply({"error": "Local ledger is unavailable. No reconciliation is confirmed."}, 500)
 
     assets = {"/": ("index.html", "text/html; charset=utf-8"),
               "/app.js": ("build/app.js", "text/javascript; charset=utf-8"),
@@ -192,7 +243,7 @@ def create_app(receipt_directory=None, port=8765, request_limit=120, context_run
             return reply({"error": "Save conflict. Review the current record before trying again."}, 409)
         except (ContractError, ValueError, KeyError, TypeError, UnicodeError):
             return reply({"error": "Input rejected. Check exact integer cents, required fields, timestamps and evidence."}, 400)
-        except OSError:
+        except (OSError, sqlite3.Error):
             return reply({"error": "Local file operation failed; no saved receipt is confirmed."}, 500)
 
     return app
